@@ -23,7 +23,7 @@ export default function EditUsers() {
                 <UserIcon className="w-5 h-5" /> Users
               </span>
             </Link>
-            <Link to="/dashboard/profile/edit/:id">
+            <Link to="/dashboard/user/edit/:id">
               <span className="hover:text-white">
                 / <b>Edit</b>
               </span>

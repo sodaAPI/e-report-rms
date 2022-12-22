@@ -6,14 +6,14 @@ import {
   deleteMeeting,
   getAllMeetings,
 } from "../controllers/Meeting.js";
-import { verifyToken} from "../middleware/authJwt.js";
+import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 
-router.get("/", getAllMeetings, verifyToken);
-router.get("/:id", getMeetingById, verifyToken);
-router.post("/", createMeeting, verifyToken);
-router.patch("/:id", updateMeeting, verifyToken);
-router.delete("/:id", deleteMeeting, verifyToken);
+router.get("/", verifyUser, getAllMeetings);
+router.get("/:id", verifyUser, getMeetingById);
+router.post("/", verifyUser, createMeeting);
+router.patch("/:id", verifyUser, updateMeeting);
+router.delete("/:id", verifyUser, deleteMeeting);
 
 export default router;

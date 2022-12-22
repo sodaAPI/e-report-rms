@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import DataToExcel from "../../../components/dataToExcel";
 
-//TODO: Add API e-Report to Word/Word to e-Report
+
 //TODO: Pagination
 
 const statusList = ["In Progress", "Complete", "N/A"];

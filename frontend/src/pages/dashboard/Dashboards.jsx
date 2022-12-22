@@ -12,11 +12,12 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Clock from "react-digital-clock";
 import CompleteReportChart from "./completeReportChart";
+import { getMe } from "../../auth/authSlice";
+import { useSelector } from "react-redux";
 
 const statusList = ["Uncompleted", "Completed"];
 
 export default function Dashboards() {
-  const [users, setUser] = useState([]);
   const [reports, setReport] = useState([]);
   const [meetings, setMeetings] = useState([]);
   const [task, setTask] = useState([]);
@@ -27,17 +28,13 @@ export default function Dashboards() {
   const { id } = useParams();
 
   useEffect(() => {
-    getUsers();
     getReports();
     getMeetings();
     getTasks();
-    getTaskById();
   }, []);
 
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/user");
-    setUser(response.data);
-  };
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   const getReports = async () => {
     const response = await axios.get("http://localhost:5000/report");
@@ -54,18 +51,10 @@ export default function Dashboards() {
     setTask(response.data);
   };
 
-  const gotoUser = async () => {
-    let path = "/dashboard/user";
-    navigate(path);
-  };
-
   const gotoReport = async () => {
     let path = "/dashboard/report";
     navigate(path);
   };
-
-  const truncate = (input) =>
-    input?.length > 4 ? `${input.substring(0, 55)}...` : input;
 
   const updateStatus = async (id) => {
     await axios.patch(`http://localhost:5000/task/${id}`, {
@@ -73,11 +62,6 @@ export default function Dashboards() {
     });
     window.alert("Task Updated Successfully");
     getTasks();
-  };
-
-  const getTaskById = async () => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
-    setStatus(response.data.status);
   };
 
   function formatDate(date) {
@@ -101,7 +85,7 @@ export default function Dashboards() {
               <TaskChart />
             </div> */}
             Welcome Back
-            <span className="text-sky-300"> $user-name </span>!
+            <span className="text-sky-300"> {user && user.name} </span>!
           </div>
           <div className="flex sm:flex-row flex-col justify-center items-center pt-10">
             <div className="flex flex-col items-center w-9/12">
@@ -252,7 +236,8 @@ export default function Dashboards() {
                             updateStatus(singletask.id);
                         }}
                         className="flex flex-row gap-2 bg-green-600 p-2 rounded-lg text-white">
-                        <CheckCircleIcon className="w-5 h-5"/>Done
+                        <CheckCircleIcon className="w-5 h-5" />
+                        Done
                       </button>
                     </td>
                   </tr>

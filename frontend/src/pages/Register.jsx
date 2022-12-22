@@ -4,10 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 const divisionList = ["CMT", "DBA", "AS"];
-
-// TODO: Add Authentication
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -36,11 +35,12 @@ const Register = () => {
           password: password,
           passwordConfirmation: passwordConfirmation,
         });
-        let path = "/login";
+        let path = "/";
         navigate(path);
+        window.alert("Register Successfully")
         history.push("/login");
       } else {
-        setMsg("Password do not match");
+        setMsg("Password do not match !");
       }
     } catch (error) {
       if (error.response) {
@@ -60,8 +60,6 @@ const Register = () => {
           <div className="columns is-centered">
             <div className="bg-white shadow-lg p-5 rounded-lg">
               <form onSubmit={Register} className="box">
-                <p className="has-text-centered">{msg}</p>
-
                 <Link to="/home">
                   <a className="flex justify-center items-center">
                     <img
@@ -282,6 +280,14 @@ const Register = () => {
                     required
                   />
                 </div>
+                {msg ? (
+                  <p className="flex flex-row gap-2 justify-center items-center text-white font-bold bg-red-600 p-2 mt-2 rounded-md">
+                    <ExclamationTriangleIcon className="w-5 h-5" />
+                    {msg}
+                  </p>
+                ) : (
+                  <div> </div>
+                )}
 
                 <div className="flex items-center justify-end py-3 mt-4">
                   <Link to="/login">

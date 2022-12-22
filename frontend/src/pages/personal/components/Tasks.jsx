@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowsRightLeftIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 const statusList = ["Uncompleted", "Completed"];
 
@@ -70,6 +71,8 @@ export default function Tasks() {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
+    //User
+    const { user } = useSelector((state) => state.auth);
 
   return (
     <section>
@@ -165,7 +168,7 @@ export default function Tasks() {
                     <td>{task.status}</td>
                     <td>{task.description}</td>
                     <td>{task.deadline}</td>
-                    <td>{task.by_user}</td>
+                    <td>{task.user.name}</td>
                     <td>
                       <button
                         onClick={() => {

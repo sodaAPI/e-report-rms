@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-// TODO: Add Authentication & Error Message Func
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { LoginUser, reset } from "../auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,23 +14,24 @@ const Login = () => {
   const [msg, setMsg] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/dashboard");
+    }
+    dispatch(reset());
+  }, [user, isSuccess, dispatch, navigate]);
 
   const Auth = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/auth/signin", {
-        username: username,
-        password: password,
-      });
-      let path = "/dashboard";
-      navigate(path);
-      history.push("/login");
-    } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg);
-      }
-    }
+    dispatch(LoginUser({ username, password }));
   };
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -39,12 +41,11 @@ const Login = () => {
     <section className="hero bg-slate-100  min-h-screen">
       <div className="hero-body">
         <div className="container">
-          {msg ? (
-            <div className="py-2 text-center text-white bg-red-500 rounded-xl mb-5">
-              <a>{msg}</a>
+          {isError && (
+            <div className="flex flex-row items-center justify-center gap-2 py-2 text-center text-white bg-red-500 rounded-xl mb-5">
+              <ExclamationTriangleIcon className="w-5 h-5" />
+              <a>{message}</a>
             </div>
-          ) : (
-            <div></div>
           )}
           <div className="columns is-centered">
             <div className="bg-white shadow-lg p-5 rounded-lg">
@@ -98,22 +99,31 @@ const Login = () => {
                   </div>
 
                   {/* Password */}
-                    
+
                   <div className="mt-4 text-gray-900">
                     <label>Password</label>
-
-                    {/* //TODO: Password Visibility Toggle */}
-
                     <input
                       id="password"
-                      type="password"
-                      placeholder="Password"
+                      type={passwordVisible ? "text" : "password"}
+                      placeholder={passwordVisible ? "Password" : "********"}
                       value={password}
                       className="bg-white border border-1 block mt-1 w-full outline-none rounded-md p-1"
                       onChange={(event) => setPassword(event.target.value)}
                       required
                       autoComplete="current-password"
                     />
+
+                    <label
+                      htmlFor="toggle-password-visibility"
+                      className="cursor-pointer select-none text-gray-700">
+                      <input
+                        type="checkbox"
+                        id="toggle-password-visibility"
+                        onChange={() => setPasswordVisible(!passwordVisible)}
+                        className="bg-white mr-2 mt-5"
+                      />
+                      <span className="pt-0.5">Show password</span>
+                    </label>
                   </div>
 
                   <div className="flex items-center gap-20 text-center justify-center py-3 mt-4">
@@ -129,7 +139,7 @@ const Login = () => {
                     </Link>
                   </div>
                   <button className=" p-2 text-white font-bold rounded-lg w-full text-center gap-3 items-center justify-center text-lg mt-3 mb-3 bg-sky-900">
-                    Login
+                    {isLoading ? "Loading..." : "Login"}
                   </button>
                 </form>
               </div>

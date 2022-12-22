@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import User from "./userModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -12,6 +13,10 @@ const Task = db.define(
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     status: {
       type: DataTypes.STRING,
@@ -22,9 +27,17 @@ const Task = db.define(
     },
     deadline: {
       type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
-    by_user: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
@@ -32,6 +45,7 @@ const Task = db.define(
   }
 );
 
-await Task.sync();
+User.hasMany(Task);
+Task.belongsTo(User, { foreignKey: "userId" });
 
 export default Task;

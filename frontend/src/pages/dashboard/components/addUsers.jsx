@@ -23,7 +23,7 @@ export default function AddUsers() {
                 <UserIcon className="w-5 h-5" /> Users
               </span>
             </Link>
-            <Link to="/dashboard/profile/edit/:id">
+            <Link to="/dashboard/user/add">
               <span className="hover:text-white">
                 / <b>Add</b>
               </span>

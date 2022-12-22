@@ -58,8 +58,8 @@ export default function Homepage() {
   };
 
   const navigation = [
-    { name: "Home", ref: mainRef, to: "/#home", current: false },
-    { name: "About", ref: aboutRef, to: "/#about", current: false },
+    { name: "Home", ref: mainRef, to: "/home/#home", current: false },
+    { name: "About", ref: aboutRef, to: "/home/#about", current: false },
   ];
 
   useEffect(() => {

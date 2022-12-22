@@ -1,3 +1,62 @@
+###
+// LOGIN ADMIN
+POST  http://localhost:5000/auth/login
+Content-Type: application/json
 
-GET  http://localhost:5000/api/auth
-Content-Type:application/json
+{
+    "username":"adm123",
+    "password":"adm123"
+}
+###
+// LOGIN USER
+POST  http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "username":"adminbtn",
+    "password":"admin123"
+}
+### ME
+GET http://localhost:5000/auth/me
+
+### LOGOUT
+DELETE http://localhost:5000/auth/logout
+
+### TASK
+GET http://localhost:5000/task
+
+### GET USER
+GET http://localhost:5000/user/100
+
+### POST TASK
+POST http://localhost:5000/task
+Content-Type: application/json
+
+    {
+        "name": "New Year",
+        "status": "Uncompleted",
+        "description": "Celebrate",
+        "deadline": "2022-12-31"
+    }
+
+### PATCH
+PATCH http://localhost:5000/user/1965baf6-0155-44a5-8a55-44d949dfe522
+Content-Type: application/json
+    
+    {
+        "id": 100,
+        "uuid": "1965baf6-0155-44a5-8a55-44d949dfe522",
+        "name": "Administrator",
+        "username": "adminbtn",
+        "picture": null,
+        "division": "CMT",
+        "status": "Active",
+        "birth": "2022-12-21",
+        "email": "adm@btn.co.id",
+        "phone": "1234567890",
+        "password": "admin123",
+        "confPassword": "admin123",
+        "roles": "admin",
+        "createdAt": "2022-12-21",
+        "updatedAt": "2022-12-21"
+    }

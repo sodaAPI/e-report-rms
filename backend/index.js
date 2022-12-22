@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
 import { Sequelize } from "sequelize";
+import session from "express-session";
+import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
 import ReportRoute from "./routes/ReportRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
@@ -13,10 +15,28 @@ import corsOptions from "cors";
 dotenv.config();
 
 const app = express();
+const sessionStore = SequelizeStore(session.Store);
+const store = new sessionStore({
+  db: db
+});
 
-// (async () => {
-//   await db.sync();
-// })();
+// Sync Database
+
+(async () => {
+  await db.sync();
+})();
+
+// store.sync();
+
+app.use(session({
+  secret: "7cfbedb7-444e-4334-a3ea-2078468fd035",
+  resave: false,
+  saveUninitialized: true,
+  store: store,
+  cookie: {
+      secure: 'auto'
+  }
+}));
 
 try {
   await db.authenticate();

@@ -14,7 +14,7 @@ const EditUser = () => {
   const [division, setDivision] = useState(divisionList[0]);
   const [birth, setBirth] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [confPassword, setConfPassword] = useState("");
   const history = useNavigate();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,9 +29,11 @@ const EditUser = () => {
       division: division,
       birth: birth,
       password: password,
+      confPassword: confPassword,
     });
-    let path = "/user";
+    let path = "/dashboard/user";
     navigate(path);
+    window.alert("User Updated Successfully");
     history.push("/user");
   };
 
@@ -50,23 +52,26 @@ const EditUser = () => {
     setPassword(response.data.password);
   };
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   return (
-    <div className="p-10">
+    <div className="w-full p-10">
       <div className="py-5">
-        <span className="text-xl font-bold">Edit User</span>
+        <span className="text-xl font-bold">Add new User</span>
       </div>
       <form onSubmit={updateUser}>
         <div className="flex flex-row gap-20">
-          <section>
+          <section className="sm:w-full w-2/5">
             {/* Name */}
 
             <div>
               <label className="label">Name</label>
               <input
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 type="name"
                 placeholder="Name"
                 value={name}
+                required
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
@@ -76,10 +81,11 @@ const EditUser = () => {
             <div>
               <label className="label">Email</label>
               <input
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 type="email"
                 placeholder="Email"
                 value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -89,10 +95,11 @@ const EditUser = () => {
             <div>
               <label className="label">Username</label>
               <input
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 type="text"
                 placeholder="Username"
                 value={username}
+                required
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -102,16 +109,17 @@ const EditUser = () => {
             <div>
               <label className="label">Phone</label>
               <input
-                className="input input-bordered w-full max-w-xs"
-                type="phone"
+                className="input input-bordered w-full"
+                type="tel"
                 placeholder="Phone"
                 value={phone}
+                required
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           </section>
 
-          <section className="pt-3">
+          <section className="sm:w-full w-2/5">
             {/* Division */}
 
             <div>
@@ -126,9 +134,11 @@ const EditUser = () => {
                       Division
                     </Listbox.Label>
                     <div className="relative">
-                      <span className="inline-block w-32 rounded-md shadow-sm">
+                      <span className="inline-block w-full rounded-md shadow-sm">
                         <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                          <span className="block truncate">{division}</span>
+                          <span className="block truncate text-gray-900">
+                            {division}
+                          </span>
                           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                             <svg
                               className="h-5 w-5 text-gray-700"
@@ -151,7 +161,7 @@ const EditUser = () => {
                         leave="transition ease-in duration-100"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
-                        className="absolute mt-1 w-32 rounded-md bg-white shadow-lg">
+                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
                         <Listbox.Options
                           static
                           className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
@@ -207,10 +217,11 @@ const EditUser = () => {
             <div>
               <label className="label">Birth date</label>
               <input
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 type="date"
                 placeholder="Birth"
                 value={birth}
+                required
                 onChange={(e) => setBirth(e.target.value)}
               />
             </div>
@@ -220,10 +231,11 @@ const EditUser = () => {
             <div>
               <label className="label">Password</label>
               <input
-                className="input input-bordered w-full max-w-xs"
-                type="password"
-                placeholder="Password"
+                className="input input-bordered w-full"
+                type={passwordVisible ? "text" : "password"}
+                placeholder={passwordVisible ? "Password" : "********"}
                 value={password}
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -233,13 +245,26 @@ const EditUser = () => {
             <div>
               <label className="label">Confirm Password</label>
               <input
-                className="input input-bordered w-full max-w-xs"
-                type="password"
-                placeholder="Confirm Password"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                className="input input-bordered w-full"
+                type={passwordVisible ? "text" : "password"}
+                placeholder={passwordVisible ? "Confirm Password" : "********"}
+                value={confPassword}
+                required
+                onChange={(e) => setConfPassword(e.target.value)}
               />
             </div>
+
+            <label
+              htmlFor="toggle-password-visibility"
+              className="cursor-pointer select-none text-gray-700">
+              <input
+                type="checkbox"
+                id="toggle-password-visibility"
+                onChange={() => setPasswordVisible(!passwordVisible)}
+                className="bg-white mr-2 mt-5"
+              />
+              <span className="pt-0.5 text-slate-400">Show password</span>
+            </label>
 
             {/* Button */}
 

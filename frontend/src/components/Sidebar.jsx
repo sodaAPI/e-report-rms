@@ -11,8 +11,9 @@ import {
   HomeIcon,
   BriefcaseIcon,
   ChatBubbleLeftIcon,
+  UsersIcon,
 } from "@heroicons/react/24/outline";
-
+import { useSelector } from "react-redux";
 import {
   PresentationChartLineIcon,
   UserCircleIcon,
@@ -21,6 +22,9 @@ import Logo from "../image/logobtn.png";
 import SmallLogo from "../image/logo.png";
 
 export default function Sidebars() {
+  //User
+  const { user } = useSelector((state) => state.auth);
+
   const menu = [
     {
       name: "Home",
@@ -103,7 +107,6 @@ export default function Sidebars() {
               return (
                 <MenuItem key={index} routerLink={<Link to={val.href} />}>
                   <div
-                    href={val.href}
                     className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
@@ -111,6 +114,16 @@ export default function Sidebars() {
                 </MenuItem>
               );
             })}
+            {user && user.roles === "admin" && (
+              <MenuItem routerLink={<Link to="/dashboard/user"/>}>
+                <div className="flex flex-row items-center gap-3">
+                  <div className="w-5">
+                    <UsersIcon />
+                  </div>
+                  <div>Users</div>
+                </div>
+              </MenuItem>
+            )}
           </SubMenu>
 
           {/* Personal Menu */}
@@ -123,7 +136,6 @@ export default function Sidebars() {
               return (
                 <MenuItem key={index} routerLink={<Link to={val.href} />}>
                   <div
-                    href={val.href}
                     className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
@@ -143,7 +155,6 @@ export default function Sidebars() {
               return (
                 <MenuItem key={index} routerLink={<Link to={val.href} />}>
                   <div
-                    href={val.href}
                     className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>

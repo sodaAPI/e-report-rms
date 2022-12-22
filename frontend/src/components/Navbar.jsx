@@ -3,18 +3,20 @@ import { Fragment } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import { DropdownButton } from "./DropdownLink";  
+import { DropdownButton } from "./DropdownLink";
+import { useSelector } from "react-redux";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const navigation = [
-    // { name: "Home", ref:  mainRef , current: false },
-    // { name: "About", ref:  aboutRef , current: false },
-  ];
+  // { name: "Home", ref:  mainRef , current: false },
+  // { name: "About", ref:  aboutRef , current: false },
+];
 
 export default function Navbar() {
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div>
@@ -54,18 +56,18 @@ export default function Navbar() {
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            ref={item.ref}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 rounded-md text-sm font-bold"
-                            )}
-                            aria-current={item.current ? "page" : undefined}>
-                            {item.name}
-                          </a>
+                        <a
+                          key={item.name}
+                          ref={item.ref}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "px-3 py-2 rounded-md text-sm font-bold"
+                          )}
+                          aria-current={item.current ? "page" : undefined}>
+                          {item.name}
+                        </a>
                       ))}
                     </div>
                   </div>
@@ -102,6 +104,7 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95">
                       <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
+                        {!user && user.name(
                         <>
                           <Menu.Item>
                             {({ active }) => (
@@ -128,7 +131,9 @@ export default function Navbar() {
                             )}
                           </Menu.Item>
                         </>
+                        ):(
                         <>
+                          {/* TODO: Change navbar if user authenticated */}
                           <Menu.Item>
                             {({ active }) => (
                               <Link
@@ -165,6 +170,7 @@ export default function Navbar() {
                             )}
                           </Menu.Item>
                         </>
+                        )}
                       </Menu.Items>
                     </Transition>
                   </Menu>

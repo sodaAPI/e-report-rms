@@ -1,55 +1,5 @@
 import User from "../models/userModel.js";
-import { Op } from "sequelize";
-
-export const getUsers = async (req, res) => {
-  const page = parseInt(req.query.page) || 0;
-  const limit = parseInt(req.query.limit) || 10;
-  const search = req.query.search_query || "";
-  const offset = limit * page;
-  const totalRows = await User.count({
-    where: {
-      [Op.or]: [
-        {
-          name: {
-            [Op.like]: "%" + search + "%",
-          },
-        },
-        {
-          email: {
-            [Op.like]: "%" + search + "%",
-          },
-        },
-      ],
-    },
-  });
-  const totalPage = Math.ceil(totalRows / limit);
-  const result = await User.findAll({
-    where: {
-      [Op.or]: [
-        {
-          name: {
-            [Op.like]: "%" + search + "%",
-          },
-        },
-        {
-          email: {
-            [Op.like]: "%" + search + "%",
-          },
-        },
-      ],
-    },
-    offset: offset,
-    limit: limit,
-    order: [["id", "DESC"]],
-  });
-  res.json({
-    result: result,
-    page: page,
-    limit: limit,
-    totalRows: totalRows,
-    totalPage: totalPage,
-  });
-};
+import argon2 from "argon2";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -74,54 +24,110 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  try {
-    await User.create(req.body);
-    res.json({
-      message: "User Created Successfully",
+  const {
+    name,
+    email,
+    username,
+    division,
+    status,
+    birth,
+    phone,
+    password,
+    confPassword,
+    roles,
+  } = req.body;
+  if (password !== confPassword)
+    return res.status(400).json({
+      msg: "Password and Confirmation Password do not match, Please try again.",
     });
+  const hashPassword = await argon2.hash(password);
+  try {
+    await User.create({
+      name: name,
+      email: email,
+      username: username,
+      division: division,
+      status: status,
+      birth: birth,
+      roles: roles,
+      password: hashPassword,
+      phone: phone,
+    });
+    res.status(201).json({ msg: "Register Successfully" });
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 
 export const updateUser = async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  if (!user) return res.status(404).json({ msg: "User not found" });
+  const {
+    name,
+    email,
+    username,
+    division,
+    status,
+    birth,
+    phone,
+    password,
+    confPassword,
+    roles,
+  } = req.body;
+  let hashPassword;
+  if (password === "" || password === null) {
+    hashPassword = user.password;
+  } else {
+    hashPassword = await argon2.hash(password);
+  }
+  if (password !== confPassword)
+    return res.status(400).json({
+      msg: "Password and Confirmation Password do not match, Please try again.",
+    });
   try {
-    await User.update(req.body, {
-      where: {
-        id: req.params.id,
+    await User.update(
+      {
+        name: name,
+        email: email,
+        username: username,
+        division: division,
+        status: status,
+        birth: birth,
+        roles: roles,
+        password: hashPassword,
+        phone: phone,
       },
-    });
-    res.json({
-      message: "User Updated Successfully",
-    });
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+    res.status(200).json({ msg: "User Updated" });
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 
 export const deleteUser = async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      uuid: req.params.id,
+    },
+  });
+  if (!user) return res.status(404).json({ msg: "User not found" });
   try {
     await User.destroy({
       where: {
-        id: req.params.id,
+        id: user.id,
       },
     });
-    res.json({
-      message: "User Deleted Successfully",
-    });
+    res.status(200).json({ msg: "User Deleted Successfully" });
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
-};
-
-export const allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
-};
-
-export const userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
-
-export const adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
 };

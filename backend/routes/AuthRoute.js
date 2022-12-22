@@ -1,15 +1,10 @@
-import verifySignUp from "../middleware/verifySignUp.js";
-import { signin, signup } from "../controllers/Auth.js";
+import { Login, logOut, Me } from "../controllers/Auth.js";
 import express from "express";
 
 const router = express.Router();
 
-router.post(
-  "/signup",
-  [verifySignUp.checkDuplicateUsernameOrEmail],
-  signup
-);
-
-router.post("/signin", signin);
+router.get("/me", Me);
+router.post("/login", Login);
+router.delete("/logout", logOut);
 
 export default router;

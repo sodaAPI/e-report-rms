@@ -7,9 +7,9 @@ import { UserIcon } from "@heroicons/react/24/outline";
 
 export default function Users() {
   return (
-    <div className="flex flex-row w-fit">
+    <div className="flex flex-row ">
       <Sidebar />
-      <div className="min-w-screen p-4">
+      <div className="w-full p-4">
         <Header/>
         {/* Page Header */}
         <div className="flex mt-5 w-full bg-slate-800 p-5 rounded-xl text-slate-200">
@@ -28,5 +28,6 @@ export default function Users() {
         <UserList />
       </div>
     </div>
+    
   );
 }
