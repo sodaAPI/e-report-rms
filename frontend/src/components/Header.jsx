@@ -9,7 +9,7 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { DropdownButton } from "./dropdownLink";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getMe, LogOut, reset } from "../auth/authSlice";
@@ -18,22 +18,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const divisionList = ["CMT", "DBA", "AS"];
-
 export default function Header() {
   const { collapseSidebar } = useProSidebar();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { isError } = useSelector((state) => state.auth);
-
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [division, setDivision] = useState(divisionList[0]);
-  const [birth, setBirth] = useState("");
-  const [password, setPassword] = useState("");
 
   const logout = () => {
     dispatch(LogOut());

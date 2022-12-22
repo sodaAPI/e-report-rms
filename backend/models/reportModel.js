@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import User from "./userModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -44,13 +45,20 @@ const Report = db.define(
     side_promote: {
       type: DataTypes.STRING,
     },
-    edited_by: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
     freezeTableName: true,
   }
 );
+
+User.hasMany(Report);
+Report.belongsTo(User, { foreignKey: "userId" });
 
 export default Report;

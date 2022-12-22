@@ -24,22 +24,6 @@ const UserList = () => {
     getUsers();
   };
 
-  const checkRole = (roles) => {
-    if (roles === "user") {
-      return "admin";
-    } else {
-      return "user";
-    }
-  };
-
-  const updateRole = async (id) => {
-    const response = await axios.get(`http://localhost:5000/user/${id}`);
-    const roles = checkRole(response.data.roles);
-    await axios.patch(`http://localhost:5000/user/${id}`, { roles });
-    window.alert("User Role Updated Successfully");
-    getUsers();
-  };
-
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -81,7 +65,6 @@ const UserList = () => {
             <th>Update At</th>
             <th></th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody className="text-center">
@@ -115,20 +98,6 @@ const UserList = () => {
                 <td>{user.phone}</td>
                 <td>{user.createdAt}</td>
                 <td>{user.updatedAt}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to update this user role?"
-                        )
-                      )
-                        updateRole(user.id);
-                    }}
-                    className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
-                    <ArrowsRightLeftIcon className="w-4 h-4" /> Role
-                  </button>
-                </td>
                 <td>
                   <Link
                     to={`/dashboard/user/edit/${user.id}`}

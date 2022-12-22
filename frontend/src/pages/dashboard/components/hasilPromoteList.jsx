@@ -87,6 +87,7 @@ const HasilPromoteList = () => {
             <th>Changes</th>
             <th>Promote Date</th>
             <th>Side Promote</th>
+            <th>Created By</th>
             <th>Created At</th>
             <th>Update At</th>
             <th></th>
@@ -121,6 +122,7 @@ const HasilPromoteList = () => {
                 <td>{report.changes}</td>
                 <td>{report.promote_date}</td>
                 <td>{report.side_promote}</td>
+                <td>{report.user?.name}</td>
                 <td>{report.createdAt}</td>
                 <td>{report.updatedAt}</td>
                 <td>

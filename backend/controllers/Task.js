@@ -56,7 +56,6 @@ export const getAllTasks = async (req, res) => {
 };
 
 export const getTaskById = async (req, res) => {
-
   try {
     const task = await Task.findOne({
       where: {
@@ -119,15 +118,6 @@ export const getTaskById = async (req, res) => {
 };
 
 export const createTask = async (req, res) => {
-  // try {
-  //   await Task.create(req.body);
-  //   res.json({
-  //     message: "Task Created",
-  //   });
-  // } catch (error) {
-  //   res.json({ message: error.message });
-  // }
-
   const { name, status, description, deadline } = req.body;
   try {
     await Task.create({
@@ -144,19 +134,6 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-  // try {
-  //   await Task.update(req.body, {
-  //     where: {
-  //       id: req.params.id,
-  //     },
-  //   });
-  //   res.json({
-  //     message: "Task Updated",
-  //   });
-  // } catch (error) {
-  //   res.json({ message: error.message });
-  // }
-
   try {
     const task = await Task.findOne({
       where: {
@@ -193,19 +170,6 @@ export const updateTask = async (req, res) => {
 };
 
 export const deleteTask = async (req, res) => {
-  // try {
-  //   await Task.destroy({
-  //     where: {
-  //       id: req.params.id,
-  //     },
-  //   });
-  //   res.json({
-  //     message: "Task Deleted",
-  //   });
-  // } catch (error) {
-  //   res.json({ message: error.message });
-  // }
-
   try {
     const task = await Task.findOne({
       where: {

@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
 import UserList from "./components/userList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe } from "../../auth/authSlice";
 
 export default function Users() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError, user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+    if (user && user.roles != "admin") {
+      navigate("/dashboard");
+    }
+  }, [isError, user, navigate]);
   return (
     <div className="flex flex-row ">
       <Sidebar />
       <div className="w-full p-4">
-        <Header/>
+        <Header />
         {/* Page Header */}
         <div className="flex mt-5 w-full bg-slate-800 p-5 rounded-xl text-slate-200">
           <p className="flex">
@@ -28,6 +46,5 @@ export default function Users() {
         <UserList />
       </div>
     </div>
-    
   );
 }

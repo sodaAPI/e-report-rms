@@ -77,6 +77,8 @@ export const updateUser = async (req, res) => {
     password,
     confPassword,
     roles,
+    picture,
+    url,
   } = req.body;
   let hashPassword;
   if (password === "" || password === null) {
@@ -100,6 +102,8 @@ export const updateUser = async (req, res) => {
         roles: roles,
         password: hashPassword,
         phone: phone,
+        picture: picture,
+        url: url,
       },
       {
         where: {

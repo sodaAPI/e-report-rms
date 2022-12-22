@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate,} from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
 const statusList = ["Uncompleted", "Completed"];
 
@@ -14,6 +15,8 @@ const AddTask = () => {
   const [by_user, setByUser] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   const saveTask = async (e) => {
     e.preventDefault();
@@ -167,9 +170,9 @@ const AddTask = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="By User"
-                value={by_user}
+                value={user?.name}
                 onChange={(e) => setByUser(e.target.value)}
-                required
+                disabled
               />
             </div>
           </section>

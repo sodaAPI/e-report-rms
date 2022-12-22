@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import User from "./userModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -22,13 +23,20 @@ const Meeting = db.define(
     meeting_date: {
       type: DataTypes.DATE,
     },
-    edited_by: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
     freezeTableName: true,
   }
 );
+
+User.hasMany(Meeting);
+Meeting.belongsTo(User, { foreignKey: "userId" });
 
 export default Meeting;

@@ -1,11 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
+import { UserCircleIcon, ArrowLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 
 const divisionList = ["CMT", "DBA", "AS"];
+const rolesList = ["user", "admin"];
 
 export default function EditProfiles() {
   const [name, setName] = useState("");
@@ -14,45 +16,79 @@ export default function EditProfiles() {
   const [phone, setPhone] = useState("");
   const [division, setDivision] = useState(divisionList[0]);
   const [birth, setBirth] = useState("");
+  const [roles, setRoles] = useState(rolesList[0]);
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [confPassword, setConfPassword] = useState("");
   const history = useNavigate();
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  const goBack = async () => {
+    let path = "/dashboard/profile";
+    navigate(path);
+  };
 
   const saveUser = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/user", {
+    await axios.patch(`http://localhost:5000/user/${id}`, {
       name: name,
       username: username,
       email: email,
       phone: phone,
       division: division,
       birth: birth,
+      roles: roles,
       password: password,
+      confPassword: confPassword,
     });
-    let path = "/dashboard/user";
+    let path = "/dashboard/profile";
     navigate(path);
+    window.alert("User Updated Successfully");
     history.push("/user");
   };
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  const getProductById = async () => {
+    const response = await axios.get(`http://localhost:5000/user/${id}`);
+    setName(response.data.name);
+    setUsername(response.data.username);
+    setEmail(response.data.email);
+    setPhone(response.data.phone);
+    setDivision(response.data.division);
+    setBirth(response.data.birth);
+    setRoles(response.data.roles);
+    setPassword(response.data.password);
+  };
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="w-full">
       <div className="flex flex-col items-center">
         <div className="flex sm:flex-row flex-col justify-center items-center sm:ml-72 sm:mr-3 sm:gap-5">
-          <img
-            src="https://source.unsplash.com/random"
-            alt="user"
-            className="h-32 w-32 object-cover rounded-full m-6"
-          />
+          {!user?.picture ? (
+            <UserCircleIcon className="text-slate-300 w-36 h-36 mt-5" />
+          ) : (
+            <img
+              src={user?.picture}
+              className="h-32 w-32 object-cover rounded-full m-6"
+            />
+          )}
           <input className="text-sm py-3 mb-3" type="file" />
         </div>
-        Administrator
+        {user?.name}
       </div>
 
       <div className="divider sm:px-52 px-20 sm:py-3 py-1"></div>
 
       <div className="px-10">
-        <form onSubmit={saveUser}>
+        <form>
           <div className="flex sm:flex-row flex-col sm:gap-20 gap-2 justify-center">
             <section className="w-80">
               {/* Name */}
@@ -65,6 +101,7 @@ export default function EditProfiles() {
                   placeholder="Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
 
@@ -78,6 +115,7 @@ export default function EditProfiles() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
 
@@ -91,6 +129,7 @@ export default function EditProfiles() {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  required
                 />
               </div>
 
@@ -104,6 +143,7 @@ export default function EditProfiles() {
                   placeholder="Phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
             </section>
@@ -115,7 +155,7 @@ export default function EditProfiles() {
                 <Listbox
                   as="div"
                   className="space-y-1"
-                  value={division}
+                  value={user?.division}
                   onChange={setDivision}>
                   {({ open }) => (
                     <>
@@ -126,7 +166,7 @@ export default function EditProfiles() {
                         <span className="inline-block w-80 rounded-md shadow-sm">
                           <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                             <span className="block truncate text-gray-900">
-                              {division}
+                              {user?.division}
                             </span>
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                               <svg
@@ -212,9 +252,9 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
-                  placeholder="Birth"
-                  value={birth}
+                  value={user?.birth}
                   onChange={(e) => setBirth(e.target.value)}
+                  required
                 />
               </div>
 
@@ -224,10 +264,10 @@ export default function EditProfiles() {
                 <label className="label">Password</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder={passwordVisible ? "Password" : "********"}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
 
@@ -237,16 +277,40 @@ export default function EditProfiles() {
                 <label className="label">Confirm Password</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={passwordConfirmation}
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder={passwordVisible ? "Password" : "********"}
+                  value={confPassword}
+                  onChange={(e) => setConfPassword(e.target.value)}
+                  required
                 />
               </div>
+
+              {/* Show Password */}
+
+              <label
+                htmlFor="toggle-password-visibility"
+                className="cursor-pointer select-none text-gray-700">
+                <input
+                  type="checkbox"
+                  id="toggle-password-visibility"
+                  onChange={() => setPasswordVisible(!passwordVisible)}
+                  className="bg-white mr-2 mt-5"
+                />
+                <span className="pt-0.5 text-slate-400">Show password</span>
+              </label>
               {/* Button */}
 
-              <div className="flex sm:flex-row items-center justify-center pt-10 sm:gap-6 pb-5">
-                <button className="w-52 bg-sky-500 hover:bg-sky-400 p-3 rounded-lg text-white">
+              <div className="flex sm:flex-row items-center justify-center pt-10 pb-16 sm:gap-6">
+                <button
+                  onClick={goBack}
+                  className="flex flex-row justify-center items-center gap-2 w-full bg-sky-500 hover:bg-sky-400 p-3 rounded-lg text-white">
+                  <ArrowLeftIcon className="w-5 h-5"/>
+                  Go Back
+                </button>
+                <button
+                  onClick={saveUser}
+                  className="flex flex-row justify-center items-center gap-0.5 w-full bg-green-500 hover:bg-green-400 p-3 rounded-lg text-white">
+                  <PencilSquareIcon className="w-5 h-5"/>
                   Update Profile
                 </button>
               </div>

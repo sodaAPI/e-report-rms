@@ -1,4 +1,4 @@
-import { Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
@@ -7,8 +7,8 @@ const User = db.define(
   "users",
   {
     uuid: {
-        type: DataTypes.STRING,
-        defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4,
     },
     name: {
       type: DataTypes.STRING,
@@ -17,6 +17,9 @@ const User = db.define(
       type: DataTypes.STRING,
     },
     picture: {
+      type: DataTypes.STRING,
+    },
+    url: {
       type: DataTypes.STRING,
     },
     division: {
@@ -40,8 +43,8 @@ const User = db.define(
     },
     roles: {
       type: DataTypes.STRING,
-    }
     },
+  },
   {
     freezeTableName: true,
   }

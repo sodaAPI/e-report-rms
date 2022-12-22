@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { UserCircleIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 
-// TODO: Add Authentication
+import { getMe, LogOut, reset } from "../../../auth/authSlice";
 
 export default function Profiles() {
   const [users, setUsers] = useState([]);
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getUsers();
@@ -16,20 +20,18 @@ export default function Profiles() {
     const response = await axios.get(`http://localhost:5000/user`);
     setUsers(response.data);
   };
-
-  const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/user/${id}`);
-    getUsers();
-  };
-
   return (
     <div className="w-full">
       <div className="flex flex-col justify-center items-center">
-        <img
-          src="https://source.unsplash.com/random/300×300"
-          className="h-32 w-32 object-cover rounded-full m-6"
-        />
-        Administrator{users.name}
+        {!user?.picture ? (
+          <UserCircleIcon className="text-slate-300 w-36 h-36 mt-5" />
+        ) : (
+          <img
+            src={user?.picture}
+            className="h-32 w-32 object-cover rounded-full m-6"
+          />
+        )}
+        {user?.name}
       </div>
 
       <div className="divider sm:px-52 px-20 sm:py-3 py-1"></div>
@@ -45,7 +47,7 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="name"
-                  placeholder="Name"
+                  placeholder={user?.name}
                   value={users.name}
                   disabled
                 />
@@ -58,7 +60,7 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="email"
-                  placeholder="Email"
+                  placeholder={user?.email}
                   value={users.email}
                   disabled
                 />
@@ -71,7 +73,7 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="text"
-                  placeholder="Username"
+                  placeholder={user?.username}
                   value={users.username}
                   disabled
                 />
@@ -84,7 +86,7 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="tel"
-                  placeholder="Phone"
+                  placeholder={user?.phone}
                   value={users.phone}
                   disabled
                 />
@@ -105,7 +107,7 @@ export default function Profiles() {
                         <span className="inline-block w-80 rounded-md shadow-sm">
                           <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                             <span className="block truncate text-gray-900">
-                              {users.division}CMT
+                              {user?.division}
                             </span>
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                               <svg
@@ -136,8 +138,8 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
-                  placeholder="Birth"
-                  value={users.birth}
+                  placeholder={user?.birth}
+                  value={user?.birth}
                   disabled
                 />
               </div>
@@ -148,8 +150,8 @@ export default function Profiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
-                  placeholder="Created At"
-                  value={users.createdAt}
+                  placeholder={user?.createdAt}
+                  value={user?.createdAt}
                   disabled
                 />
               </div>
@@ -162,32 +164,18 @@ export default function Profiles() {
                   className="input input-bordered w-full max-w-xs"
                   type="password"
                   placeholder="Password"
-                  value={users.password}
+                  value={user?.password}
                   disabled
                 />
               </div>
 
               {/* Button */}
 
-              <div className="flex flex-row sm:items-center sm:justify-center pt-10 sm:gap-6 gap-7 pb-5">
+              <div className="sm:items-center sm:justify-center pt-10 pb-20 sm:gap-6 gap-7">
                 <>
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to delete this item?"
-                        )
-                      )
-                        deleteUser(users.id);
-                    }}
-                    className=" w-36 bg-red-500 hover:bg-red-400 p-3 rounded-lg text-white">
-                    Delete Profile
-                  </button>
-                </>
-                <>
-                  <Link to="/dashboard/profile/edit/:id">
-                    <button className=" w-36 bg-sky-500 hover:bg-sky-400 p-3 rounded-lg text-white">
-                      Edit Profile
+                  <Link to={`/dashboard/profile/edit/${user.id}`}>
+                    <button className="flex flex-row items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-400 p-3 rounded-lg text-white">
+                      <PencilSquareIcon className="w-5 h-5"/>Edit Profile
                     </button>
                   </Link>
                 </>

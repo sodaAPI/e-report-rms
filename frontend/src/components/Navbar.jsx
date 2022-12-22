@@ -104,72 +104,141 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95">
                       <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
-                        {!user && user.name(
-                        <>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/login"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <DropdownButton>Login</DropdownButton>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/register"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <DropdownButton>Register</DropdownButton>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        </>
-                        ):(
-                        <>
-                          {/* TODO: Change navbar if user authenticated */}
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/dashboard"
-                                className={classNames(
-                                  active ? " bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <DropdownButton>Dashboard</DropdownButton>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/dashboard/settings"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <DropdownButton>Settings</DropdownButton>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <DropdownButton>Logout</DropdownButton>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        </>
+                        {!user ? (
+                          <>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/login"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Login</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/register"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Register</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </>
+                        ) : (
+                          <>
+                            {/* TODO: Change navbar if user authenticated */}
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/dashboard"
+                                  className={classNames(
+                                    active ? " bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Dashboard</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/dashboard/settings"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Settings</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Logout</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </>
+                        )}
+                      </Menu.Items>
+                      <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
+                        {!user ? (
+                          <>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/login"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Login</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/register"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Register</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </>
+                        ) : (
+                          <>
+                            {/* TODO: Change navbar if user authenticated */}
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/dashboard"
+                                  className={classNames(
+                                    active ? " bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Dashboard</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to="/dashboard/preferences"
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Settings</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}>
+                                  <DropdownButton>Logout</DropdownButton>
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </>
                         )}
                       </Menu.Items>
                     </Transition>

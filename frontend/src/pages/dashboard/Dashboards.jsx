@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  UserIcon,
   ChartBarIcon,
   ChatBubbleBottomCenterIcon,
   CheckCircleIcon,
@@ -12,20 +11,14 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Clock from "react-digital-clock";
 import CompleteReportChart from "./completeReportChart";
-import { getMe } from "../../auth/authSlice";
 import { useSelector } from "react-redux";
-
-const statusList = ["Uncompleted", "Completed"];
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
   const [meetings, setMeetings] = useState([]);
   const [task, setTask] = useState([]);
-  const [status, setStatus] = useState(statusList[0]);
   const [value, onChange] = useState(new Date());
   const navigate = useNavigate();
-  const history = useNavigate();
-  const { id } = useParams();
 
   useEffect(() => {
     getReports();

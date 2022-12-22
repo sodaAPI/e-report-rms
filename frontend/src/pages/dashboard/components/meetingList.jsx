@@ -6,11 +6,13 @@ import {
   MagnifyingGlassIcon,
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/react/20/solid";
+import { useSelector } from "react-redux";
 
-//TODO: Pagination
 //TODO: Add Notification 1-2 day Before Meeting
 
 const MeetingList = () => {
+  //User
+  const { user } = useSelector((state) => state.auth);
   const [meetings, setMeetings] = useState([]);
 
   useEffect(() => {
@@ -67,6 +69,7 @@ const MeetingList = () => {
             <th>Meeting Desc</th>
             <th>Online Meeting Link</th>
             <th>Meeting Date</th>
+            <th>Created By</th>
             <th>Created At</th>
             <th>Update At</th>
             <th></th>
@@ -109,6 +112,7 @@ const MeetingList = () => {
                 </td>
 
                 <td>{meeting.meeting_date}</td>
+                <td>{meeting.user?.name}</td>
                 <td>{meeting.createdAt}</td>
                 <td>{meeting.updatedAt}</td>
                 <td>
