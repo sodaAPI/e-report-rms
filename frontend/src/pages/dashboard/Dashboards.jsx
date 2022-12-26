@@ -6,16 +6,21 @@ import {
   ChartBarIcon,
   ChatBubbleBottomCenterIcon,
   CheckCircleIcon,
+  DocumentCheckIcon,
+  UserGroupIcon,
+  EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Clock from "react-digital-clock";
 import CompleteReportChart from "./completeReportChart";
+import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
   const [meetings, setMeetings] = useState([]);
+  const [users, setUsers] = useState([]);
   const [task, setTask] = useState([]);
   const [value, onChange] = useState(new Date());
   const navigate = useNavigate();
@@ -24,14 +29,43 @@ export default function Dashboards() {
     getReports();
     getMeetings();
     getTasks();
+    getUsers();
   }, []);
 
   //User
   const { user } = useSelector((state) => state.auth);
 
+  //GO TO
+
+  const gotoReport = async () => {
+    let path = "/dashboard/report";
+    navigate(path);
+  };
+
+  const gotoTask = async () => {
+    let path = "/dashboard/task";
+    navigate(path);
+  };
+
+  const gotoMeeting = async () => {
+    let path = "/dashboard/meeting";
+    navigate(path);
+  };
+
+  const gotoUser = async () => {
+    let path = "/dashboard/user";
+    navigate(path);
+  };
+
+  // GET & POST
+
   const getReports = async () => {
     const response = await axios.get("http://localhost:5000/report");
     setReport(response.data);
+  };
+  const getUsers = async () => {
+    const response = await axios.get("http://localhost:5000/user");
+    setUsers(response.data);
   };
 
   const getMeetings = async () => {
@@ -42,11 +76,6 @@ export default function Dashboards() {
   const getTasks = async () => {
     const response = await axios.get("http://localhost:5000/task");
     setTask(response.data);
-  };
-
-  const gotoReport = async () => {
-    let path = "/dashboard/report";
-    navigate(path);
   };
 
   const updateStatus = async (id) => {
@@ -73,42 +102,61 @@ export default function Dashboards() {
     <section>
       <div className="flex sm:flex-row flex-col gap-5 py-8">
         <div className="flex flex-col w-full">
-          <div className="px-5 text-xl text-white">
-            {/* <div className=" w-full">
-              <TaskChart />
-            </div> */}
-            Welcome Back
-            <span className="text-sky-300"> {user && user.name} </span>!
-          </div>
-          <div className="flex sm:flex-row flex-col justify-center items-center pt-10">
-            <div className="flex flex-col items-center w-9/12">
-              <CompleteReportChart />
-              <a
-                onClick={gotoReport}
-                className="flex flex-row justify-center items-center gap-2 sm:w-1/2 w-3/4 mt-5 py-3 bg-green-700 hover:bg-green-600 rounded-lg text-white font-bold">
-                <ChartBarIcon className="w-6 h-6 " />
-                <span>Reports Total</span>
-                <span className="font-medium">{reports.length}</span>
-              </a>
-              {/* <a
-                onClick={gotoUser}
-                className="flex flex-row justify-center items-center gap-2 sm:w-1/2 w-3/4  mt-5 py-3 bg-sky-700 hover:bg-sky-600 rounded-lg text-white font-bold">
-                <UserIcon className="w-6 h-6" />
-                <span>Users Total</span>
-                <span className="font-medium">{users.length}</span>
-              </a> */}
+          <div className="flex md:flex-row flex-col bg-slate-500 p-4 bg-opacity-10 rounded-lg">
+            <div className="flex md:flex-row flex-col items-center justify-center w-full px-5 text-xl text-white">
+              Welcome Back{" "}
+              <span className="text-sky-300"> , {user && user.name} !</span>
             </div>
-
-            {/* <div className="flex flex-col items-center w-9/12 sm:pt-0 pt-5">
-              <ReportChartComplete />
+            <div className="w-full flex md:flex-row gap-5">
               <a
                 onClick={gotoReport}
-                className="flex flex-row justify-center items-center gap-2 sm:w-1/2 w-3/4 mt-5 py-3 bg-green-700 hover:bg-green-600 rounded-lg text-white font-bold">
-                <ChartBarIcon className="w-6 h-6 " />
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-sky-600 hover:bg-sky-500 rounded-lg text-white font-bold">
+                <ChartBarIcon className="w-10 h-10" />
                 <span>Reports Total</span>
-                <span className="font-medium">{reports.length}</span>
+                <span className="font-black">{reports.length}</span>
+                <EllipsisHorizontalIcon className=" w-5 h-5" />
               </a>
-            </div> */}
+              <a
+                onClick={gotoTask}
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-green-700 hover:bg-green-600 rounded-lg text-white font-bold">
+                <DocumentCheckIcon className="w-10 h-10" />
+                <span>Tasks Total</span>
+                <span className="font-black">{task.length}</span>
+                <EllipsisHorizontalIcon className=" w-5 h-5" />
+              </a>
+              <a
+                onClick={gotoMeeting}
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-yellow-600 hover:bg-yellow-500 rounded-lg text-white font-bold">
+                <UserGroupIcon className="w-10 h-10" />
+                <span>Meeting Total</span>
+                <span className="font-black">{meetings.length}</span>
+                <EllipsisHorizontalIcon className=" w-5 h-5" />
+              </a>
+              {user && user.roles === "admin" && (
+                <a
+                  onClick={gotoUser}
+                  className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-bold">
+                  <UserGroupIcon className="w-10 h-10" />
+                  <span>User Total</span>
+                  <span className="font-black">{users.length}</span>
+                  <EllipsisHorizontalIcon className=" w-5 h-5" />
+                </a>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-5 md:flex-row flex-col justify-center items-center pt-10">
+            {/* Right Side */}
+            <div className="flex flex-col items-center w-9/12 bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+              <span className="py-5 text-white font-bold text-lg">Reports</span>
+              <div className="sm:mr-14 mr-0">
+                <CompleteReportChart />
+              </div>
+            </div>
+            {/* Left Side */}
+            <div className="flex flex-col items-center w-9/12 bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+              <span className="py-5 text-white font-bold text-lg">Tasks</span>
+              <TaskChart />
+            </div>
           </div>
 
           {/* Reports Table */}

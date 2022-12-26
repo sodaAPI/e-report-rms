@@ -43,7 +43,7 @@ const CompleteReportChart = () => {
 
   return (
     <BarChart
-      width={500}
+      width={300}
       height={250}
       data={filteredData}
       margin={{
@@ -56,7 +56,6 @@ const CompleteReportChart = () => {
       <XAxis dataKey="promote_status" />
       <YAxis />
       <Tooltip />
-      <Legend />
       <Bar dataKey={getLength} name="Report" fill="#2384d8" />
     </BarChart>
   );
