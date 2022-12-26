@@ -12,6 +12,7 @@ import MeetingRoute from "./routes/MeetingRoute.js";
 import TaskRoute from "./routes/TaskRoute.js";
 import bodyParser from "body-parser";
 import corsOptions from "cors";
+import FileUpload from "express-fileupload";
 dotenv.config();
 
 const app = express();
@@ -52,6 +53,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(FileUpload());
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 app.use("/report", ReportRoute);

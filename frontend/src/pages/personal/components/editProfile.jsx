@@ -4,7 +4,11 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
-import { UserCircleIcon, ArrowLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import {
+  UserCircleIcon,
+  ArrowLeftIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
 
 const divisionList = ["CMT", "DBA", "AS"];
 const rolesList = ["user", "admin"];
@@ -71,16 +75,8 @@ export default function EditProfiles() {
   return (
     <div className="w-full">
       <div className="flex flex-col items-center">
-        <div className="flex sm:flex-row flex-col justify-center items-center sm:ml-72 sm:mr-3 sm:gap-5">
-          {!user?.picture ? (
+        <div className="flex flex-row justify-center items-center">
             <UserCircleIcon className="text-slate-300 w-36 h-36 mt-5" />
-          ) : (
-            <img
-              src={user?.picture}
-              className="h-32 w-32 object-cover rounded-full m-6"
-            />
-          )}
-          <input className="text-sm py-3 mb-3" type="file" />
         </div>
         {user?.name}
       </div>
@@ -304,13 +300,13 @@ export default function EditProfiles() {
                 <button
                   onClick={goBack}
                   className="flex flex-row justify-center items-center gap-2 w-full bg-sky-500 hover:bg-sky-400 p-3 rounded-lg text-white">
-                  <ArrowLeftIcon className="w-5 h-5"/>
+                  <ArrowLeftIcon className="w-5 h-5" />
                   Go Back
                 </button>
                 <button
                   onClick={saveUser}
                   className="flex flex-row justify-center items-center gap-0.5 w-full bg-green-500 hover:bg-green-400 p-3 rounded-lg text-white">
-                  <PencilSquareIcon className="w-5 h-5"/>
+                  <PencilSquareIcon className="w-5 h-5" />
                   Update Profile
                 </button>
               </div>

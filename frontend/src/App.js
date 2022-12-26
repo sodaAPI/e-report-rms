@@ -18,7 +18,6 @@ import EditMeetings from "./pages/dashboard/components/editMeetings";
 import Discussion from "./pages/dashboard/Discussion";
 import Profile from "./pages/personal/Profile";
 import EditProfiles from "./pages/personal/components/editProfiles";
-import Message from "./pages/personal/Message";
 import Preference from "./pages/settings/Preference";
 import FAQ from "./pages/settings/FAQ";
 import Task from "./pages/personal/Task";
@@ -90,7 +89,6 @@ function App() {
           <Route path="/dashboard/task" element={<Task />} />
           <Route path="/task/completed" element={<TaskCompleted />} />
           <Route path="/task/uncompleted" element={<TaskUncompleted />} />
-          <Route path="/dashboard/message" element={<Message />} />
 
           {/* Settings */}
 

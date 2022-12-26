@@ -14,7 +14,7 @@ export default function Dashboard() {
         <Header />
         {showAnnouncement && (
           <div>
-            <Announcement />
+            {/* <Announcement /> */}
           </div>
         )}
         {/* TODO: Just show Announcement once after login */}

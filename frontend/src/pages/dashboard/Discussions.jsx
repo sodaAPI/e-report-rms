@@ -6,6 +6,7 @@ export default function Discussions() {
   return (
     <div className="py-8 w-fit">
         Chat/Forum Discussion
+        
     </div>
   )
 }

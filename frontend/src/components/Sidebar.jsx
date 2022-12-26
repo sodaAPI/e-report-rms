@@ -59,11 +59,6 @@ export default function Sidebars() {
       icon: <BriefcaseIcon />,
       href: "/dashboard/task",
     },
-    {
-      name: "Message",
-      icon: <EnvelopeIcon />,
-      href: "/dashboard/message",
-    },
   ];
 
   const settings = [

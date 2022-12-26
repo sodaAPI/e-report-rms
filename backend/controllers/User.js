@@ -1,5 +1,7 @@
 import User from "../models/userModel.js";
 import argon2 from "argon2";
+import path from "path";
+import fs from "fs";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -77,8 +79,6 @@ export const updateUser = async (req, res) => {
     password,
     confPassword,
     roles,
-    picture,
-    url,
   } = req.body;
   let hashPassword;
   if (password === "" || password === null) {
@@ -99,11 +99,9 @@ export const updateUser = async (req, res) => {
         division: division,
         status: status,
         birth: birth,
-        roles: roles,
         password: hashPassword,
         phone: phone,
-        picture: picture,
-        url: url,
+        roles: roles,
       },
       {
         where: {

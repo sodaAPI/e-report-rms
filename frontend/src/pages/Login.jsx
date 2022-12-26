@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { LoginUser, reset } from "../auth/authSlice";
+import { LoginUser, reset, getMe } from "../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Announcement from "./dashboard/components/Announcement";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
-  const history = useNavigate();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isError, isSuccess, isLoading, message } = useSelector(
@@ -30,6 +29,16 @@ const Login = () => {
     e.preventDefault();
     dispatch(LoginUser({ username, password }));
   };
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+  }, [isError, navigate]);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 

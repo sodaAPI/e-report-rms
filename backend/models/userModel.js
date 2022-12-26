@@ -16,12 +16,6 @@ const User = db.define(
     username: {
       type: DataTypes.STRING,
     },
-    picture: {
-      type: DataTypes.STRING,
-    },
-    url: {
-      type: DataTypes.STRING,
-    },
     division: {
       type: DataTypes.STRING,
     },

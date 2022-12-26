@@ -5,13 +5,16 @@ import {
   BellIcon,
   UserCircleIcon,
   ArrowLeftOnRectangleIcon,
+  UserIcon,
+  DocumentCheckIcon,
+  UsersIcon,
 } from "@heroicons/react/24/outline";
+import { BellAlertIcon, InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { DropdownButton } from "./dropdownLink";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getMe, LogOut, reset } from "../auth/authSlice";
 
 function classNames(...classes) {
@@ -44,18 +47,18 @@ export default function Header() {
   return (
     <section className="w-full">
       {/* Navbar Header */}
-      <div className="flex flex-row sm:gap-1 gap-40 text-slate-300">
-        <div className="sm:w-3/5">
+      <div className="flex flex-row md:gap-1 gap-40 text-slate-300">
+        <div className="md:w-3/5">
           <button
             onClick={() => collapseSidebar()}
             className="px-3 py-2 rounded-lg bg-sky-900 text-white">
             <div className="flex flex-row gap-2 hover:text-white">
               <Bars3Icon className="h-6 w-6 " />
-              <p className="sm:block hidden">Menu</p>
+              <p className="md:block hidden">Menu</p>
             </div>
           </button>
         </div>
-        <div className="flex flex-row items-center sm:gap-10 gap-3">
+        <div className="flex flex-row items-center md:gap-10 gap-3">
           {/* Notification */}
 
           <Menu as="div" className="relative ml-3">
@@ -74,50 +77,33 @@ export default function Header() {
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
-              <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-36 text-center items-center origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
+              <Menu.Items className="absolute flex flex-col -right-0 md:w-72 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
                 <>
-                  {/* Notification Sample */}
+                  {/* Notification Sample 1 */}
 
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        // to="/dashboard/profile"
-                        className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
-                        )}>
-                        <DropdownButton>Notification Sample</DropdownButton>
-                      </Link>
-                    )}
+                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+                    <DropdownButton className="flex flex-row">
+                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
+                      You Got Notification Sample!
+                    </DropdownButton>
                   </Menu.Item>
 
-                  {/* Notification Sample */}
+                  {/* Notification Sample 2 */}
 
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        // to="/dashboard/preferences"
-                        className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
-                        )}>
-                        <DropdownButton>Notification Sample</DropdownButton>
-                      </Link>
-                    )}
+                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+                    <DropdownButton className="flex flex-row">
+                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
+                      You Got Notification Sample!
+                    </DropdownButton>
                   </Menu.Item>
 
-                  {/* Notification Sample */}
+                  {/* Notification Sample 3 */}
 
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
-                        )}>
-                        <DropdownButton>Notification Sample</DropdownButton>
-                      </Link>
-                    )}
+                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+                    <DropdownButton className="flex flex-row">
+                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
+                      You Got Notification Sample!
+                    </DropdownButton>
                   </Menu.Item>
                 </>
               </Menu.Items>
@@ -130,7 +116,9 @@ export default function Header() {
               <Menu.Button className=" p-1 items-center gap-2 flex rounded-2xl focus:outline-none">
                 <span className="sr-only">Open user menu</span>
                 <UserCircleIcon className="w-6 h-6" />
-                <div className="sm:block hidden ">{user && user.name} / {user && user.username}</div>
+                <div className="md:block hidden ">
+                  {user && user.name} / {user && user.username}
+                </div>
               </Menu.Button>
             </div>
 
@@ -142,7 +130,7 @@ export default function Header() {
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
-              <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-36 text-center items-center origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
+              <Menu.Items className="absolute flex flex-col text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-4 px-7">
                 <>
                   {/* Profile */}
 
@@ -151,10 +139,13 @@ export default function Header() {
                       <Link
                         to="/dashboard/profile"
                         className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
+                          active ? "" : "",
+                          "block py-2 text-sm text-gray-700"
                         )}>
-                        <DropdownButton>Profile</DropdownButton>
+                        <DropdownButton className="flex flex-row gap-2">
+                          <UserIcon className="w-5 h-5" />
+                          Profile
+                        </DropdownButton>
                       </Link>
                     )}
                   </Menu.Item>
@@ -164,12 +155,15 @@ export default function Header() {
                   <Menu.Item>
                     {({ active }) => (
                       <Link
-                        to="/dashboard/preferences"
+                        to="/dashboard/task"
                         className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
+                          active ? "" : "",
+                          "block py-2 text-sm text-gray-700"
                         )}>
-                        <DropdownButton>Settings</DropdownButton>
+                        <DropdownButton className="flex flex-row gap-2">
+                          <DocumentCheckIcon className="w-5 h-5" />
+                          My Task
+                        </DropdownButton>
                       </Link>
                     )}
                   </Menu.Item>
@@ -182,10 +176,13 @@ export default function Header() {
                         <Link
                           to="/dashboard/user"
                           className={classNames(
-                            active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            active ? "" : "",
+                            "block py-2 text-sm text-gray-700"
                           )}>
-                          <DropdownButton>Users</DropdownButton>
+                          <DropdownButton className="flex flex-row gap-2">
+                            <UsersIcon className="w-5 h-5" />
+                            Users
+                          </DropdownButton>
                         </Link>
                       )}
                     </Menu.Item>
@@ -197,7 +194,7 @@ export default function Header() {
 
           {/* Logout */}
 
-          <button onClick={logout} className="sm:px-7 px-4">
+          <button onClick={logout} className="md:px-7 px-4">
             <div className="flex flex-row gap-1 items-center hover:text-white">
               <ArrowLeftOnRectangleIcon className="h-6 w-6" /> Logout
             </div>

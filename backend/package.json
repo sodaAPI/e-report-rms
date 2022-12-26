@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.25.3",
+    "socket.io-client": "^4.5.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

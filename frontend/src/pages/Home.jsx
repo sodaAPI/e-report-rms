@@ -8,9 +8,11 @@ import {
   DevicePhoneMobileIcon,
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DropdownButton } from "../components/dropdownLink";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { useSelector, useDispatch } from "react-redux";
+import { getMe, LogOut, reset } from "../auth/authSlice";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -38,7 +40,7 @@ const features = [
     icon: DevicePhoneMobileIcon,
   },
   {
-    name: "Progress Remainder",
+    name: "Task Remainder",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
     icon: ChatBubbleBottomCenterTextIcon,
@@ -46,6 +48,20 @@ const features = [
 ];
 
 export default function Homepage() {
+  //User
+  const { user } = useSelector((state) => state.auth);
+
+  //Logout
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isError } = useSelector((state) => state.auth);
+
+  const logout = () => {
+    dispatch(LogOut());
+    dispatch(reset());
+    navigate("/");
+  };
+
   const mainRef = useRef(null); //represents main section
   const aboutRef = useRef(null); //represents about section
 
@@ -65,6 +81,10 @@ export default function Homepage() {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
 
   return (
     <div className=" w-screen min-h-screen bg-slate-50">
@@ -163,69 +183,74 @@ export default function Homepage() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95">
                         <Menu.Items className="absolute flex flex-col right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-slate-50 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700 gap-2 px-5">
-                          <>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to="/login"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}>
-                                  <DropdownButton>Login</DropdownButton>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to="/register"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}>
-                                  <DropdownButton>Register</DropdownButton>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                          </>
-                          <>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to="/dashboard"
-                                  className={classNames(
-                                    active ? " bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}>
-                                  <DropdownButton>Dashboard</DropdownButton>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to="/dashboard/settings"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}>
-                                  <DropdownButton>Settings</DropdownButton>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}>
-                                  <DropdownButton>Logout</DropdownButton>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                          </>
+                          {!user ? (
+                            <>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    to="/login"
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}>
+                                    <DropdownButton>Login</DropdownButton>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    to="/register"
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}>
+                                    <DropdownButton>Register</DropdownButton>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                            </>
+                          ) : (
+                            <>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    to="/dashboard"
+                                    className={classNames(
+                                      active ? " bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}>
+                                    <DropdownButton>Dashboard</DropdownButton>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    to="/dashboard/profile"
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}>
+                                    <DropdownButton>Profile</DropdownButton>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}>
+                                    <DropdownButton onClick={logout}>
+                                      Logout
+                                    </DropdownButton>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                            </>
+                          )}
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -292,20 +317,32 @@ export default function Homepage() {
                 <div className="sm:pb-0 pt-11 pb-1">
                   <>
                     <div className="py-10 mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                      <div className="rounded-md shadow">
-                        <a
-                          href="/login"
-                          className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-8 py-3 text-base font-semibold text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">
-                          Login
-                        </a>
-                      </div>
-                      <div className="mt-3 sm:mt-0 sm:ml-3">
-                        <a
-                          href="/register"
-                          className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-semibold text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg">
-                          Register
-                        </a>
-                      </div>
+                      {!user ? (
+                        <>
+                          <div my-3>
+                            <a
+                              href="/login"
+                              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-8 py-3 text-base font-semibold text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">
+                              Login
+                            </a>
+                          </div>
+                          <div className="sm:mt-0 sm:ml-3">
+                            <a
+                              href="/register"
+                              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-semibold text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg">
+                              Register
+                            </a>
+                          </div>
+                        </>
+                      ) : (
+                        <div my-3>
+                          <a
+                            href="/dashboard"
+                            className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-500 px-8 py-3 text-base font-semibold text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">
+                            Dashboard
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </>
                 </div>
