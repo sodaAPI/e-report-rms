@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
-import { Sequelize } from "sequelize";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
@@ -18,7 +17,8 @@ dotenv.config();
 const app = express();
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
-  db: db
+  db: db,
+  expiration: 6 * 60 * 60 * 1000
 });
 
 // Sync Database

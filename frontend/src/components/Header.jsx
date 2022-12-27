@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useProSidebar } from "react-pro-sidebar";
 import {
   Bars3Icon,
@@ -9,7 +9,7 @@ import {
   DocumentCheckIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { BellAlertIcon, InformationCircleIcon } from "@heroicons/react/20/solid";
+import {  InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { DropdownButton } from "./dropdownLink";
@@ -48,7 +48,7 @@ export default function Header() {
     <section className="w-full">
       <div className="flex flex-row md:gap-40 gap-60 text-slate-300">
       {/* Menu */}
-        <div className="md:w-3/5">
+        <div className="md:w-1/2">
           <button
             onClick={() => collapseSidebar()}
             className="px-3 py-2 rounded-lg bg-sky-900 text-white">

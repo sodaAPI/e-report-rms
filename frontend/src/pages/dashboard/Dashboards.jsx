@@ -160,7 +160,8 @@ export default function Dashboards() {
             {/* Right Side */}
             <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
               <button
-                className="flex self-end hover:text-white"
+                data-tip="Report Page"
+                className=" tooltip flex self-end hover:text-white"
                 onClick={gotoReport}>
                 <EllipsisVerticalIcon className="w-6 h-6" />
               </button>
@@ -172,7 +173,8 @@ export default function Dashboards() {
             {/* Left Side */}
             <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
               <button
-                className="flex self-end hover:text-white"
+                data-tip="Task Page"
+                className=" tooltip flex self-end hover:text-white"
                 onClick={gotoTask}>
                 <EllipsisVerticalIcon className="w-6 h-6" />
               </button>
@@ -196,7 +198,7 @@ export default function Dashboards() {
             <tbody>
               {reports
                 .filter(
-                  (report) => report.promote_status == "In Progress" && "N/A"
+                  (report) => report.promote_status === "In Progress" && "N/A"
                 )
                 .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
                 .slice(0, 10)
@@ -315,7 +317,7 @@ export default function Dashboards() {
           </table>
           <button
             onClick={gotoTask}
-            className="flex flex-row items-center gap-2 hover:text-white">
+            className="flex flex-row items-center gap-2 hover:text-white pb-3">
             <EllipsisHorizontalIcon className="w-5 h-5" />
             <span>See more</span>
             <EllipsisHorizontalIcon className="w-5 h-5" />

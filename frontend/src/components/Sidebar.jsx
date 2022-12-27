@@ -6,7 +6,6 @@ import {
   ChatBubbleLeftRightIcon,
   UserGroupIcon,
   UserIcon,
-  EnvelopeIcon,
   InformationCircleIcon,
   HomeIcon,
   BriefcaseIcon,

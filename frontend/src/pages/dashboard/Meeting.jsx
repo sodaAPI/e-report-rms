@@ -7,9 +7,9 @@ import MeetingList from "./components/meetingList";
 
 export default function Meeting() {
   return (
-    <div className="flex flex-row w-fit">
+    <div className="flex flex-row">
       <Sidebar />
-      <div className="min-w-screen p-4">
+      <div className="w-full p-4">
         <Header />
         {/* Page Header */}
         <div className="flex mt-5 w-full bg-slate-800 p-5 rounded-xl text-slate-200">

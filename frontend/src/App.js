@@ -15,7 +15,7 @@ import Reports from "./pages/dashboard/Reports";
 import Meeting from "./pages/dashboard/Meeting";
 import AddMeetings from "./pages/dashboard/components/addMeetings";
 import EditMeetings from "./pages/dashboard/components/editMeetings";
-import Discussion from "./pages/dashboard/Discussion";
+import Discussion from "./pages/dashboard/discussion/discussionPage";
 import Profile from "./pages/personal/Profile";
 import EditProfiles from "./pages/personal/components/editProfiles";
 import Preference from "./pages/settings/Preference";
