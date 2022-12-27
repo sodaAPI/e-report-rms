@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AddMeeting = () => {
   const [meeting_name, setMeetingName] = useState("");
   const [meeting_desc, setMeetingDesc] = useState("");
   const [online_meeting_link, setOnlineMeetingLink] = useState("");
   const [meeting_date, setMeetingDate] = useState("");
-  const [editedBy, setEditedBy] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
 
@@ -18,13 +18,15 @@ const AddMeeting = () => {
       meeting_desc: meeting_desc,
       online_meeting_link: online_meeting_link,
       meeting_date: meeting_date, 
-      editedBy: editedBy,
     });
     let path = "/dashboard/meeting";
     navigate(path);
     window.alert("Meeting Added Successfully");
     history.push("/meeting");
   };
+
+    //User
+    const { user } = useSelector((state) => state.auth);
 
   return (
     <div className=" w-full p-10">
@@ -84,8 +86,7 @@ const AddMeeting = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Edited By"
-                value={editedBy}
-                onChange={(e) => setEditedBy(e.target.value)}
+                value={user.name}
                 disabled
               />
             </div>

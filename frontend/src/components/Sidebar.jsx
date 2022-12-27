@@ -77,15 +77,15 @@ export default function Sidebars() {
         backgroundColor="white"
         className="text-gray-900">
         <Menu>
-          <div className="flex sm:pl-0 pl-5 sm:items-center sm:justify-center">
+          <div className="flex md:pl-0 pl-5 md:items-center md:justify-center">
             <Link to="/dashboard">
               <img
-                className="sm:block hidden w-40 h-20 py-5"
+                className="md:block hidden w-40 h-20 py-5"
                 alt="logo"
                 src={Logo}
               />
               <img
-                className="sm:hidden block w-10 py-5"
+                className="md:hidden block w-10 py-5"
                 alt="logos"
                 src={SmallLogo}
               />

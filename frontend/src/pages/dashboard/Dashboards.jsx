@@ -9,6 +9,7 @@ import {
   DocumentCheckIcon,
   UserGroupIcon,
   EllipsisHorizontalIcon,
+  EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -100,60 +101,81 @@ export default function Dashboards() {
 
   return (
     <section>
-      <div className="flex sm:flex-row flex-col gap-5 py-8">
+      <div className="flex md:flex-row flex-col gap-5 py-8">
         <div className="flex flex-col w-full">
-          <div className="flex md:flex-row flex-col bg-slate-500 p-4 bg-opacity-10 rounded-lg">
-            <div className="flex md:flex-row flex-col items-center justify-center w-full px-5 text-xl text-white">
-              Welcome Back{" "}
-              <span className="text-sky-300"> , {user && user.name} !</span>
+          <div className="flex md:flex-row flex-col bg-sky-900 p-4 bg-opacity-10 rounded-lg">
+            <div className="flex md:flex-col flex-col items-center justify-center w-full px-5 font-bold text-3xl text-white">
+              Welcome Back,{" "}
+              <span className=" text-sky-300 font-normal text-2xl">
+                {" "}
+                {user && user.name}
+              </span>
+              <div className="divider px-48"></div>
+              <span className="text-slate-500 font-normal text-base">
+                {user && user.division} - {user && user.roles}
+              </span>
             </div>
             <div className="w-full flex md:flex-row gap-5">
-              <a
+              <button
                 onClick={gotoReport}
-                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-sky-600 hover:bg-sky-500 rounded-lg text-white font-bold">
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 text-start bg-sky-600 hover:bg-sky-500 rounded-lg text-white font-bold">
                 <ChartBarIcon className="w-10 h-10" />
-                <span>Reports Total</span>
+                <span>Reports</span>
+                <span>Total</span>
                 <span className="font-black">{reports.length}</span>
                 <EllipsisHorizontalIcon className=" w-5 h-5" />
-              </a>
-              <a
+              </button>
+              <button
                 onClick={gotoTask}
-                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-green-700 hover:bg-green-600 rounded-lg text-white font-bold">
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 text-start bg-green-700 hover:bg-green-600 rounded-lg text-white font-bold">
                 <DocumentCheckIcon className="w-10 h-10" />
-                <span>Tasks Total</span>
+                <span>Tasks</span>
+                <span>Total</span>
                 <span className="font-black">{task.length}</span>
                 <EllipsisHorizontalIcon className=" w-5 h-5" />
-              </a>
-              <a
+              </button>
+              <button
                 onClick={gotoMeeting}
-                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-yellow-600 hover:bg-yellow-500 rounded-lg text-white font-bold">
+                className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 text-start bg-yellow-600 hover:bg-yellow-500 rounded-lg text-white font-bold">
                 <UserGroupIcon className="w-10 h-10" />
-                <span>Meeting Total</span>
+                <span>Meeting</span>
+                <span>Total</span>
                 <span className="font-black">{meetings.length}</span>
                 <EllipsisHorizontalIcon className=" w-5 h-5" />
-              </a>
+              </button>
               {user && user.roles === "admin" && (
-                <a
+                <button
                   onClick={gotoUser}
-                  className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-bold">
+                  className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 text-start bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-bold">
                   <UserGroupIcon className="w-10 h-10" />
-                  <span>User Total</span>
+                  <span>User</span>
+                  <span>Total</span>
                   <span className="font-black">{users.length}</span>
                   <EllipsisHorizontalIcon className=" w-5 h-5" />
-                </a>
+                </button>
               )}
             </div>
           </div>
           <div className="flex gap-5 md:flex-row flex-col justify-center items-center pt-10">
             {/* Right Side */}
-            <div className="flex flex-col items-center w-9/12 bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+            <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+              <button
+                className="flex self-end hover:text-white"
+                onClick={gotoReport}>
+                <EllipsisVerticalIcon className="w-6 h-6" />
+              </button>
               <span className="py-5 text-white font-bold text-lg">Reports</span>
               <div className="sm:mr-14 mr-0">
                 <CompleteReportChart />
               </div>
             </div>
             {/* Left Side */}
-            <div className="flex flex-col items-center w-9/12 bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+            <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+              <button
+                className="flex self-end hover:text-white"
+                onClick={gotoTask}>
+                <EllipsisVerticalIcon className="w-6 h-6" />
+              </button>
               <span className="py-5 text-white font-bold text-lg">Tasks</span>
               <TaskChart />
             </div>
@@ -168,7 +190,7 @@ export default function Dashboards() {
                 <th>Promote PIC</th>
                 <th>Changes</th>
                 <th>Promote Date</th>
-                <th className="sm:block hidden">Side Promote</th>
+                <th className="md:block hidden">Side Promote</th>
               </tr>
             </thead>
             <tbody>
@@ -185,7 +207,7 @@ export default function Dashboards() {
                     <td>{report.promote_pic}</td>
                     <td>{report.changes}</td>
                     <td>{report.promote_date}</td>
-                    <td className="sm:block hidden">{report.side_promote}</td>
+                    <td className="md:block hidden">{report.side_promote}</td>
                   </tr>
                 ))}
             </tbody>
@@ -193,7 +215,7 @@ export default function Dashboards() {
         </div>
 
         {/* Calendar & Clock */}
-        <div className="flex flex-col items-center h-fit px-5 sm:w-1/4 w-full bg-slate-800 rounded-xl py-2">
+        <div className="flex flex-col items-center h-fit px-5 md:w-1/4 w-full bg-slate-800 rounded-xl py-2">
           <span className="flex flex-row mt-3">
             Time :<Clock />
           </span>
@@ -221,11 +243,11 @@ export default function Dashboards() {
               {meetings
                 .filter(
                   (meeting) => meeting.meeting_date >= formatDate(Date.now())
-                ) // Filter out meetings with a date that is less than or equal to the current date
+                )
                 .sort((a, b) => (a.meeting_date < b.meeting_date ? 1 : -1))
                 .slice(0, 3)
-                .map((meeting, index) => (
-                  <tr key={meeting.meeting_date}>
+                .map((meeting) => (
+                  <tr key={meeting.id}>
                     <td>{meeting.meeting_name}</td>
                     <td>{meeting.meeting_date}</td>
                     <td>
@@ -242,6 +264,13 @@ export default function Dashboards() {
                 ))}
             </tbody>
           </table>
+          <button
+            onClick={gotoMeeting}
+            className="flex flex-row items-center gap-2 hover:text-white">
+            <EllipsisHorizontalIcon className="w-5 h-5" />
+            <span>See more</span>
+            <EllipsisHorizontalIcon className="w-5 h-5" />
+          </button>
           <div className="divider" />
 
           {/* Task List */}
@@ -263,7 +292,6 @@ export default function Dashboards() {
                 .slice(0, 5)
                 .map((singletask) => (
                   <tr key={singletask.id}>
-                    {/* <td>{truncate(meeting.meeting_name)}</td> */}
                     <td>{singletask.name}</td>
                     <td>{singletask.deadline}</td>
                     <td>
@@ -285,6 +313,13 @@ export default function Dashboards() {
                 ))}
             </tbody>
           </table>
+          <button
+            onClick={gotoTask}
+            className="flex flex-row items-center gap-2 hover:text-white">
+            <EllipsisHorizontalIcon className="w-5 h-5" />
+            <span>See more</span>
+            <EllipsisHorizontalIcon className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </section>

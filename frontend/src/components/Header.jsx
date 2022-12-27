@@ -46,8 +46,8 @@ export default function Header() {
 
   return (
     <section className="w-full">
-      {/* Navbar Header */}
-      <div className="flex flex-row md:gap-1 gap-40 text-slate-300">
+      <div className="flex flex-row md:gap-40 gap-60 text-slate-300">
+      {/* Menu */}
         <div className="md:w-3/5">
           <button
             onClick={() => collapseSidebar()}

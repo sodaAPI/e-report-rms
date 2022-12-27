@@ -94,7 +94,7 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="name"
-                  placeholder="Name"
+                  placeholder={user?.name}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -108,7 +108,7 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="email"
-                  placeholder="Email"
+                  placeholder={user?.email}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -122,7 +122,7 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="text"
-                  placeholder="Username"
+                  placeholder={user?.username}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
@@ -136,7 +136,7 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="tel"
-                  placeholder="Phone"
+                  placeholder={user?.phone}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
@@ -151,7 +151,7 @@ export default function EditProfiles() {
                 <Listbox
                   as="div"
                   className="space-y-1"
-                  value={user?.division}
+                  value={division}
                   onChange={setDivision}>
                   {({ open }) => (
                     <>
@@ -162,7 +162,7 @@ export default function EditProfiles() {
                         <span className="inline-block w-80 rounded-md shadow-sm">
                           <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                             <span className="block truncate text-gray-900">
-                              {user?.division}
+                              {division}
                             </span>
                             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                               <svg
@@ -248,7 +248,7 @@ export default function EditProfiles() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
-                  value={user?.birth}
+                  value={birth}
                   onChange={(e) => setBirth(e.target.value)}
                   required
                 />

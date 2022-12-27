@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EditMeeting = () => {
   const [Id, setId] = useState("");
@@ -13,6 +14,7 @@ const EditMeeting = () => {
   const [editedBy, setEditedBy] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
+  const [meetings, setMeetings] = useState([]);
   const history = useNavigate();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,9 +38,18 @@ const EditMeeting = () => {
     history.push("/meeting");
   };
 
+  const getMeetings = async () => {
+    const response = await axios.get("http://localhost:5000/meeting");
+    setMeetings(response.data);
+  };
+
   useEffect(() => {
     getMeetingById();
+    getMeetings();
   }, []);
+
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   const getMeetingById = async () => {
     const response = await axios.get(`http://localhost:5000/meeting/${id}`);
@@ -146,8 +157,7 @@ const EditMeeting = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Edited By"
-                value={editedBy}
-                onChange={(e) => setEditedBy(e.target.value)}
+                value={meetings.user?.name}
                 disabled
               />
             </div>
