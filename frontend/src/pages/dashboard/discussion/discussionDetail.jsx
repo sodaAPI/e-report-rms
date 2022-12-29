@@ -7,7 +7,12 @@ import {
   FunnelIcon,
 } from "@heroicons/react/24/outline";
 import { Listbox, Transition } from "@headlessui/react";
-import { UserCircleIcon } from "@heroicons/react/20/solid";
+import {
+  UserCircleIcon,
+  BuildingOffice2Icon,
+  UsersIcon,
+  EyeIcon,
+} from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -17,6 +22,7 @@ const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
   const [filtersSearch, setFiltersSearch] = useState([filterSearch[0]]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const gotoProfile = async () => {
     let path = "/dashboard/profile";
@@ -35,6 +41,25 @@ export default function Discussions() {
       <section className="flex flex-row gap-5 justify-center py-5 w-full">
         {/* Layout 1 */}
         <div className="flex flex-col bg-sky-800 bg-opacity-20 w-1/3 p-5 rounded-lg">
+          {/* Profile */}
+          <div className="flex flex-row xl:gap-44 md:gap-5 gap-0 items-center text-white">
+            <section className="flex flex-row gap-2 items-center text-white">
+              <UserCircleIcon className="lg:w-20 lg:h-20 w-10 h-10" />
+              <span className="flex flex-col w-full lg:text-lg text-sm">
+                {user?.name} / {user?.username}
+                <span className="text-slate-300 lg:text-sm text-xs">
+                  {user?.division} - {user?.roles}
+                </span>
+              </span>
+            </section>
+            <button
+              onClick={gotoProfile}
+              data-tip="User Profile"
+              className=" tooltip font-bold hover:bg-slate-700 hover:rounded-md">
+              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+            </button>
+          </div>
+          <div className="divider px-20" />
           {/* Header  */}
           <div className="flex flex-row gap-5 items-center self-center">
             {/* Search */}
@@ -46,11 +71,13 @@ export default function Discussions() {
                 className="input text-slate-900 bg-slate-100 lg:p-3 lg:text-base text-xs p-0 rounded-md lg:rounded-r-xl lg:rounded-l-none"
                 type="text"
                 placeholder=" Search ..."
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
               />
             </div>
             {/* Filter */}
             <div className="xl:flex flex-row hidden items-center gap-2">
-              <FunnelIcon className="text-white w-6 h-6"/>
+              <FunnelIcon className="text-white w-6 h-6" />
               <Listbox
                 as="div"
                 className="space-y-1"
@@ -136,31 +163,19 @@ export default function Discussions() {
             </div>
           </div>
           <div className="divider px-20" />
-          <div className="flex flex-row xl:gap-44 md:gap-5 gap-0 items-center text-white">
-            <section className="flex flex-row gap-2 items-center text-white">
-              <UserCircleIcon className="lg:w-20 lg:h-20 w-10 h-10" />
-              <span className="flex flex-col lg:text-lg text-sm">
-                {user?.name} / {user?.username}
-                <span className="text-slate-300 lg:text-sm text-xs">
-                  {user?.division} - {user?.roles}
-                </span>
-              </span>
-            </section>
-            <button
-              onClick={gotoProfile}
-              data-tip="User Profile"
-              className=" tooltip font-bold hover:bg-slate-700 hover:rounded-md">
-              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-            </button>
-          </div>
-          <div className="divider px-20" />
+          {/* Channels */}
           <div className="">
-            <span className="text-white text-xl font-bold">Channels</span>
-            <button data-tip="Sent" className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 p-2 rounded-lg">
+            <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
+              <BuildingOffice2Icon className="w-5 h-5" />
+              Channels
+            </span>
+            {/* <button
+              data-tip="Sent"
+              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
               <img
                 src="https://source.unsplash.com/random/300x300"
                 alt="user"
-                className="lg:h-20 lg:w-20 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
               <div className="flex flex-col gap-3 text-start">
                 <span className="flex md:flex-row flex-col md:gap-0 items-center xl:gap-7 gap-0">
                   <p className="text-slate-100 text-md font-bold">
@@ -173,12 +188,61 @@ export default function Discussions() {
                   <CheckIcon className=" text-sky-400 w-5 h-5" />
                 </span>
               </div>
+            </button> */}
+            <button
+              data-tip="Sent"
+              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
+              <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
+                <span className="text-slate-100 text-md font-bold">Testing Name Channel</span>
+                <span className="text-slate-300 font-base lg:text-sm text-xs">Admin : New Latest Message Channel</span>
+              </div>
+              <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
+                <span className="text-sm text-slate-400">12:00 AM</span>
+                <CheckIcon className=" text-sky-400 w-5 h-5" />
+              </div>
+            </button>
+          </div>
+          <div className="divider px-20" />
+          {/* Personal Chat */}
+          <div className="">
+            <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
+              <UsersIcon className="w-5 h-5" />
+              Personal Chat
+            </span>
+            <button
+              data-tip="Seen"
+              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
+              <div className="flex flex-col gap-3 text-start">
+                <span className="flex md:flex-row flex-col md:gap-0 items-center xl:gap-7 gap-0">
+                  <p className="text-slate-100 text-md font-bold">
+                    Person Name
+                  </p>
+                  <p className="text-sm text-slate-400">01:00 AM</p>
+                </span>
+                <span className="flex flex-col lg:flex-row gap-2 text-slate-300 font-base lg:text-sm text-xs">
+                  Person Name : New Latest Message ...
+                  <EyeIcon className=" text-sky-400 w-5 h-5" />
+                </span>
+              </div>
             </button>
           </div>
         </div>
         {/* Chat Layout 2 */}
-        <div className="flex flex-col min-h-screen bg-sky-900 bg-opacity-20 w-4/5 h-min-screen p-5 rounded-lg">
-          Chat Layout
+        <div className="flex flex-col w-4/5">
+          <div className="bg-sky-800 bg-opacity-10 p-5 rounded-t-lg">
+            <span className="text-lg font-bold">Chat Header Name</span>
+          </div>
+          <div className="bg-sky-900 bg-opacity-30 p-5 rounded-b-lg min-h-screen">
+            Chat Body
+          </div>
         </div>
       </section>
     </div>

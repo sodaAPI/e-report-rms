@@ -13,7 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import Clock from "react-digital-clock";
+import Clock from "../../components/Clock";
 import CompleteReportChart from "./completeReportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
@@ -218,8 +218,8 @@ export default function Dashboards() {
 
         {/* Calendar & Clock */}
         <div className="flex flex-col items-center h-fit px-5 md:w-1/4 w-full bg-slate-800 rounded-xl py-2">
-          <span className="flex flex-row mt-3">
-            Time :<Clock />
+          <span className="flex flex-row mt-3 gap-1">
+            Time : <Clock />
           </span>
           <div className="divider" />
           <span className="text-lg text-white ">Calendar</span>
@@ -268,7 +268,7 @@ export default function Dashboards() {
           </table>
           <button
             onClick={gotoMeeting}
-            className="flex flex-row items-center gap-2 hover:text-white">
+            className="flex flex-row items-center gap-2 py-3 hover:text-white">
             <EllipsisHorizontalIcon className="w-5 h-5" />
             <span>See more</span>
             <EllipsisHorizontalIcon className="w-5 h-5" />
@@ -317,7 +317,7 @@ export default function Dashboards() {
           </table>
           <button
             onClick={gotoTask}
-            className="flex flex-row items-center gap-2 hover:text-white pb-3">
+            className="flex flex-row items-center gap-2 hover:text-white py-3">
             <EllipsisHorizontalIcon className="w-5 h-5" />
             <span>See more</span>
             <EllipsisHorizontalIcon className="w-5 h-5" />
