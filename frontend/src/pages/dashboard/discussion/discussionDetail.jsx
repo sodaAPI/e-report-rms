@@ -6,6 +6,7 @@ import {
   CheckIcon,
   FunnelIcon,
   PaperAirplaneIcon,
+  FaceSmileIcon,
 } from "@heroicons/react/24/outline";
 import { Listbox, Transition } from "@headlessui/react";
 import {
@@ -22,8 +23,9 @@ import { useState } from "react";
 const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
-  const [filtersSearch, setFiltersSearch] = useState([filterSearch[0]]);
+  const [filtersSearch, setFiltersSearch] = useState("No Filter");
   const [searchTerm, setSearchTerm] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const gotoProfile = async () => {
     let path = "/dashboard/profile";
@@ -78,7 +80,9 @@ export default function Discussions() {
             </div>
             {/* Filter */}
             <div className="xl:flex flex-row hidden items-center gap-2">
-              <FunnelIcon className="text-white w-6 h-6" />
+              <button data-tip="Filter" className="tooltip">
+                <FunnelIcon className=" text-white w-6 h-6" />
+              </button>
               <Listbox
                 as="div"
                 className="space-y-1"
@@ -170,44 +174,31 @@ export default function Discussions() {
               <BuildingOffice2Icon className="w-5 h-5" />
               Channels
             </span>
-            {/* <button
-              data-tip="Sent"
-              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
-              <div className="flex flex-col gap-3 text-start">
-                <span className="flex md:flex-row flex-col md:gap-0 items-center xl:gap-7 gap-0">
-                  <p className="text-slate-100 text-md font-bold">
-                    Testing Name Channel
-                  </p>
-                  <p className="text-sm text-slate-400">12:59 AM</p>
-                </span>
-                <span className="flex flex-col lg:flex-row gap-2 text-slate-300 font-base lg:text-sm text-xs">
-                  Admin : New Latest Message Channel ...
-                  <CheckIcon className=" text-sky-400 w-5 h-5" />
-                </span>
-              </div>
-            </button> */}
             <button
               data-tip="Sent"
-              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+              className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
               <img
                 src="https://source.unsplash.com/random/300x300"
                 alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
               <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
                 <span className="text-slate-100 text-md font-bold">
                   Testing Name Channel
                 </span>
-                <span className="text-slate-300 font-base lg:text-sm text-xs">
-                  Admin : New Latest Message Channel
+                <span className="lg:hidden block text-sm text-slate-400">
+                  12:00 AM
                 </span>
+                <span className="text-slate-300 font-base lg:text-sm text-xs">
+                  Admin : New Latest Message Channel ...
+                </span>
+                <CheckIcon className="lg:hidden block text-sky-400 w-5 h-5" />
               </div>
               <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
-                <span className="text-sm text-slate-400">12:00 AM</span>
-                <CheckIcon className=" text-sky-400 w-5 h-5" />
+                <span className="lg:block hidden text-sm text-slate-400">
+                  12:00 AM
+                </span>
+                <CheckIcon className="lg:block hidden text-sky-400 w-5 h-5" />
               </div>
             </button>
           </div>
@@ -220,23 +211,29 @@ export default function Discussions() {
             </span>
             <button
               data-tip="Seen"
-              className="tooltip tooltip-right flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+              className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-5 items-center bg-slate-800 bg-opacity-70 rounded-lg">
               <img
                 src="https://source.unsplash.com/random/300x300"
                 alt="user"
                 className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
               />
-              <div className="flex flex-col gap-3 text-start">
-                <span className="flex md:flex-row flex-col md:gap-0 items-center xl:gap-7 gap-0">
-                  <p className="text-slate-100 text-md font-bold">
-                    Person Name
-                  </p>
-                  <p className="text-sm text-slate-400">01:00 AM</p>
+              <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
+                <span className="text-slate-100 text-md font-bold">
+                  Person Name
                 </span>
-                <span className="flex flex-col lg:flex-row gap-2 text-slate-300 font-base lg:text-sm text-xs">
+                <span className="lg:hidden block text-sm text-slate-400">
+                  12:00 AM
+                </span>
+                <span className="text-slate-300 font-base lg:text-sm text-xs">
                   Person Name : New Latest Message ...
-                  <EyeIcon className=" text-sky-400 w-5 h-5" />
                 </span>
+                <EyeIcon className="lg:hidden block text-sky-400 w-5 h-5" />
+              </div>
+              <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
+                <span className="lg:block hidden text-sm text-slate-400">
+                  12:00 AM
+                </span>
+                <EyeIcon className="lg:block hidden text-sky-400 w-5 h-5" />
               </div>
             </button>
           </div>
@@ -254,24 +251,120 @@ export default function Discussions() {
               Chat Header Name
             </span>
             <div className="px-5">
-            <button
-              onClick={gotoProfile}
-              data-tip="Channel Info"
-              className=" tooltip font-bold hover:bg-slate-700 hover:rounded-md">
-              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-            </button>
+              <button
+                // onClick={gotoProfile}
+                data-tip="Channel Info"
+                className=" tooltip tooltip-left font-bold hover:bg-slate-700 hover:rounded-md">
+                <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+              </button>
             </div>
           </div>
-          <div className="bg-slate-900 bg-opacity-30 p-5 min-h-screen">
-            <div>Chat Body</div>
+          {/* Chat Body */}
+          <div className="flex flex-col bg-slate-900 bg-opacity-30 px-5 min-h-screen">
+            <div className="flex flex-row py-3">
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-5">
+                  <span className="text-red-500">Name 1</span>
+                  <span>12:00 AM</span>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Phasellus ex odio, facilisis sollicitudin maximus eu,
+                    aliquet non tellus. Praesent sed est vel ligula lobortis
+                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
+                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
+                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
+                    odio, in vehicula dui.
+                  </span>
+                  <button
+                    // onClick={gotoProfile}
+                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row py-3">
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-5">
+                  <span className="text-yellow-500">Name 2</span>
+                  <span>12:00 AM</span>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Phasellus ex odio, facilisis sollicitudin maximus eu,
+                    aliquet non tellus. Praesent sed est vel ligula lobortis
+                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
+                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
+                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
+                    odio, in vehicula dui.
+                  </span>
+                  <button
+                    // onClick={gotoProfile}
+                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row py-3">
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-5 place-self-end">
+                  <span>12:00 AM</span>
+                  <span className="text-purple-100">Me</span>
+                </div>
+                <div className="flex flex-row gap-2 place-content-end">
+                  <button
+                    // onClick={gotoProfile}
+                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                  </button>
+                  <span className="flex gap-2 bg-blue-600 bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tr-none text-justify text-slate-300">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Phasellus ex odio, facilisis sollicitudin maximus eu,
+                    aliquet non tellus. Praesent sed est vel ligula lobortis
+                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
+                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
+                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
+                    odio, in vehicula dui.
+                  </span>
+                </div>
+              </div>
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
+            </div>
           </div>
+          {/* Send Message Navigation Bar */}
           <div className="flex flex-row items-center w-full rounded-b-lg bg-sky-800 bg-opacity-20 px-5 py-3 ">
+            <button
+              data-tip="Emoticon"
+              className="tooltip tooltip-left hover:text-white text-slate-300">
+              <FaceSmileIcon className="w-14 h-14 pr-5" />
+            </button>
             <input
               className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
               type="text"
               placeholder="Message ..."
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
             />
             <button
+              onClick={(event) => setMessage(event.target.value)}
               className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
               type="submit">
               <PaperAirplaneIcon className="text-white w-7 h-7" />
