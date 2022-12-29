@@ -5,6 +5,7 @@ import {
   EllipsisVerticalIcon,
   CheckIcon,
   FunnelIcon,
+  PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { Listbox, Transition } from "@headlessui/react";
 import {
@@ -197,8 +198,12 @@ export default function Discussions() {
                 alt="user"
                 className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
               <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
-                <span className="text-slate-100 text-md font-bold">Testing Name Channel</span>
-                <span className="text-slate-300 font-base lg:text-sm text-xs">Admin : New Latest Message Channel</span>
+                <span className="text-slate-100 text-md font-bold">
+                  Testing Name Channel
+                </span>
+                <span className="text-slate-300 font-base lg:text-sm text-xs">
+                  Admin : New Latest Message Channel
+                </span>
               </div>
               <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
                 <span className="text-sm text-slate-400">12:00 AM</span>
@@ -219,7 +224,8 @@ export default function Discussions() {
               <img
                 src="https://source.unsplash.com/random/300x300"
                 alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"></img>
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
               <div className="flex flex-col gap-3 text-start">
                 <span className="flex md:flex-row flex-col md:gap-0 items-center xl:gap-7 gap-0">
                   <p className="text-slate-100 text-md font-bold">
@@ -237,11 +243,39 @@ export default function Discussions() {
         </div>
         {/* Chat Layout 2 */}
         <div className="flex flex-col w-4/5">
-          <div className="bg-sky-800 bg-opacity-10 p-5 rounded-t-lg">
-            <span className="text-lg font-bold">Chat Header Name</span>
+          {/* Header */}
+          <div className="flex flex-row items-center place-content-between bg-sky-800 bg-opacity-20 rounded-t-lg lg:p-0 p-5">
+            <span className="flex flex-row items-center text-lg font-bold text-white">
+              <img
+                src="https://source.unsplash.com/random/300x300"
+                alt="user"
+                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+              />
+              Chat Header Name
+            </span>
+            <div className="px-5">
+            <button
+              onClick={gotoProfile}
+              data-tip="Channel Info"
+              className=" tooltip font-bold hover:bg-slate-700 hover:rounded-md">
+              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+            </button>
+            </div>
           </div>
-          <div className="bg-sky-900 bg-opacity-30 p-5 rounded-b-lg min-h-screen">
-            Chat Body
+          <div className="bg-slate-900 bg-opacity-30 p-5 min-h-screen">
+            <div>Chat Body</div>
+          </div>
+          <div className="flex flex-row items-center w-full rounded-b-lg bg-sky-800 bg-opacity-20 px-5 py-3 ">
+            <input
+              className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
+              type="text"
+              placeholder="Message ..."
+            />
+            <button
+              className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
+              type="submit">
+              <PaperAirplaneIcon className="text-white w-7 h-7" />
+            </button>
           </div>
         </div>
       </section>
