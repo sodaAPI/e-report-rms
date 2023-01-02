@@ -12,24 +12,27 @@ const Message = db.define(
       defaultValue: Sequelize.UUIDV4,
     },
     text: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     users: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
+      type: DataTypes.INTEGER,
     },
-    sender: {
-      type: Sequelize.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "User",
-        key: "id",
+      validate: {
+        notEmpty: true,
       },
     },
   },
   {
     timestamps: true,
+    freezeTableName: true,
   }
 );
+
+User.hasMany(Message);
+Message.belongsTo(User, { foreignKey: "userId" });
 
 export default Message;

@@ -24,9 +24,9 @@ const store = new sessionStore({
 
 // Sync Database
 
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 // store.sync();
 
@@ -71,14 +71,11 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(5000, () => {
-  console.log("Server up and running...");
-});
-
 // Socket.io
-const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on ${process.env.PORT}`)
+const server = app.listen(5000, () =>
+  console.log(`Server started on 5000`)
 );
+
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
@@ -86,8 +83,10 @@ const io = new Server(server, {
   },
 });
 
+
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
+  console.log(`User connected ${socket.id}`);
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);

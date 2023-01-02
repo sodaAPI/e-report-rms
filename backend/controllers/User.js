@@ -89,24 +89,43 @@ export const updateUser = async (req, res) => {
       msg: "Password and Confirmation Password do not match, Please try again.",
     });
   try {
-    await User.update(
-      {
-        name: name,
-        email: email,
-        username: username,
-        division: division,
-        status: status,
-        birth: birth,
-        password: hashPassword,
-        phone: phone,
-        roles: roles,
-      },
-      {
-        where: {
-          id: user.id,
+    if (req.roles === "admin") {
+      await User.update(
+        {
+          name: name,
+          email: email,
+          username: username,
+          division: division,
+          status: status,
+          birth: birth,
+          password: hashPassword,
+          phone: phone,
+          roles: roles,
         },
-      }
-    );
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
+    } else {
+      await User.update(
+        {
+          name: name,
+          email: email,
+          username: username,
+          status: status,
+          birth: birth,
+          password: hashPassword,
+          phone: phone,
+        },
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
+    }
     res.status(200).json({ msg: "User Updated" });
   } catch (error) {
     res.status(400).json({ msg: error.message });

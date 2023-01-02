@@ -4,8 +4,10 @@ import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 import Discussions from "./discussionDetail";
+import { io } from "socket.io-client";
 
 export default function Discussion() {
+  var socket = io();
   return (
     <div className="flex flex-row">
       <Sidebar />

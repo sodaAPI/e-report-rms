@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ChatBubbleLeftRightIcon,
   MagnifyingGlassIcon,
@@ -13,11 +13,11 @@ import {
   UserCircleIcon,
   BuildingOffice2Icon,
   UsersIcon,
-  EyeIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 //TODO: Chat Group/Forum API
 const filterSearch = ["Latest", "Oldest"];
@@ -25,15 +25,41 @@ const filterSearch = ["Latest", "Oldest"];
 export default function Discussions() {
   const [filtersSearch, setFiltersSearch] = useState("No Filter");
   const [searchTerm, setSearchTerm] = useState("");
-  const [message, setMessage] = useState("");
+  const [showMessages, setShowMessage] = useState([]);
+  const [text, setMessage] = useState("");
   const navigate = useNavigate();
+  const history = useNavigate();
+
   const gotoProfile = async () => {
     let path = "/dashboard/profile";
     navigate(path);
   };
 
+  //Chat
+  const getMessage = async () => {
+    const response = await axios.get("http://localhost:5000/message/get");
+    setShowMessage(response.data);
+  };
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    await axios.post(`http://localhost:5000/message/add`, {
+      text: text,
+    });
+    window.alert("Task Added Successfully");
+    history.push("/message");
+  };
+
+  useEffect(() => {
+    getMessage();
+  }, []);
+
   //User
   const { user } = useSelector((state) => state.auth);
+
+  //Truncate
+  const truncate = (input) =>
+    input?.length > 4 ? `${input.substring(0, 40)}...` : input;
 
   return (
     <div className="py-5">
@@ -42,7 +68,7 @@ export default function Discussions() {
         Chat Dicussion
       </span>
       <section className="flex flex-row gap-5 justify-center py-5 w-full">
-        {/* Layout 1 */}
+        {/* Channel Layout */}
         <div className="flex flex-col h-1/2 bg-sky-800 bg-opacity-20 w-1/3 p-5 rounded-lg">
           {/* Profile */}
           <div className="flex flex-row xl:gap-40 md:gap-5 gap-0 items-center text-white">
@@ -169,72 +195,49 @@ export default function Discussions() {
           </div>
           <div className="divider my-3 px-20" />
           {/* Channels */}
-            <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
-              <BuildingOffice2Icon className="w-5 h-5" />
-              Channels
-            </span>
-            <button
-              data-tip="Sent"
-              className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
-                <span className="text-slate-100 text-md font-bold">
-                  Testing Name Channel
-                </span>
-                <span className="lg:hidden block text-sm text-slate-400">
-                  12:00 AM
-                </span>
-                <span className="text-slate-300 font-base lg:text-sm text-xs">
-                  Admin : New Latest Message Channel ...
-                </span>
-                <CheckIcon className="lg:hidden block text-sky-400 w-5 h-5" />
-              </div>
-              <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
-                <span className="lg:block hidden text-sm text-slate-400">
-                  12:00 AM
-                </span>
-                <CheckIcon className="lg:block hidden text-sky-400 w-5 h-5" />
-              </div>
-            </button>
+          <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
+            <BuildingOffice2Icon className="w-5 h-5" />
+            Channels
+          </span>
+          <button
+            data-tip="Sent"
+            className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+            <img
+              src="https://source.unsplash.com/random/300x300"
+              alt="user"
+              className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+            />
+            {showMessages
+              .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+              .slice(0, 1)
+              .map((val, index) => {
+                return (
+                  <>
+                    <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
+                      <span className="text-slate-100 text-md font-bold">
+                        Global
+                      </span>
+                      <span className="lg:hidden block text-sm text-slate-400">
+                        {val.createdAt}
+                      </span>
+                      <span className="text-slate-300 font-base lg:text-sm text-xs">
+                        {val.user.name}: {truncate(val.text)}
+                      </span>
+                      <CheckIcon className="lg:hidden block text-sky-400 w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
+                      <span className="lg:block hidden text-sm text-slate-400">
+                        {val.createdAt}
+                      </span>
+                      <CheckIcon className="lg:block hidden text-sky-400 w-5 h-5" />
+                    </div>
+                  </>
+                );
+              })}
+          </button>
           <div className="divider my-3 px-20" />
-          {/* Personal Chat */}
-            <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
-              <UsersIcon className="w-5 h-5" />
-              Personal Chat
-            </span>
-            <button
-              data-tip="Seen"
-              className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
-                <span className="text-slate-100 text-md font-bold">
-                  Person Name
-                </span>
-                <span className="lg:hidden block text-sm text-slate-400">
-                  12:00 AM
-                </span>
-                <span className="text-slate-300 font-base lg:text-sm text-xs">
-                  Person Name : New Latest Message ...
-                </span>
-                <EyeIcon className="lg:hidden block text-sky-400 w-5 h-5" />
-              </div>
-              <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
-                <span className="lg:block hidden text-sm text-slate-400">
-                  12:00 AM
-                </span>
-                <EyeIcon className="lg:block hidden text-sky-400 w-5 h-5" />
-              </div>
-            </button>
         </div>
-        {/* Chat Layout 2 */}
+        {/* Chat Layout */}
         <div className="flex flex-col w-4/5">
           {/* Header */}
           <div className="flex flex-row items-center place-content-between bg-sky-800 bg-opacity-20 rounded-t-lg lg:p-0 p-5">
@@ -256,239 +259,67 @@ export default function Discussions() {
             </div>
           </div>
           {/* Chat Body */}
-          <div className="flex flex-col overflow-y-auto h-1/2  bg-slate-900 bg-opacity-30 px-5">
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-red-500">Name 1</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-yellow-500">Name 2</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row py-3">
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5 place-self-end">
-                  <span>12:00 AM</span>
-                  <span className="text-purple-100">Me</span>
-                </div>
-                <div className="flex flex-row gap-2 place-content-end">
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                  <span className="flex gap-2 bg-blue-600 bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tr-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                </div>
-              </div>
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-            </div>
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-yellow-500">Name 2</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-red-500">Name 1</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-yellow-500">Name 2</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-row py-3">
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5 place-self-end">
-                  <span>12:00 AM</span>
-                  <span className="text-purple-100">Me</span>
-                </div>
-                <div className="flex flex-row gap-2 place-content-end">
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                  <span className="flex gap-2 bg-blue-600 bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tr-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                </div>
-              </div>
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-            </div>
-            <div className="flex flex-row py-3">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <span className="text-yellow-500">Name 2</span>
-                  <span>12:00 AM</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ex odio, facilisis sollicitudin maximus eu,
-                    aliquet non tellus. Praesent sed est vel ligula lobortis
-                    rutrum sed at odio. Praesent vel dolor sed ipsum consequat
-                    maximus vitae quis ante. Curabitur a ultricies lorem. Duis
-                    eu scelerisque metus, quis maximus elit. Nullam ut rhoncus
-                    odio, in vehicula dui.
-                  </span>
-                  <button
-                    // onClick={gotoProfile}
-                    className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                    <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col overflow-y-scroll scroll-smooth h-chat bg-slate-900 bg-opacity-30 px-5">
+            {showMessages
+              .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+              .filter((messages) => messages.userId !== user.id)
+              .map((val, index) => {
+                return (
+                  <div className="flex flex-row py-3">
+                    <img
+                      src="https://source.unsplash.com/random/300x300"
+                      alt="user"
+                      className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+                    />
+                    <div className="flex flex-col gap-2">
+                      <div className="flex flex-row gap-5">
+                        <span className="text-red-500">{val.user.name}</span>
+                        <span>{val.createdAt}</span>
+                      </div>
+                      <div className="flex flex-row gap-2">
+                        <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
+                          {val.text}
+                        </span>
+                        <button
+                          // onClick={gotoProfile}
+                          className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                          <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            {showMessages
+              .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+              .filter((messages) => messages.userId === user.id)
+              .map((val, index) => {
+                return (
+                  <div className="flex flex-row py-3 place-self-end">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex flex-row gap-5 place-self-end">
+                        <span>{val.createdAt}</span>
+                        <span className="text-purple-100">{val.user.name}</span>
+                      </div>
+                      <div className="flex flex-row gap-2 place-content-end">
+                        <button
+                          // onClick={gotoProfile}
+                          className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                          <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                        </button>
+                        <span className="flex gap-2 bg-blue-600 bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tr-none text-justify text-slate-300">
+                          {val.text}
+                        </span>
+                      </div>
+                    </div>
+                    <img
+                      src="https://source.unsplash.com/random/300x300"
+                      alt="user"
+                      className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
+                    />
+                  </div>
+                );
+              })}
           </div>
           {/* Send Message Navigation Bar */}
           <div className="flex flex-row items-center w-full rounded-b-lg bg-sky-800 bg-opacity-20 px-5 py-3 ">
@@ -497,19 +328,22 @@ export default function Discussions() {
               className="tooltip tooltip-left hover:text-white text-slate-300">
               <FaceSmileIcon className="w-14 h-14 pr-5" />
             </button>
-            <input
-              className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
-              type="text"
-              placeholder="Message ..."
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-            />
-            <button
-              onClick={(event) => setMessage(event.target.value)}
-              className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
-              type="submit">
-              <PaperAirplaneIcon className="text-white w-7 h-7" />
-            </button>
+            <form
+              className="flex flex-row items-center w-full"
+              onSubmit={sendMessage}>
+              <input
+                className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
+                type="text"
+                placeholder="Message ..."
+                value={text}
+                onChange={(event) => setMessage(event.target.value)}
+              />
+              <button
+                className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
+                type="submit">
+                <PaperAirplaneIcon className="text-white w-7 h-7" />
+              </button>
+            </form>
           </div>
         </div>
       </section>

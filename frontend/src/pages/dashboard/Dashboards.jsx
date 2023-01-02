@@ -24,14 +24,8 @@ export default function Dashboards() {
   const [users, setUsers] = useState([]);
   const [task, setTask] = useState([]);
   const [value, onChange] = useState(new Date());
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    getReports();
-    getMeetings();
-    getTasks();
-    getUsers();
-  }, []);
+  const navigate = useNavigate();
 
   //User
   const { user } = useSelector((state) => state.auth);
@@ -98,6 +92,13 @@ export default function Dashboards() {
 
     return [year, month, day].join("-");
   }
+
+  useEffect(() => {
+    getReports();
+    getMeetings();
+    getTasks();
+    getUsers();
+  }, []);
 
   return (
     <section>
@@ -324,6 +325,7 @@ export default function Dashboards() {
           </button>
         </div>
       </div>
+
     </section>
   );
 }
