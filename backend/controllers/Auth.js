@@ -1,40 +1,5 @@
-import db from "../config/database.js";
-import { config } from "../config/auth.config.js";
 import User from "../models/userModel.js";
-// import bcrypt from "bcrypt";
-import Jwt from "jsonwebtoken";
 import argon2 from "argon2";
-
-// const Op = db.Sequelize.Op;
-
-// export const signup = (req, res) => {
-//   // Save User to Database
-//   User.create(req.body)
-//     .then((user) => {
-//       if (req.body.roles) {
-//         User.findAll({
-//           where: {
-//             name: {
-//               [Op.or]: req.body.roles,
-//             },
-//           },
-//         }).then((user) => {
-
-//           user.roles.then(() => {
-//             res.send({ message: "User registered successfully!" });
-//           });
-//         });
-//       } else {
-//         // user role = 1
-//         user.roles([1]).then(() => {
-//           res.send({ message: "User registered successfully!" });
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({ message: err.message });
-//     });
-// };
 
 export const Login = async (req, res) => {
   const user = await User.findOne({

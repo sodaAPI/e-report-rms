@@ -9,16 +9,17 @@ import ReportRoute from "./routes/ReportRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import MeetingRoute from "./routes/MeetingRoute.js";
 import TaskRoute from "./routes/TaskRoute.js";
+import MessageRoute from "./routes/MessageRoute.js";
 import bodyParser from "body-parser";
 import corsOptions from "cors";
-import FileUpload from "express-fileupload";
+import { Server } from "socket.io";
 dotenv.config();
 
 const app = express();
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
-  expiration: 6 * 60 * 60 * 1000
+  expiration: 6 * 60 * 60 * 1000,
 });
 
 // Sync Database
@@ -29,15 +30,17 @@ const store = new sessionStore({
 
 // store.sync();
 
-app.use(session({
-  secret: "7cfbedb7-444e-4334-a3ea-2078468fd035",
-  resave: false,
-  saveUninitialized: true,
-  store: store,
-  cookie: {
-      secure: 'auto'
-  }
-}));
+app.use(
+  session({
+    secret: "7cfbedb7-444e-4334-a3ea-2078468fd035",
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+      secure: "auto",
+    },
+  })
+);
 
 try {
   await db.authenticate();
@@ -53,12 +56,12 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(FileUpload());
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 app.use("/report", ReportRoute);
 app.use("/meeting", MeetingRoute);
 app.use("/task", TaskRoute);
+app.use("/message", MessageRoute);
 
 app.use(cors(corsOptions));
 
@@ -70,4 +73,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(5000, () => {
   console.log("Server up and running...");
+});
+
+// Socket.io
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
 });

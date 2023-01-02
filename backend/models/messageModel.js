@@ -32,4 +32,4 @@ const Message = db.define(
   }
 );
 
-module.exports = Message;
+export default Message;
