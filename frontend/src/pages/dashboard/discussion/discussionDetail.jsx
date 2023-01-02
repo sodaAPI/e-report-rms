@@ -43,9 +43,9 @@ export default function Discussions() {
       </span>
       <section className="flex flex-row gap-5 justify-center py-5 w-full">
         {/* Layout 1 */}
-        <div className="flex flex-col h-full bg-sky-800 bg-opacity-20 w-1/3 p-5 rounded-lg">
+        <div className="flex flex-col h-1/2 bg-sky-800 bg-opacity-20 w-1/3 p-5 rounded-lg">
           {/* Profile */}
-          <div className="flex flex-row xl:gap-44 md:gap-5 gap-0 items-center text-white">
+          <div className="flex flex-row xl:gap-40 md:gap-5 gap-0 items-center text-white">
             <section className="flex flex-row gap-2 items-center text-white">
               <UserCircleIcon className="lg:w-20 lg:h-20 w-10 h-10" />
               <span className="flex flex-col w-full lg:text-lg text-sm">
@@ -256,7 +256,7 @@ export default function Discussions() {
             </div>
           </div>
           {/* Chat Body */}
-          <div className="flex flex-col overflow-y-scroll overflow-hidden h-1/2 bg-slate-900 bg-opacity-30 px-5">
+          <div className="flex flex-col overflow-y-auto h-1/2  bg-slate-900 bg-opacity-30 px-5">
             <div className="flex flex-row py-3">
               <img
                 src="https://source.unsplash.com/random/300x300"
