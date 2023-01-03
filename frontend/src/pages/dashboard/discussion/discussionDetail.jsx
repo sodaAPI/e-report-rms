@@ -11,15 +11,15 @@ import {
 import { Listbox, Transition } from "@headlessui/react";
 import {
   UserCircleIcon,
-  BuildingOffice2Icon,
   UsersIcon,
+  GlobeAltIcon
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-//TODO: Chat Group/Forum API
+//TODO: Add Socket.io
 const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
@@ -59,7 +59,7 @@ export default function Discussions() {
 
   //Truncate
   const truncate = (input) =>
-    input?.length > 4 ? `${input.substring(0, 40)}...` : input;
+    input?.length > 4 ? `${input.substring(0, 30)}...` : input;
 
   return (
     <div className="py-5">
@@ -88,11 +88,11 @@ export default function Discussions() {
               <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
             </button>
           </div>
-          <div className="divider my-3 px-20" />
+          {/* <div className="divider my-3 px-20" /> */}
           {/* Header  */}
-          <div className="flex flex-row gap-5 items-center self-center">
+          {/* <div className="flex flex-row gap-5 items-center self-center"> */}
             {/* Search */}
-            <div className="flex flex-row items-center self-center">
+            {/* <div className="flex flex-row items-center self-center">
               <div className="lg:block hidden bg-sky-900 lg:p-3 p-0 rounded-l-xl">
                 <MagnifyingGlassIcon className="w-6 h-6 text-white" />
               </div>
@@ -103,9 +103,9 @@ export default function Discussions() {
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
               />
-            </div>
+            </div> */}
             {/* Filter */}
-            <div className="xl:flex flex-row hidden items-center gap-2">
+            {/* <div className="xl:flex flex-row hidden items-center gap-2">
               <button data-tip="Filter" className="tooltip">
                 <FunnelIcon className=" text-white w-6 h-6" />
               </button>
@@ -191,20 +191,18 @@ export default function Discussions() {
                   </>
                 )}
               </Listbox>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
           <div className="divider my-3 px-20" />
           {/* Channels */}
           <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
-            <BuildingOffice2Icon className="w-5 h-5" />
+            <GlobeAltIcon className="w-5 h-5" />
             Channels
           </span>
           <button
             data-tip="Sent"
             className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
-            <img
-              src="https://source.unsplash.com/random/300x300"
-              alt="user"
+            <UsersIcon
               className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
             />
             {showMessages
@@ -247,7 +245,7 @@ export default function Discussions() {
                 alt="user"
                 className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
               />
-              Chat Header Name
+              Global
             </span>
             <div className="px-5">
               <button
@@ -266,15 +264,11 @@ export default function Discussions() {
               .map((val, index) => {
                 return (
                   <div className="flex flex-row py-3">
-                    <img
-                      src="https://source.unsplash.com/random/300x300"
-                      alt="user"
-                      className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-                    />
+                    <UserCircleIcon className="text-green-500 lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"/>
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row gap-5">
                         <span className="text-red-500">{val.user.name}</span>
-                        <span>{val.createdAt}</span>
+                        <span> {val.createdAt}</span>
                       </div>
                       <div className="flex flex-row gap-2">
                         <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
@@ -298,7 +292,7 @@ export default function Discussions() {
                   <div className="flex flex-row py-3 place-self-end">
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row gap-5 place-self-end">
-                        <span>{val.createdAt}</span>
+                        <span> {val.createdAt}</span>
                         <span className="text-purple-100">{val.user.name}</span>
                       </div>
                       <div className="flex flex-row gap-2 place-content-end">
@@ -312,11 +306,7 @@ export default function Discussions() {
                         </span>
                       </div>
                     </div>
-                    <img
-                      src="https://source.unsplash.com/random/300x300"
-                      alt="user"
-                      className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-                    />
+                    <UserCircleIcon className="text-blue-500 lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"/>
                   </div>
                 );
               })}

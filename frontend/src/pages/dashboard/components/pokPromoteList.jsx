@@ -4,7 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   MagnifyingGlassIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
+import DataToExcel from "../../../components/dataReportPOKToExcel";
 
 //TODO: Add API e-Report to Word/Word to e-Report
 //TODO: Pagination
@@ -59,7 +61,8 @@ const PokPromoteList = () => {
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
         <Link
           to="/dashboard/report/add"
-          className="p-3 bg-sky-900 hover:bg-sky-800 rounded-xl text-white">
+          className="flex flex-row p-3 items-center gap-2 bg-sky-900 hover:bg-sky-800 rounded-xl text-white">
+          <PlusCircleIcon className="w-5 h-5" />
           Add New e-Report
         </Link>
         <div className="flex flex-row items-center">
@@ -74,6 +77,7 @@ const PokPromoteList = () => {
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </div>
+        <DataToExcel />
       </div>
       <table className="table-compact table-zebra bg-slate-800 rounded-2xl text-white mt-7">
         <thead>

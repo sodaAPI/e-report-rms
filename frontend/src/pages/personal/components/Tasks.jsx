@@ -135,7 +135,7 @@ export default function Tasks() {
               onChange={(event) => setSearchTerm(event.target.value)}
             />
           </div>
-          <table className="table-compact text-center bg-slate-800 rounded-2xl text-white mt-7">
+          <table className="table-compact table-zebra text-center bg-slate-800 rounded-2xl text-white mt-7">
             <thead>
               <tr>
                 <th>ID</th>
@@ -155,7 +155,7 @@ export default function Tasks() {
                   (task) =>
                     new RegExp(searchTerm, "i").test(task.name) ||
                     new RegExp(searchTerm, "i").test(task.description) ||
-                    new RegExp(searchTerm, "i").test(task.by_user) ||
+                    new RegExp(searchTerm, "i").test(task.user.name) ||
                     new RegExp(searchTerm, "i").test(task.id) ||
                     new RegExp(searchTerm, "i").test(task.status) ||
                     new RegExp(searchTerm, "i").test(task.deadline)

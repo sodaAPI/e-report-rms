@@ -6,7 +6,7 @@ import {
   PlusCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DataToExcel from "../../../components/dataToExcel";
+import DataToExcel from "../../../components/dataReportToExcel";
 
 
 //TODO: Pagination

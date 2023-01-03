@@ -61,7 +61,7 @@ const MeetingList = () => {
           </span>
         </div>
       </div>
-      <table className="table-compact bg-slate-800 rounded-2xl text-white mt-7">
+      <table className="table-compact table-zebra bg-slate-800 rounded-2xl text-white mt-7">
         <thead>
           <tr>
             <th>ID</th>
