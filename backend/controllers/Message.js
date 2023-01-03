@@ -29,7 +29,7 @@ export const getMessages = async (req, res) => {
 };
 
 export const addMessage = async (req, res) => {
-  const { id, uuid, text, users: room } = req.body;
+  const { id, uuid, text, room } = req.body;
   try {
     await Messages.create({
       id: id,
@@ -43,5 +43,35 @@ export const addMessage = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error creating message", error: error.message });
+  }
+};
+
+export const deleteMessage = async (req, res) => {
+  try {
+    const messages = await Messages.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!messages) return res.status(404).json({ msg: "Data not found" });
+    const { id, uuid, text, room } = req.body;
+    if (req.roles === "admin") {
+      await Messages.destroy({
+        where: {
+          id: messages.id,
+        },
+      });
+    } else {
+      if (req.userId !== messages.userId)
+        return res.status(403).json({ msg: "Unauthorized Access" });
+      await Messages.destroy({
+        where: {
+          [Op.and]: [{ id: messages.id }, { userId: req.userId }],
+        },
+      });
+    }
+    res.status(200).json({ msg: "Message deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
   }
 };
