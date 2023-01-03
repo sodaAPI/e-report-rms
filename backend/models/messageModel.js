@@ -15,8 +15,8 @@ const Message = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    users: {
-      type: DataTypes.INTEGER,
+    room: {
+      type: DataTypes.STRING,
     },
     userId: {
       type: DataTypes.INTEGER,

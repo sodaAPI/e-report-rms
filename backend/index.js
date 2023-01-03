@@ -23,11 +23,9 @@ const store = new sessionStore({
 });
 
 // Sync Database
-
 // (async () => {
 //   await db.sync();
 // })();
-
 // store.sync();
 
 app.use(
@@ -72,9 +70,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Socket.io
-const server = app.listen(5000, () =>
-  console.log(`Server started on 5000`)
-);
+const server = app.listen(5000, () => console.log(`Server started on 5000`));
 
 const io = new Server(server, {
   cors: {
@@ -83,19 +79,9 @@ const io = new Server(server, {
   },
 });
 
-
-global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
-  global.chatSocket = socket;
-  socket.on("add-user", (userId) => {
-    onlineUsers.set(userId, socket.id);
-  });
-
-  socket.on("send-msg", (data) => {
-    const sendUserSocket = onlineUsers.get(data.to);
-    if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
-    }
+  socket.on("disconnect", () => {
+    console.log(`User disconnected ${socket.id}`);
   });
 });

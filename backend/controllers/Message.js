@@ -9,7 +9,7 @@ export const getMessages = async (req, res) => {
         "id",
         "uuid",
         "text",
-        "users",
+        "room",
         "userId",
         "createdAt",
         "updatedAt",
@@ -29,13 +29,13 @@ export const getMessages = async (req, res) => {
 };
 
 export const addMessage = async (req, res) => {
-  const { id, uuid, text, users } = req.body;
+  const { id, uuid, text, users: room } = req.body;
   try {
     await Messages.create({
       id: id,
       uuid: uuid,
       text: text,
-      users: users,
+      room: room,
       userId: req.userId,
     });
     res.status(201).json({ message: "Message created successfully" });

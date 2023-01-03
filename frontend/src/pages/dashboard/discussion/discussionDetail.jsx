@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ChatBubbleLeftRightIcon,
   MagnifyingGlassIcon,
@@ -8,28 +8,58 @@ import {
   PaperAirplaneIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
-import { Listbox, Transition } from "@headlessui/react";
+// import { Listbox, Transition } from "@headlessui/react";
 import {
   UserCircleIcon,
   UsersIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+// import { Socket, io } from "socket.io-client";
 
 //TODO: Add Socket.io
 const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
-  const [filtersSearch, setFiltersSearch] = useState("No Filter");
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [filtersSearch, setFiltersSearch] = useState("No Filter");
+  // const [searchTerm, setSearchTerm] = useState("");
   const [showMessages, setShowMessage] = useState([]);
-  const [text, setMessage] = useState("");
+  const [text, setText] = useState("");
   const navigate = useNavigate();
   const history = useNavigate();
 
+  //Socket
+  // const socket = io();
+  // socket.on("connect", () => {
+  //   console.log("connected");
+  // });
+  // socket.on("disconnect", (reason) => {
+  //   console.log(`disconnected due to ${reason}`);
+  // });
+
+  // const messages = document.getElementById('messages');
+  // const form = document.getElementById('form');
+  // const input = document.getElementById('input');
+
+  // form.addEventListener("submit", function (e) {
+  //   e.preventDefault();
+  //   if (input.value) {
+  //     socket.emit("chat message", input.value);
+  //     input.value = "";
+  //   }
+  // });
+
+  // socket.on("chat message", function (msg) {
+  //   var item = document.createElement("li");
+  //   item.textContent = msg;
+  //   messages.appendChild(item);
+  //   window.scrollTo(0, document.body.scrollHeight);
+  // });
+
+  //Go To
   const gotoProfile = async () => {
     let path = "/dashboard/profile";
     navigate(path);
@@ -46,9 +76,17 @@ export default function Discussions() {
     await axios.post(`http://localhost:5000/message/add`, {
       text: text,
     });
-    window.alert("Task Added Successfully");
+    navigate(0);
     history.push("/message");
   };
+
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    const element = scrollContainerRef.current;
+    element.scrollTop = element.scrollHeight;
+    console.log(element);
+  }, [showMessages]);
 
   useEffect(() => {
     getMessage();
@@ -59,7 +97,7 @@ export default function Discussions() {
 
   //Truncate
   const truncate = (input) =>
-    input?.length > 4 ? `${input.substring(0, 30)}...` : input;
+    input?.length > 4 ? `${input.substring(0, 30)} ...` : input;
 
   return (
     <div className="py-5">
@@ -91,8 +129,8 @@ export default function Discussions() {
           {/* <div className="divider my-3 px-20" /> */}
           {/* Header  */}
           {/* <div className="flex flex-row gap-5 items-center self-center"> */}
-            {/* Search */}
-            {/* <div className="flex flex-row items-center self-center">
+          {/* Search */}
+          {/* <div className="flex flex-row items-center self-center">
               <div className="lg:block hidden bg-sky-900 lg:p-3 p-0 rounded-l-xl">
                 <MagnifyingGlassIcon className="w-6 h-6 text-white" />
               </div>
@@ -104,8 +142,8 @@ export default function Discussions() {
                 onChange={(event) => setSearchTerm(event.target.value)}
               />
             </div> */}
-            {/* Filter */}
-            {/* <div className="xl:flex flex-row hidden items-center gap-2">
+          {/* Filter */}
+          {/* <div className="xl:flex flex-row hidden items-center gap-2">
               <button data-tip="Filter" className="tooltip">
                 <FunnelIcon className=" text-white w-6 h-6" />
               </button>
@@ -202,21 +240,29 @@ export default function Discussions() {
           <button
             data-tip="Sent"
             className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
-            <UsersIcon
-              className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-            />
+            <UsersIcon className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6" />
             {showMessages
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
               .slice(0, 1)
               .map((val, index) => {
+                const date = new Date(val.createdAt);
+                const options = {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  timeZone: "Asia/Bangkok",
+                };
+                const formattedDate = date.toLocaleString("en-US", options);
                 return (
                   <>
                     <div className="flex flex-col gap-3 w-full text-start lg:pl-0 pl-2">
                       <span className="text-slate-100 text-md font-bold">
-                        Global
+                        Global Chat
                       </span>
                       <span className="lg:hidden block text-sm text-slate-400">
-                        {val.createdAt}
+                        {formattedDate}
                       </span>
                       <span className="text-slate-300 font-base lg:text-sm text-xs">
                         {val.user.name}: {truncate(val.text)}
@@ -225,7 +271,7 @@ export default function Discussions() {
                     </div>
                     <div className="flex flex-col gap-3 w-full items-end pr-5 text-end">
                       <span className="lg:block hidden text-sm text-slate-400">
-                        {val.createdAt}
+                        {formattedDate}
                       </span>
                       <CheckIcon className="lg:block hidden text-sky-400 w-5 h-5" />
                     </div>
@@ -240,12 +286,8 @@ export default function Discussions() {
           {/* Header */}
           <div className="flex flex-row items-center place-content-between bg-sky-800 bg-opacity-20 rounded-t-lg lg:p-0 p-5">
             <span className="flex flex-row items-center text-lg font-bold text-white">
-              <img
-                src="https://source.unsplash.com/random/300x300"
-                alt="user"
-                className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"
-              />
-              Global
+              <UsersIcon className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6" />
+              Global Chat
             </span>
             <div className="px-5">
               <button
@@ -257,56 +299,83 @@ export default function Discussions() {
             </div>
           </div>
           {/* Chat Body */}
-          <div className="flex flex-col overflow-y-scroll scroll-smooth h-chat bg-slate-900 bg-opacity-30 px-5">
+          <div
+            className="flex flex-col overflow-y-scroll h-chat bg-slate-900 bg-opacity-30 px-5"
+            ref={scrollContainerRef}>
             {showMessages
               .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
-              .filter((messages) => messages.userId !== user.id)
-              .map((val, index) => {
+              .map((val) => {
+                const isOwnMessage = val.userId === user.id;
+                const messageClasses = `flex gap-2 bg-${
+                  isOwnMessage ? "blue-600" : "sky-800"
+                } ${
+                  isOwnMessage ? "place-self-end" : "place-self-start"
+                } bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl ${
+                  isOwnMessage ? "rounded-tr-none" : "rounded-tl-none"
+                } text-justify text-slate-300  `;
+                const iconClasses = `text-${
+                  isOwnMessage ? "blue-500" : "green-500"
+                } lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6`;
+                const nameClasses = `text-${
+                  isOwnMessage ? "purple-100" : "red-500"
+                } `;
+                const senderClasses = `flex flex-row gap-5 ${
+                  isOwnMessage ? "place-self-end" : "place-self-start"
+                }`;
+                const date = new Date(val.createdAt);
+                const options = {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  timeZone: "Asia/Bangkok",
+                };
+                const formattedDate = date.toLocaleString("en-US", options);
                 return (
-                  <div className="flex flex-row py-3">
-                    <UserCircleIcon className="text-green-500 lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"/>
+                  <div
+                    className={`flex flex-row py-3 ${
+                      isOwnMessage ? "place-self-end" : ""
+                    }`}>
+                    {!isOwnMessage && (
+                      <UserCircleIcon className={iconClasses} />
+                    )}
                     <div className="flex flex-col gap-2">
-                      <div className="flex flex-row gap-5">
-                        <span className="text-red-500">{val.user.name}</span>
-                        <span> {val.createdAt}</span>
+                      <div className={senderClasses}>
+                        {isOwnMessage ? (
+                          <>
+                            <span> {formattedDate}</span>
+                            <span className={nameClasses}>{val.user.name}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className={nameClasses}>{val.user.name}</span>
+                            <span> {formattedDate}</span>
+                          </>
+                        )}
                       </div>
-                      <div className="flex flex-row gap-2">
-                        <span className="flex gap-2 bg-sky-800 bg-opacity-20 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tl-none text-justify text-slate-300">
-                          {val.text}
-                        </span>
-                        <button
-                          // onClick={gotoProfile}
-                          className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                          <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                        </button>
+                      <div
+                        className={`flex flex-row gap-2 ${
+                          isOwnMessage ? "place-content-end" : ""
+                        }`}>
+                        {isOwnMessage ? (
+                          <>
+                            <button className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                            </button>
+                            <span className={messageClasses}>{val.text}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className={messageClasses}>{val.text}</span>
+                            <button className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            {showMessages
-              .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
-              .filter((messages) => messages.userId === user.id)
-              .map((val, index) => {
-                return (
-                  <div className="flex flex-row py-3 place-self-end">
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row gap-5 place-self-end">
-                        <span> {val.createdAt}</span>
-                        <span className="text-purple-100">{val.user.name}</span>
-                      </div>
-                      <div className="flex flex-row gap-2 place-content-end">
-                        <button
-                          // onClick={gotoProfile}
-                          className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                          <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                        </button>
-                        <span className="flex gap-2 bg-blue-600 bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl rounded-tr-none text-justify text-slate-300">
-                          {val.text}
-                        </span>
-                      </div>
-                    </div>
-                    <UserCircleIcon className="text-blue-500 lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6"/>
+                    {isOwnMessage && <UserCircleIcon className={iconClasses} />}
                   </div>
                 );
               })}
@@ -319,14 +388,17 @@ export default function Discussions() {
               <FaceSmileIcon className="w-14 h-14 pr-5" />
             </button>
             <form
+              id="form"
               className="flex flex-row items-center w-full"
               onSubmit={sendMessage}>
               <input
+                id="input"
                 className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
                 type="text"
                 placeholder="Message ..."
                 value={text}
-                onChange={(event) => setMessage(event.target.value)}
+                onChange={(event) => setText(event.target.value)}
+                autoFocus
               />
               <button
                 className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"

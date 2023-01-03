@@ -31,7 +31,6 @@ export default function Dashboards() {
   const { user } = useSelector((state) => state.auth);
 
   //GO TO
-
   const gotoReport = async () => {
     let path = "/dashboard/report";
     navigate(path);
@@ -53,7 +52,6 @@ export default function Dashboards() {
   };
 
   // GET & POST
-
   const getReports = async () => {
     const response = await axios.get("http://localhost:5000/report");
     setReport(response.data);
@@ -185,6 +183,15 @@ export default function Dashboards() {
           </div>
 
           {/* Reports Table */}
+          <label className="flex flex-row gap-3 items-center pt-5 text-white text-xl font-bold">
+            Latest Promote
+            <button
+              onClick={gotoReport}
+              data-tip="See more"
+              className=" tooltip tooltip-right font-bold hover:bg-slate-700 hover:rounded-md">
+              <EllipsisVerticalIcon className="w-5 h-5" />
+            </button>
+          </label>
           <table className="table-compact w-full bg-slate-800 rounded-2xl text-white mt-7">
             <thead>
               <tr>
@@ -193,18 +200,18 @@ export default function Dashboards() {
                 <th>Promote PIC</th>
                 <th>Changes</th>
                 <th>Promote Date</th>
-                <th className="md:block hidden">Side Promote</th>
+                <th className="md:block hidden">Report Type</th>
               </tr>
             </thead>
             <tbody>
               {reports
                 .filter(
-                  (report) => report.promote_status === "In Progress" && "N/A"
+                  (report) => report.promote_status === "In Progress" || "N/A"
                 )
                 .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
                 .slice(0, 10)
-                .map((report) => (
-                  <tr key={report.id}>
+                .map((report, index) => (
+                  <tr key={index}>
                     <td>{report.id}</td>
                     <td>{report.promote_name}</td>
                     <td>{report.promote_pic}</td>
@@ -325,7 +332,6 @@ export default function Dashboards() {
           </button>
         </div>
       </div>
-
     </section>
   );
 }
