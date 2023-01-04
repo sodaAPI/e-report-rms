@@ -9,7 +9,7 @@ export default function Discussion() {
   return (
     <div className="flex flex-row">
       <Sidebar />
-      <div className="w-full p-4">
+      <div className="w-full px-4 pt-4">
         <Header />
         {/* Page Header */}
         <div className="flex mt-5 w-full bg-slate-800 p-5 rounded-xl text-slate-200">

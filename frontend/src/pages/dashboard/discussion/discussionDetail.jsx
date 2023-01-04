@@ -117,7 +117,7 @@ export default function Discussions() {
     input?.length > 4 ? `${input.substring(0, 30)} ...` : input;
 
   return (
-    <div className="py-5">
+    <div className="pt-5">
       <span className="flex flex-row items-center gap-2 px-5 text-2xl text-white">
         <ChatBubbleLeftRightIcon className="w-7 h-7" />
         Chat Dicussion
@@ -331,7 +331,7 @@ export default function Discussions() {
                   isOwnMessage ? "rounded-tr-none" : "rounded-tl-none"
                 } text-justify ${
                   isOwnMessage ? "text-end" : "text-start"
-                } text-slate-300  `;
+                } text-slate-300 break-normal break-all `;
                 const iconClasses = `text-${
                   isOwnMessage ? "blue-500" : "green-500"
                 } lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6`;
