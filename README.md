@@ -61,7 +61,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/sodaAPI/e-report-cms.git
    ```
 2. Install NPM packages
    ```sh
@@ -84,11 +84,11 @@ _Below is an example of how you can instruct your audience on installing and set
 4. Run your database server (i'm using XAMPP)
 5. Start Front-End on folder frontend
    ```js
-   .\frontend> npm start
+   npm start
    ```
 6. Start Back-End on folder backend
    ```js
-   .\backend> nodemon
+   nodemon
    ```
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
