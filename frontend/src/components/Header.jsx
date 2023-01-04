@@ -20,7 +20,7 @@ import { getMe, LogOut, reset } from "../auth/authSlice";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
+  
 export default function Header() {
   const { collapseSidebar } = useProSidebar();
   const dispatch = useDispatch();

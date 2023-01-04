@@ -71,8 +71,8 @@ export default function Tasks() {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
-    //User
-    const { user } = useSelector((state) => state.auth);
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <section>
@@ -172,12 +172,7 @@ export default function Tasks() {
                     <td>
                       <button
                         onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you wish to update this task?"
-                            )
-                          )
-                            updateStatus(task.id);
+                          updateStatus(task.id);
                         }}
                         className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                         <ArrowsRightLeftIcon className="w-4 h-4" /> Status

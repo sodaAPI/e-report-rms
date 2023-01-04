@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/add", verifyUser, addMessage);
 router.get("/get", verifyUser, getMessages);
-router.delete("/delete", verifyUser, deleteMessage);
+router.delete("/delete/:id", verifyUser, deleteMessage);
 
 export default router;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Fragment } from "react";
 import {
   ChatBubbleLeftRightIcon,
   MagnifyingGlassIcon,
@@ -8,20 +8,23 @@ import {
   PaperAirplaneIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
-// import { Listbox, Transition } from "@headlessui/react";
+// import { Listbox } from "@headlessui/react";
 import {
   UserCircleIcon,
   UsersIcon,
   GlobeAltIcon,
+  TrashIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { DropdownButton } from "../../../components/dropdownLink";
+import { Menu, Transition } from "@headlessui/react";
 import axios from "axios";
 // import { Socket, io } from "socket.io-client";
 
 //TODO: Add Socket.io
-const filterSearch = ["Latest", "Oldest"];
+// const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
   // const [filtersSearch, setFiltersSearch] = useState("No Filter");
@@ -67,8 +70,12 @@ export default function Discussions() {
 
   //Chat
   const getMessage = async () => {
-    const response = await axios.get("http://localhost:5000/message/get");
-    setShowMessage(response.data);
+    try {
+      const response = await axios.get("http://localhost:5000/message/get");
+      setShowMessage(response.data);
+    } catch (error) {
+      window.alert(`Cannot get messages, An error occurred: ${error}`);
+    }
   };
 
   const sendMessage = async (e) => {
@@ -76,8 +83,18 @@ export default function Discussions() {
     await axios.post(`http://localhost:5000/message/add`, {
       text: text,
     });
-    navigate(0);
+    getMessage();
+    setText("");
     history.push("/message");
+  };
+
+  const deleteMessage = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/message/delete/${id}`);
+      getMessage();
+    } catch (error) {
+      window.alert(`An error occurred: ${error}`);
+    }
   };
 
   const scrollContainerRef = useRef(null);
@@ -229,8 +246,8 @@ export default function Discussions() {
                   </>
                 )}
               </Listbox>
-            </div> */}
-          {/* </div> */}
+            </div>
+          </div> */}
           <div className="divider my-3 px-20" />
           {/* Channels */}
           <span className="flex flex-row gap-2 items-center text-white text-xl font-bold">
@@ -312,7 +329,9 @@ export default function Discussions() {
                   isOwnMessage ? "place-self-end" : "place-self-start"
                 } bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl ${
                   isOwnMessage ? "rounded-tr-none" : "rounded-tl-none"
-                } text-justify text-slate-300  `;
+                } text-justify ${
+                  isOwnMessage ? "text-end" : "text-start"
+                } text-slate-300  `;
                 const iconClasses = `text-${
                   isOwnMessage ? "blue-500" : "green-500"
                 } lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6`;
@@ -360,17 +379,83 @@ export default function Discussions() {
                         }`}>
                         {isOwnMessage ? (
                           <>
-                            <button className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                            </button>
+                            <Menu as="div" className="relative ml-3">
+                              <div className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                                <Menu.Button
+                                  data-tip="Info"
+                                  className="tooltip tooltip-left p-1 items-center gap-1 flex rounded-2xl focus:outline-none">
+                                  <span className="sr-only">Message Info</span>
+                                  <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                                </Menu.Button>
+                              </div>
+
+                              <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95">
+                                <Menu.Items className="absolute flex flex-col -right-0 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+                                  <>
+                                    {/* Notification Sample 1 */}
+
+                                    <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+                                      <DropdownButton
+                                        onClick={() => {
+                                          deleteMessage(val.id);
+                                        }}
+                                        className="flex flex-row">
+                                        <TrashIcon className="w-5 h-5 text-red-900" />
+                                        Delete Message
+                                      </DropdownButton>
+                                    </Menu.Item>
+                                  </>
+                                </Menu.Items>
+                              </Transition>
+                            </Menu>
                             <span className={messageClasses}>{val.text}</span>
                           </>
                         ) : (
                           <>
                             <span className={messageClasses}>{val.text}</span>
-                            <button className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
-                              <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-                            </button>
+                            <Menu as="div" className="relative ml-3">
+                              <div className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
+                                <Menu.Button
+                                  data-tip="Info"
+                                  className="tooltip tooltip-right p-1 items-center gap-1 flex rounded-2xl focus:outline-none">
+                                  <span className="sr-only">Message Info</span>
+                                  <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
+                                </Menu.Button>
+                              </div>
+
+                              <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95">
+                                <Menu.Items className="absolute flex flex-col -left-0 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+                                  <>
+                                    {/* Notification Sample 1 */}
+
+                                    <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+                                      <DropdownButton
+                                        onClick={() => {
+                                          deleteMessage(val.id);
+                                        }}
+                                        className="flex flex-row">
+                                        <TrashIcon className="w-5 h-5 text-red-900" />
+                                        Delete Message
+                                      </DropdownButton>
+                                    </Menu.Item>
+                                  </>
+                                </Menu.Items>
+                              </Transition>
+                            </Menu>
                           </>
                         )}
                       </div>
