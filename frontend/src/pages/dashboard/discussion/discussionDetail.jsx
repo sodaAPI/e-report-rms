@@ -323,10 +323,10 @@ export default function Discussions() {
               .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
               .map((val) => {
                 const isOwnMessage = val.userId === user.id;
-                const messageClasses = `flex gap-2 bg-${
+                const messageClasses = `flex bg-${
                   isOwnMessage ? "blue-600" : "sky-800"
                 } ${
-                  isOwnMessage ? "place-self-end" : "place-self-start"
+                  isOwnMessage ? "place-content-end" : "place-content-start"
                 } bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl ${
                   isOwnMessage ? "rounded-tr-none" : "rounded-tl-none"
                 } text-justify ${
