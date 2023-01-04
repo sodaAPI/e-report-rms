@@ -6,6 +6,7 @@
  <!-- <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
+</div>
 
   <h3 align="center">E-Report Management System (CMS)</h3>
 
@@ -34,7 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
+[![Project Screen Shot][example-screenshot]]
 
 E-Report Management System (CMS)
 
@@ -77,8 +78,8 @@ _Below is an example of how you can instruct your audience on installing and set
     min: 0,
     acquire: 30000,
     idle: 10000,
-  },
-});
+    },
+   });
    ```
 4. Run your database server (i'm using XAMPP)
 5. Start Front-End on folder frontend
@@ -148,6 +149,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: images/screenshot.png
+[example-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
