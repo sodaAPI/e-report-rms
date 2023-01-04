@@ -1,7 +1,7 @@
-import Notification from "../models/notificationModel";
+import Notification from "../models/notificationModel.js";
 import User from "../models/userModel.js";
-import Task from "../models/taskModel";
-import Meeting from "../models/meetingModel";
+import Task from "../models/taskModel.js";
+import Meeting from "../models/meetingModel.js";
 import { Op } from "sequelize";
 
 export const getNotifications = async (req, res) => {

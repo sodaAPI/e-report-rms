@@ -3,7 +3,7 @@ import {
   getNotifications,
   addNotification,
   deleteNotification,
-} from "../controllers/Notification";
+} from "../controllers/Notification.js";
 import { verifyUser } from "../middleware/AuthUser.js";
 
 const router = express.Router();
