@@ -143,11 +143,11 @@ export default function Discussions() {
               <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
             </button>
           </div>
-          {/* <div className="divider my-3 px-20" /> */}
-          {/* Header  */}
-          {/* <div className="flex flex-row gap-5 items-center self-center"> */}
-          {/* Search */}
-          {/* <div className="flex flex-row items-center self-center">
+          {/* <div className="divider my-3 px-20" />
+          Header 
+          <div className="flex flex-row gap-5 items-center self-center">
+          Search
+          <div className="flex flex-row items-center self-center">
               <div className="lg:block hidden bg-sky-900 lg:p-3 p-0 rounded-l-xl">
                 <MagnifyingGlassIcon className="w-6 h-6 text-white" />
               </div>
@@ -158,9 +158,9 @@ export default function Discussions() {
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
               />
-            </div> */}
-          {/* Filter */}
-          {/* <div className="xl:flex flex-row hidden items-center gap-2">
+            </div>
+          Filter
+          <div className="xl:flex flex-row hidden items-center gap-2">
               <button data-tip="Filter" className="tooltip">
                 <FunnelIcon className=" text-white w-6 h-6" />
               </button>
@@ -397,9 +397,9 @@ export default function Discussions() {
                                 leave="transition ease-in duration-75"
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95">
-                                <Menu.Items className="absolute flex flex-col -right-0 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+                                <Menu.Items className="absolute flex flex-col -right-10 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 bg-opacity-90 py-2 gap-2 px-5">
                                   <>
-                                    {/* Notification Sample 1 */}
+                                    {/* Delete Message Dropdown */}
 
                                     <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
                                       <DropdownButton
@@ -438,7 +438,7 @@ export default function Discussions() {
                                 leave="transition ease-in duration-75"
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95">
-                                <Menu.Items className="absolute flex flex-col -left-0 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+                                <Menu.Items className="absolute flex flex-col -left-10 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 bg-opacity-90 py-2 gap-2 px-5">
                                   <>
                                     {/* Notification Sample 1 */}
 
