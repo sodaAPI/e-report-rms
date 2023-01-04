@@ -84,11 +84,11 @@ _Below is an example of how you can instruct your audience on installing and set
 4. Run your database server (i'm using XAMPP)
 5. Start Front-End on folder frontend
    ```js
-   npm start
+   .\frontend> npm start
    ```
 6. Start Back-End on folder backend
    ```js
-   nodemon
+   .\backend> nodemon
    ```
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
