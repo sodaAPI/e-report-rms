@@ -45,7 +45,11 @@ E-Report Management System (CMS)
 
 This Project is built with :
 
-* [![React][React.js]][React-url]
+* [![ReactJs][React.js]][React-url]
+* [![NodeJs][Node.js]][Nodejs-url]
+* [![MySQL DB][MySQL]][MySQL-url]
+* [![Sequelize ORM][Sequelize]][Sequelize-url]
+* [![ExpressJs][Expressjs]][Express-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,5 +154,13 @@ Distributed under the MIT License. See `License.txt` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [example-screenshot]: /frontend/public/Screenshot.png
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React.js]: https://img.shields.io/badge/React_Js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Node.js]: https://img.shields.io/badge/Node_Js-20232A?style=for-the-badge&logo=node.js&logoColor=339933
+[MySQL]: https://img.shields.io/badge/MySQL-20232A?style=for-the-badge&logo=mysql&logoColor=4479A1
+[Sequelize]: https://img.shields.io/badge/Sequelize-20232A?style=for-the-badge&logo=sequelize&logoColor=52B0E7
+[Expressjs]: https://img.shields.io/badge/Express_Js-20232A?style=for-the-badge&logo=express&logoColor=000000
+[Express-url]: https://expressjs.com/
+[Sequelize-url]: https://sequelize.org/
+[MySQL-url]: https://www.mysql.com/
+[Nodejs-url]: https://nodejs.org/en/
 [React-url]: https://reactjs.org/
