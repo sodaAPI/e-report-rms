@@ -33,9 +33,9 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## About
 
-[![Project Screen Shot][example-screenshot]]
+![Project Screen Shot][example-screenshot]
 
 E-Report Management System (CMS)
 
