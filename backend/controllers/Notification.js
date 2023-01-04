@@ -41,14 +41,14 @@ export const getNotifications = async (req, res) => {
 };
 
 export const addNotification = async (req, res) => {
-  const { id, uuid, notif } = req.body;
+  const { id, uuid, notif, taskId, meetingId } = req.body;
   try {
     await Notification.create({
       id: id,
       uuid: uuid,
       notif: notif,
-      taskId: req.taskId,
-      meetingId: req.meetingId,
+      taskId: taskId,
+      meetingId: meetingId,
       userId: req.userId,
     });
     res.status(201).json({ message: "Message created successfully" });

@@ -378,6 +378,7 @@ export default function Discussions() {
                           isOwnMessage ? "place-content-end" : ""
                         }`}>
                         {isOwnMessage ? (
+                          // Sender Message
                           <>
                             <Menu as="div" className="relative ml-3">
                               <div className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
@@ -418,6 +419,7 @@ export default function Discussions() {
                             <span className={messageClasses}>{val.text}</span>
                           </>
                         ) : (
+                          // Users Message
                           <>
                             <span className={messageClasses}>{val.text}</span>
                             <Menu as="div" className="relative ml-3">
@@ -440,7 +442,7 @@ export default function Discussions() {
                                 leaveTo="transform opacity-0 scale-95">
                                 <Menu.Items className="absolute flex flex-col -left-10 md:w-44 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 bg-opacity-90 py-2 gap-2 px-5">
                                   <>
-                                    {/* Notification Sample 1 */}
+                                    {/* Delete Message Dropdown */}
 
                                     <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
                                       <DropdownButton
