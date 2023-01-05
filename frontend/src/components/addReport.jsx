@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 
-const statusList = ["In Progress", "Complete", "N/A"];
+const statusList = ["In Progress", "Complete"];
 const sidePromoteList = [
   "POK Promote",
   "Hasil Promote",
@@ -13,16 +13,32 @@ const sidePromoteList = [
 
 const AddReport = () => {
   const [project_code, setProjectCode] = useState("");
-  const [promote_name, setPromoteName] = useState("");
-  const [promote_status, setPromoteStatus] = useState(statusList[0]);
-  const [promote_pic, setPromotePIC] = useState("");
-  const [promote_desc, setPromoteDesc] = useState("");
+  const [new_existing, setNewExisting] = useState("");
+  const [ip, setIp] = useState("");
+  const [nopcr_ir, setNoPCRIR] = useState("");
+  const [nama, setNama] = useState("");
+  const [user_division, setUserDivision] = useState("");
+  const [core_noncore, setCoreNonCore] = useState("");
+  const [detail_deploy, setDetailDeploy] = useState("");
   const [changes, setChanges] = useState("");
-  const [promote_date, setPromoteDate] = useState("");
-  const [execute_week, setExecuteWeek] = useState("");
-  const [request_week, setRequestWeek] = useState("");
-  const [src_file, setSrcFile] = useState("");
-  const [side_promote, setSidePromote] = useState(sidePromoteList[0]);
+  const [programmer, setProgrammer] = useState("");
+  const [bp, setBP] = useState("");
+  const [pm, setPM] = useState("");
+  const [qa, setQA] = useState("");
+  const [sa, setSA] = useState("");
+  const [cmt, setCMT] = useState("");
+  const [dependensi, setDependensi] = useState("");
+  const [keterangan_project, setKeteranganProject] = useState("");
+  const [status, setStatus] = useState(statusList[0]);
+  const [nolap_promote, setNoLapPromote] = useState("");
+  const [tanggal_promote, setTanggalPromote] = useState("");
+  const [week_eksekusi, setWeekEksekusi] = useState("");
+  const [risk_summary, setRiskSummary] = useState("");
+  const [source_file, setSourceFile] = useState("");
+  const [userId, setUserId] = useState("");
+  const [report_type, setReportType] = useState("");
+  const [createdAt, setCreatedAt] = useState("");
+  const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
 
@@ -30,16 +46,32 @@ const AddReport = () => {
     e.preventDefault();
     await axios.post("http://localhost:5000/report", {
       project_code: project_code,
-      promote_name: promote_name,
-      promote_status: promote_status,
-      promote_pic: promote_pic,
-      promote_desc: promote_desc,
+      new_existing: new_existing,
+      ip: ip,
+      nopcr_ir: nopcr_ir,
+      nama: nama,
+      user_division: user_division,
+      core_noncore: core_noncore,
+      detail_deploy: detail_deploy,
       changes: changes,
-      promote_date: promote_date,
-      execute_week: execute_week,
-      request_week: request_week,
-      src_file: src_file,
-      side_promote: side_promote,
+      programmer: programmer,
+      bp: bp,
+      pm: pm,
+      qa: qa,
+      sa: sa,
+      cmt: cmt,
+      dependensi: dependensi,
+      keterangan_project: keterangan_project,
+      status: status,
+      nolap_promote: nolap_promote,
+      tanggal_promote: tanggal_promote,
+      week_eksekusi: week_eksekusi,
+      risk_summary: risk_summary,
+      source_file: source_file,
+      report_type: report_type,
+      userId: userId,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     });
     let path = "/dashboard/report";
     navigate(path);
@@ -218,7 +250,6 @@ const AddReport = () => {
             </div>
           </section>
           <section className="sm:w-full w-2/5">
-
             {/*Promote Date */}
 
             <div>

@@ -9,7 +9,7 @@ import {
 import DataToExcel from "../../../components/dataReportToExcel";
 import Pagination from "../../../components/Pagination";
 
-const statusList = ["In Progress", "Complete", "N/A"];
+const statusList = ["In Progress", "Complete"];
 
 const ReportList = () => {
   const [reports, setReport] = useState([]);
@@ -44,8 +44,8 @@ const ReportList = () => {
 
   const updateStatus = async (id) => {
     const response = await axios.get(`http://localhost:5000/report/${id}`);
-    const promote_status = checkStatus(response.data.promote_status);
-    await axios.patch(`http://localhost:5000/report/${id}`, { promote_status });
+    const status = checkStatus(response.data.status);
+    await axios.patch(`http://localhost:5000/report/${id}`, { status });
     window.alert("Report Updated Successfully");
     getReports();
   };
@@ -84,16 +84,32 @@ const ReportList = () => {
           <tr>
             <th>ID</th>
             <th>Project Code</th>
-            <th>Promote Name</th>
-            <th>Promote Status</th>
-            <th>Promote PIC</th>
-            <th>Promote Desc</th>
+            <th>New/Existing</th>
+            <th>IP</th>
+            <th>No PCR/IR</th>
+            <th>Nama</th>
+            <th>User</th>
+            <th>Core/Non Core</th>
+            <th>Detail Deploy</th>
             <th>Changes</th>
-            <th>Promote Date</th>
-            <th>Side Promote</th>
+            <th>Programmer</th>
+            <th>BP</th>
+            <th>PM</th>
+            <th>QA</th>
+            <th>SA</th>
+            <th>CMT</th>
+            <th>Dependensi</th>
+            <th>Keterangan Project</th>
+            <th>Status</th>
+            <th>No Lap Promote</th>
+            <th>Tanggal Promote</th>
+            <th>Week Eksekusi</th>
+            <th>Risk Summary</th>
+            <th>Source File</th>
+            <th>Report Type</th>
             <th>By</th>
             <th>Created At</th>
-            <th>Update At</th>
+            <th>Updated At</th>
             <th></th>
             <th></th>
             <th></th>
@@ -103,16 +119,33 @@ const ReportList = () => {
           {reports
             .filter(
               (report) =>
-                new RegExp(searchTerm, "i").test(report.promote_name) ||
+                new RegExp(searchTerm, "i").test(report.id) ||
                 new RegExp(searchTerm, "i").test(report.project_code) ||
-                new RegExp(searchTerm, "i").test(report.promote_status) ||
-                new RegExp(searchTerm, "i").test(report.promote_pic) ||
-                new RegExp(searchTerm, "i").test(report.promote_desc) ||
+                new RegExp(searchTerm, "i").test(report.new_existing) ||
+                new RegExp(searchTerm, "i").test(report.ip) ||
+                new RegExp(searchTerm, "i").test(report.nopcr_ir) ||
+                new RegExp(searchTerm, "i").test(report.nama) ||
+                new RegExp(searchTerm, "i").test(report.user_division) ||
+                new RegExp(searchTerm, "i").test(report.core_noncore) ||
+                new RegExp(searchTerm, "i").test(report.detail_deploy) ||
+                new RegExp(searchTerm, "i").test(report.changes) ||
+                new RegExp(searchTerm, "i").test(report.programmer) ||
+                new RegExp(searchTerm, "i").test(report.bp) ||
+                new RegExp(searchTerm, "i").test(report.pm) ||
+                new RegExp(searchTerm, "i").test(report.qa) ||
+                new RegExp(searchTerm, "i").test(report.sa) ||
+                new RegExp(searchTerm, "i").test(report.cmt) ||
+                new RegExp(searchTerm, "i").test(report.dependensi) ||
+                new RegExp(searchTerm, "i").test(report.keterangan_project) ||
+                new RegExp(searchTerm, "i").test(report.status) ||
+                new RegExp(searchTerm, "i").test(report.nolap_promote) ||
+                new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
+                new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
+                new RegExp(searchTerm, "i").test(report.risk_summary) ||
+                new RegExp(searchTerm, "i").test(report.source_file) ||
+                new RegExp(searchTerm, "i").test(report.user?.name) ||
                 new RegExp(searchTerm, "i").test(report.createdAt) ||
-                new RegExp(searchTerm, "i").test(report.updatedAt) ||
-                new RegExp(searchTerm, "i").test(report.side_promote) ||
-                new RegExp(searchTerm, "i").test(report.promote_date) ||
-                new RegExp(searchTerm, "i").test(report.changes)
+                new RegExp(searchTerm, "i").test(report.updatedAt)
             )
             .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
             .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
@@ -120,13 +153,29 @@ const ReportList = () => {
               <tr key={report.id}>
                 <td>{report.id}</td>
                 <td>{report.project_code}</td>
-                <td>{report.promote_name}</td>
-                <td>{report.promote_status}</td>
-                <td>{report.promote_pic}</td>
-                <td>{report.promote_desc}</td>
+                <td>{report.new_existing}</td>
+                <td>{report.ip}</td>
+                <td>{report.nopcr_ir}</td>
+                <td>{report.nama}</td>
+                <td>{report.user_division}</td>
+                <td>{report.core_noncore}</td>
+                <td>{report.detail_deploy}</td>
                 <td>{report.changes}</td>
-                <td>{report.promote_date}</td>
-                <td>{report.side_promote}</td>
+                <td>{report.programmer}</td>
+                <td>{report.bp}</td>
+                <td>{report.pm}</td>
+                <td>{report.qa}</td>
+                <td>{report.sa}</td>
+                <td>{report.cmt}</td>
+                <td>{report.dependensi}</td>
+                <td>{report.keterangan_project}</td>
+                <td>{report.status}</td>
+                <td>{report.nolap_promote}</td>
+                <td>{report.tanggal_promote}</td>
+                <td>{report.week_eksekusi}</td>
+                <td>{report.risk_summary}</td>
+                <td>{report.source_file}</td>
+                <td>{report.report_type}</td>
                 <td>{report.user?.name}</td>
                 <td>{report.createdAt}</td>
                 <td>{report.updatedAt}</td>

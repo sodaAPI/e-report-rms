@@ -14,35 +14,73 @@ const Report = db.define(
     project_code: {
       type: DataTypes.STRING,
     },
-    promote_name: {
+    new_existing: {
       type: DataTypes.STRING,
     },
-    promote_status: {
-      type: DataTypes.STRING,
-      defaultValue: "In Progress",
-    },
-    promote_pic: {
+    ip: {
       type: DataTypes.STRING,
     },
-    promote_desc: {
+    nopcr_ir: {
       type: DataTypes.STRING,
     },
-    src_file: {
-      type: DataTypes.BLOB,
+    nama: {
+      type: DataTypes.STRING,
+    },
+    user_division: {
+      type: DataTypes.STRING,
+    },
+    core_noncore: {
+      type: DataTypes.STRING,
+    },
+    detail_deploy: {
+      type: DataTypes.STRING,
     },
     changes: {
       type: DataTypes.STRING,
     },
-    promote_date: {
+    programmer: {
+      type: DataTypes.STRING,
+    },
+    bp: {
+      type: DataTypes.STRING,
+    },
+    pm: {
+      type: DataTypes.STRING,
+    },
+    qa: {
+      type: DataTypes.STRING,
+    },
+    sa: {
+      type: DataTypes.STRING,
+    },
+    cmt: {
+      type: DataTypes.STRING,
+    },
+    dependensi: {
+      type: DataTypes.STRING,
+    },
+    keterangan_project: {
+      type: DataTypes.STRING,
+    },
+    status: {
+      type: DataTypes.STRING,
+    },
+    nolap_promote: {
+      type: DataTypes.STRING,
+    },
+    tanggal_promote: {
       type: DataTypes.DATE,
     },
-    execute_week: {
+    week_eksekusi: {
       type: DataTypes.STRING,
     },
-    request_week: {
+    risk_summary: {
       type: DataTypes.STRING,
     },
-    side_promote: {
+    source_file: {
+      type: DataTypes.STRING,
+    },
+    report_type: {
       type: DataTypes.STRING,
     },
     userId: {
@@ -54,6 +92,7 @@ const Report = db.define(
     },
   },
   {
+    timestamps: true,
     freezeTableName: true,
   }
 );
