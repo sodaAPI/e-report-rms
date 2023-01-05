@@ -20,7 +20,7 @@ const app = express();
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
-  expiration: 2 * 60 * 60 * 1000,
+  expiration: process.env.SESSION_EXPIRED * 60 * 60 * 1000,
 });
 
 // Sync Database
@@ -31,13 +31,13 @@ const store = new sessionStore({
 
 app.use(
   session({
-    secret: "7cfbedb7-444e-4334-a3ea-2078468fd035",
+    secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
     store: store,
     cookie: {
       secure: "auto",
-      maxAge: 2 * 60 * 60 * 1000,
+      maxAge: process.env.SESSION_EXPIRED * 60 * 60 * 1000,
     },
   })
 );
@@ -52,7 +52,7 @@ try {
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: process.env.URL_ORIGIN,
   })
 );
 app.use(express.json());
@@ -73,14 +73,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Socket.io
-const APP_PORT = 5000;
-const server = app.listen(APP_PORT, () =>
-  console.log(`Server started on PORT ${APP_PORT}`)
+const server = app.listen(process.env.APP_PORT, () =>
+  console.log(`Server started on PORT ${process.env.APP_PORT}`)
 );
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.URL_ORIGIN,
     credentials: true,
   },
 });
