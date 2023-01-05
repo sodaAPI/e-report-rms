@@ -13,7 +13,7 @@ const Notification = db.define(
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
     },
-    notif: {
+    notifmsg: {
       type: DataTypes.STRING,
     },
     taskId: {

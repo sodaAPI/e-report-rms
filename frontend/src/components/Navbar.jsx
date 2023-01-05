@@ -133,7 +133,6 @@ export default function Navbar() {
                           </>
                         ) : (
                           <>
-                            {/* TODO: Change navbar if user authenticated */}
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
@@ -202,7 +201,6 @@ export default function Navbar() {
                           </>
                         ) : (
                           <>
-                            {/* TODO: Change navbar if user authenticated */}
                             <Menu.Item>
                               {({ active }) => (
                                 <Link

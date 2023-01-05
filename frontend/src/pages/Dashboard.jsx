@@ -14,6 +14,7 @@ export default function Dashboard() {
       <div className=" w-full p-4">
         <Header />
         {showAnnouncement && <div>{/* <Announcement /> */}</div>}
+        
         {/* TODO: Just show Announcement once after login */}
 
         {/* Page Header */}

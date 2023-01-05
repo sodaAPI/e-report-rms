@@ -7,17 +7,19 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import DataToExcel from "../../../components/dataReportOthersToExcel";
-
-//TODO: Add API e-Report to Word/Word to e-Report
-//TODO: Pagination
+import Pagination from "../../../components/Pagination";
 
 const statusList = ["In Progress", "Complete", "N/A"];
 
 const OtherPromoteList = () => {
   const [reports, setReport] = useState([]);
-
   const [promote_status, setPromoteStatus] = useState(statusList[0]);
   const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     getReports();
@@ -60,7 +62,7 @@ const OtherPromoteList = () => {
   return (
     <div className="w-fit min-h-screen">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
-      <Link
+        <Link
           to="/dashboard/report/add"
           className="flex flex-row p-3 items-center gap-2 bg-sky-900 hover:bg-sky-800 rounded-xl text-white">
           <PlusCircleIcon className="w-5 h-5" />
@@ -102,6 +104,7 @@ const OtherPromoteList = () => {
         </thead>
         <tbody>
           {reports
+
             .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
             .filter((reports) => reports.side_promote !== "POK Promote")
             .filter((reports) => reports.side_promote !== "Hasil Promote")
@@ -119,6 +122,7 @@ const OtherPromoteList = () => {
                 new RegExp(searchTerm, "i").test(report.promote_date) ||
                 new RegExp(searchTerm, "i").test(report.changes)
             )
+            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((report, index) => (
               <tr key={report.id}>
                 <td>{report.id}</td>
@@ -172,6 +176,12 @@ const OtherPromoteList = () => {
             ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={reports.length}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

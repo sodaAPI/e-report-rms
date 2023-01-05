@@ -7,9 +7,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import DataToExcel from "../../../components/dataReportPOKToExcel";
-
-//TODO: Add API e-Report to Word/Word to e-Report
-//TODO: Pagination
+import Pagination from "../../../components/Pagination";
 
 const statusList = ["In Progress", "Complete", "N/A"];
 
@@ -17,6 +15,11 @@ const PokPromoteList = () => {
   const [reports, setReport] = useState([]);
   const [promote_status, setPromoteStatus] = useState(statusList[0]);
   const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     getReports();
@@ -101,6 +104,7 @@ const PokPromoteList = () => {
         </thead>
         <tbody>
           {reports
+
             .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
             .filter(
               (report) =>
@@ -116,6 +120,7 @@ const PokPromoteList = () => {
                   new RegExp(searchTerm, "i").test(report.promote_date) ||
                   new RegExp(searchTerm, "i").test(report.changes))
             )
+            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((report, index) => (
               <tr key={report.id}>
                 <td>{report.id}</td>
@@ -169,6 +174,12 @@ const PokPromoteList = () => {
             ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={reports.length}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

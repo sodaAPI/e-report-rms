@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   PlusCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import DataToExcel from "../../../components/dataReportToExcel";
-
-
-//TODO: Pagination
+import Pagination from "../../../components/Pagination";
 
 const statusList = ["In Progress", "Complete", "N/A"];
 
 const ReportList = () => {
   const [reports, setReport] = useState([]);
-  const [promote_status, setPromoteStatus] = useState(statusList[0]);
-  const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     getReports();
-    getReportById();
   }, []);
 
   const getReports = async () => {
-    const response = await axios.get("http://localhost:5000/report");
+    const skip = (currentPage - 1) * itemsPerPage;
+    const limit = itemsPerPage;
+    const response = await axios.get(
+      `http://localhost:5000/report?skip=${skip}&limit=${limit}`
+    );
     setReport(response.data);
   };
 
@@ -49,12 +50,11 @@ const ReportList = () => {
     getReports();
   };
 
-  const getReportById = async () => {
-    const response = await axios.get(`http://localhost:5000/report/${id}`);
-    setPromoteStatus(response.data.promote_status);
-  };
-
   const [searchTerm, setSearchTerm] = useState("");
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="w-fit min-h-screen">
@@ -91,7 +91,7 @@ const ReportList = () => {
             <th>Changes</th>
             <th>Promote Date</th>
             <th>Side Promote</th>
-            <th>Created By</th>
+            <th>By</th>
             <th>Created At</th>
             <th>Update At</th>
             <th></th>
@@ -115,6 +115,7 @@ const ReportList = () => {
                 new RegExp(searchTerm, "i").test(report.changes)
             )
             .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
+            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((report, index) => (
               <tr key={report.id}>
                 <td>{report.id}</td>
@@ -168,6 +169,12 @@ const ReportList = () => {
             ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={reports.length}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

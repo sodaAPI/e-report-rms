@@ -307,12 +307,53 @@ export default function Discussions() {
               Global Chat
             </span>
             <div className="px-5">
-              <button
-                // onClick={gotoProfile}
+              <label
+                htmlFor="my-modal-4"
                 data-tip="Channel Info"
-                className=" tooltip tooltip-left font-bold hover:bg-slate-700 hover:rounded-md">
+                className="btn flex items-center modal-button tooltip tooltip-left font-bold hover:bg-slate-700 hover:rounded-md">
                 <EllipsisVerticalIcon className="w-5 h-5 text-slate-300" />
-              </button>
+              </label>
+              <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+              <label htmlFor="my-modal-4" className="modal cursor-pointer">
+                <label
+                  className="modal-box relative bg-gray-800"
+                  htmlFor="my-modal-4">
+                  <h3 className=" text-white text-lg font-bold text-center bg-gray-700 p-5 rounded-xl py-4">
+                    Channel Info
+                  </h3>
+                  {showMessages
+                    .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+                    .slice(0, 1)
+                    .map((val, index) => {
+                      const date = new Date(val.createdAt);
+                      const options = {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZone: "Asia/Bangkok",
+                      };
+                      const formattedDate = date.toLocaleString(
+                        "en-US",
+                        options
+                      );
+                      return (
+                        <p className="flex flex-col gap-2 pt-5 text-white py-4">
+                          <a>
+                            <b>Channel Name :</b> {val.room}
+                          </a>
+                          <a>
+                            <b>Channel Created At :</b> 2023-01-02
+                          </a>
+                          <a>
+                            <b>Channel Member List :</b> All User
+                          </a>
+                        </p>
+                      );
+                    })}
+                </label>
+              </label>
             </div>
           </div>
           {/* Chat Body */}

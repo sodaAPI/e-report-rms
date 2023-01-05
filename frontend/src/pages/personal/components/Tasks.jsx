@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowsRightLeftIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
+import Pagination from "../../../components/Pagination";
 
 const statusList = ["Uncompleted", "Completed"];
 
@@ -15,6 +16,11 @@ export default function Tasks() {
   const { id } = useParams();
   const history = useNavigate();
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     getTasks();
@@ -161,6 +167,10 @@ export default function Tasks() {
                     new RegExp(searchTerm, "i").test(task.deadline)
                 )
                 .sort((a, b) => (a.deadline < b.deadline ? 1 : -1))
+                .slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage
+                )
                 .map((task, index) => (
                   <tr key={index}>
                     <td>{task.id}</td>
@@ -203,6 +213,12 @@ export default function Tasks() {
                 ))}
             </tbody>
           </table>
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            totalItems={tasks.length}
+            handlePageChange={handlePageChange}
+          />
         </div>
 
         <div className="flex flex-col items-center px-5 sm:w-1/4 w-full bg-slate-800 rounded-xl py-2">

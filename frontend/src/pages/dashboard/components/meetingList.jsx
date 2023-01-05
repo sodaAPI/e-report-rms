@@ -7,6 +7,7 @@ import {
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
+import Pagination from "../../../components/Pagination";
 
 //TODO: Add Notification 1-2 day Before Meeting
 
@@ -14,6 +15,11 @@ const MeetingList = () => {
   //User
   const { user } = useSelector((state) => state.auth);
   const [meetings, setMeetings] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     getMeetings();
@@ -92,6 +98,7 @@ const MeetingList = () => {
                 new RegExp(searchTerm, "i").test(meeting.updatedAt)
             )
             .sort((a, b) => (a.meeting_date < b.meeting_date ? 1 : -1))
+            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((meeting, index) => (
               <tr key={meeting.id}>
                 <td>{meeting.id}</td>
@@ -149,6 +156,12 @@ const MeetingList = () => {
             ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={meetings.length}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

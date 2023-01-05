@@ -20,7 +20,7 @@ const app = express();
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
-  expiration: 6 * 60 * 60 * 1000,
+  expiration: 2 * 60 * 60 * 1000,
 });
 
 // Sync Database
@@ -37,13 +37,14 @@ app.use(
     store: store,
     cookie: {
       secure: "auto",
+      maxAge: 2 * 60 * 60 * 1000,
     },
   })
 );
 
 try {
   await db.authenticate();
-  console.log("Database connected...");
+  console.log("Database has been connected...");
 } catch (error) {
   console.error("Connection error:", error);
 }
@@ -72,7 +73,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Socket.io
-const server = app.listen(5000, () => console.log(`Server started on 5000`));
+const APP_PORT = 5000;
+const server = app.listen(APP_PORT, () =>
+  console.log(`Server started on PORT ${APP_PORT}`)
+);
 
 const io = new Server(server, {
   cors: {

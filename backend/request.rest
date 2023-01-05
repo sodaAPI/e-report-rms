@@ -60,3 +60,15 @@ Content-Type: application/json
         "createdAt": "2022-12-21",
         "updatedAt": "2022-12-21"
     }
+
+### POST NOTIFICATION
+POST http://localhost:5000/notification/add
+Content-Type: application/json
+
+    {
+        "notifmsg": "New Year",
+        "meetingId": 56 
+    }
+
+### GET NOTIFICATION
+GET http://localhost:5000/notification/get

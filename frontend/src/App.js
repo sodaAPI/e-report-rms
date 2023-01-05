@@ -1,4 +1,7 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter} from "react-router-dom";
+import React, { useEffect} from "react";
+import "./App.css";
+
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import EditReports from "./pages/dashboard/components/editReports";
@@ -9,7 +12,6 @@ import ForgotPassword from "./pages/forgotPassword";
 import PageNotFound from "./components/pageNotFound";
 import AddReports from "./pages/dashboard/components/addReports";
 import AddUsers from "./pages/dashboard/components/addUsers";
-import "./App.css";
 import Users from "./pages/dashboard/Users";
 import Reports from "./pages/dashboard/Reports";
 import Meeting from "./pages/dashboard/Meeting";
@@ -30,20 +32,19 @@ import AddTasks from "./pages/personal/components/addTasks";
 import TaskCompleted from "./pages/personal/components/taskCompleted";
 import TaskUncompleted from "./pages/personal/components/taskUncompleted";
 
-import React, { useEffect } from "react";
-
 function App() {
   useEffect(() => {
     const initialValue = document.body.style.zoom;
-
+  
     // Change zoom level on mount
     document.body.style.zoom = "90%";
-
+  
     return () => {
       // Restore default value
       document.body.style.zoom = initialValue;
     };
   }, []);
+  
   return (
     <div>
       <BrowserRouter>
@@ -63,14 +64,10 @@ function App() {
           <Route path="/dashboard/report" element={<Reports />} />
           <Route path="/dashboard/user" element={<Users />} />
           <Route path="/dashboard/discussion" element={<Discussion />} />
-
           <Route path="/dashboard/meeting" element={<Meeting />} />
           <Route path="/report/pok" element={<PokPromote />} />
           <Route path="/report/hasil-promote" element={<HasilPromote />} />
-          <Route
-            path="/report/checklist-promote"
-            element={<ChecklistPromote />}
-          />
+          <Route path="/report/checklist-promote" element={<ChecklistPromote />} />
           <Route path="/report/others" element={<OtherPromote />} />
 
           {/* Dashboard Edit */}

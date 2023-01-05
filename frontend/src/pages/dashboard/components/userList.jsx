@@ -6,16 +6,23 @@ import {
   PlusCircleIcon,
   ArrowsRightLeftIcon,
 } from "@heroicons/react/24/outline";
+import Pagination from "../../../components/Pagination";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     getUsers();
   }, []);
 
   const getUsers = async () => {
-    const response = await axios.get(`http://localhost:5000/user`);
+    const skip = (currentPage - 1) * itemsPerPage;
+    const limit = itemsPerPage;
+    const response = await axios.get(
+      `http://localhost:5000/user?skip=${skip}&limit=${limit}`
+    );
     setUsers(response.data);
   };
 
@@ -25,6 +32,9 @@ const UserList = () => {
   };
 
   const [searchTerm, setSearchTerm] = useState("");
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="w-fit min-h-screen pt-5">
@@ -69,6 +79,7 @@ const UserList = () => {
         </thead>
         <tbody className="text-center">
           {users
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .filter(
               (user) =>
                 new RegExp(searchTerm, "i").test(user.id) ||
@@ -123,6 +134,12 @@ const UserList = () => {
             ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={users.length}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

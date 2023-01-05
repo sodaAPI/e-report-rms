@@ -11,7 +11,7 @@ export const getNotifications = async (req, res) => {
       attributes: [
         "id",
         "uuid",
-        "notif",
+        "notifmsg",
         "taskId",
         "meetingId",
         "userId",
@@ -41,17 +41,17 @@ export const getNotifications = async (req, res) => {
 };
 
 export const addNotification = async (req, res) => {
-  const { id, uuid, notif, taskId, meetingId } = req.body;
+  const { id, uuid, notifmsg, taskId, meetingId } = req.body;
   try {
     await Notification.create({
       id: id,
       uuid: uuid,
-      notif: notif,
+      notifmsg: notifmsg,
       taskId: taskId,
       meetingId: meetingId,
       userId: req.userId,
     });
-    res.status(201).json({ message: "Message created successfully" });
+    res.status(201).json({ message: "Notification created successfully" });
   } catch (error) {
     res
       .status(500)
@@ -67,7 +67,7 @@ export const deleteNotification = async (req, res) => {
       },
     });
     if (!notification) return res.status(404).json({ msg: "Data not found" });
-    const { id, uuid, notif } = req.body;
+    const { id, uuid, notifmsg } = req.body;
     if (req.roles === "admin") {
       await Notification.destroy({
         where: {
@@ -83,7 +83,7 @@ export const deleteNotification = async (req, res) => {
         },
       });
     }
-    res.status(200).json({ msg: "Message deleted successfully" });
+    res.status(200).json({ msg: "Notification deleted successfully" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
