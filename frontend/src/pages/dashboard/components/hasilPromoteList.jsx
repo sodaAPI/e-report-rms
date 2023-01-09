@@ -60,7 +60,7 @@ const HasilPromoteList = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <div className="w-fit min-h-screen">
+    <div className="w-full  min-h-screen">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
         <Link
           to="/dashboard/report/add"
@@ -82,97 +82,150 @@ const HasilPromoteList = () => {
         </div>
         <DataToExcel />
       </div>
-      <table className="table-compact table-zebra bg-slate-800 rounded-2xl text-white mt-7">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Project Code</th>
-            <th>Promote Name</th>
-            <th>Promote Status</th>
-            <th>Promote PIC</th>
-            <th>Promote Desc</th>
-            <th>Changes</th>
-            <th>Promote Date</th>
-            <th>Side Promote</th>
-            <th>Created By</th>
-            <th>Created At</th>
-            <th>Update At</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {reports
-
-            .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
-            .filter(
-              (report) =>
-                report.side_promote === "Hasil Promote" &&
-                (new RegExp(searchTerm, "i").test(report.promote_name) ||
-                  new RegExp(searchTerm, "i").test(report.project_code) ||
-                  new RegExp(searchTerm, "i").test(report.promote_status) ||
-                  new RegExp(searchTerm, "i").test(report.promote_pic) ||
-                  new RegExp(searchTerm, "i").test(report.promote_desc) ||
-                  new RegExp(searchTerm, "i").test(report.createdAt) ||
-                  new RegExp(searchTerm, "i").test(report.updatedAt) ||
-                  new RegExp(searchTerm, "i").test(report.side_promote) ||
-                  new RegExp(searchTerm, "i").test(report.promote_date) ||
-                  new RegExp(searchTerm, "i").test(report.changes))
-            )
-            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-            .map((report, index) => (
-              <tr key={report.id}>
-                <td>{report.id}</td>
-                <td>{report.project_code}</td>
-                <td>{report.promote_name}</td>
-                <td>{report.promote_status}</td>
-                <td>{report.promote_pic}</td>
-                <td>{report.promote_desc}</td>
-                <td>{report.changes}</td>
-                <td>{report.promote_date}</td>
-                <td>{report.side_promote}</td>
-                <td>{report.user?.name}</td>
-                <td>{report.createdAt}</td>
-                <td>{report.updatedAt}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to update this report?"
+      <div className="overflow-auto w-5/6  rounded-2xl">
+        <table className="table-compact table-zebra bg-slate-800 rounded-2xl text-white mt-7">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Project Code</th>
+              <th>New/Existing</th>
+              <th>IP</th>
+              <th>No PCR/IR</th>
+              <th>Nama</th>
+              <th>User</th>
+              <th>Core/Non Core</th>
+              <th>Detail Deploy</th>
+              <th>Changes</th>
+              <th>Programmer</th>
+              <th>BP</th>
+              <th>PM</th>
+              <th>QA</th>
+              <th>SA</th>
+              <th>CMT</th>
+              <th>Dependensi</th>
+              <th>Keterangan Project</th>
+              <th>Status</th>
+              <th>No Lap Promote</th>
+              <th>Tanggal Promote</th>
+              <th>Week Eksekusi</th>
+              <th>Risk Summary</th>
+              <th>Report Type</th>
+              <th>By</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {reports
+              .filter(
+                (report) =>
+                  report.report_type === "Hasil Promote" &&
+                  (new RegExp(searchTerm, "i").test(report.id) ||
+                    new RegExp(searchTerm, "i").test(report.project_code) ||
+                    new RegExp(searchTerm, "i").test(report.new_existing) ||
+                    new RegExp(searchTerm, "i").test(report.ip) ||
+                    new RegExp(searchTerm, "i").test(report.nopcr_ir) ||
+                    new RegExp(searchTerm, "i").test(report.nama) ||
+                    new RegExp(searchTerm, "i").test(report.user_division) ||
+                    new RegExp(searchTerm, "i").test(report.core_noncore) ||
+                    new RegExp(searchTerm, "i").test(report.detail_deploy) ||
+                    new RegExp(searchTerm, "i").test(report.changes) ||
+                    new RegExp(searchTerm, "i").test(report.programmer) ||
+                    new RegExp(searchTerm, "i").test(report.bp) ||
+                    new RegExp(searchTerm, "i").test(report.pm) ||
+                    new RegExp(searchTerm, "i").test(report.qa) ||
+                    new RegExp(searchTerm, "i").test(report.sa) ||
+                    new RegExp(searchTerm, "i").test(report.cmt) ||
+                    new RegExp(searchTerm, "i").test(report.dependensi) ||
+                    new RegExp(searchTerm, "i").test(
+                      report.keterangan_project
+                    ) ||
+                    new RegExp(searchTerm, "i").test(report.status) ||
+                    new RegExp(searchTerm, "i").test(report.nolap_promote) ||
+                    new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
+                    new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
+                    new RegExp(searchTerm, "i").test(report.risk_summary) ||
+                    new RegExp(searchTerm, "i").test(report.user?.name) ||
+                    new RegExp(searchTerm, "i").test(report.createdAt) ||
+                    new RegExp(searchTerm, "i").test(report.updatedAt))
+              )
+              .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
+              .slice(
+                (currentPage - 1) * itemsPerPage,
+                currentPage * itemsPerPage
+              )
+              .map((report, index) => (
+                <tr key={report.id}>
+                  <td>{report.id}</td>
+                  <td>{report.project_code}</td>
+                  <td>{report.new_existing}</td>
+                  <td>{report.ip}</td>
+                  <td>{report.nopcr_ir}</td>
+                  <td>{report.nama}</td>
+                  <td>{report.user_division}</td>
+                  <td>{report.core_noncore}</td>
+                  <td>{report.detail_deploy}</td>
+                  <td>{report.changes}</td>
+                  <td>{report.programmer}</td>
+                  <td>{report.bp}</td>
+                  <td>{report.pm}</td>
+                  <td>{report.qa}</td>
+                  <td>{report.sa}</td>
+                  <td>{report.cmt}</td>
+                  <td>{report.dependensi}</td>
+                  <td>{report.keterangan_project}</td>
+                  <td>{report.status}</td>
+                  <td>{report.nolap_promote}</td>
+                  <td>{report.tanggal_promote}</td>
+                  <td>{report.week_eksekusi}</td>
+                  <td>{report.risk_summary}</td>
+                  <td>{report.report_type}</td>
+                  <td>{report.user?.name}</td>
+                  <td>{report.createdAt}</td>
+                  <td>{report.updatedAt}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you wish to update this report?"
+                          )
                         )
-                      )
-                        updateStatus(report.id);
-                    }}
-                    className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
-                    <ArrowsRightLeftIcon className="w-4 h-4" /> Status
-                  </button>
-                </td>
-                <td>
-                  <Link
-                    to={`/dashboard/report/edit/${report.id}`}
-                    className="bg-green-500 p-2 rounded-lg text-white">
-                    Edit
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to delete this item?"
+                          updateStatus(report.id);
+                      }}
+                      className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
+                      <ArrowsRightLeftIcon className="w-4 h-4" /> Status
+                    </button>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/dashboard/report/edit/${report.id}`}
+                      className="bg-green-500 p-2 rounded-lg text-white">
+                      Edit
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you wish to delete this item?"
+                          )
                         )
-                      )
-                        deleteReport(report.id);
-                    }}
-                    className="bg-red-700 p-2 rounded-lg text-white">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                          deleteReport(report.id);
+                      }}
+                      className="bg-red-700 p-2 rounded-lg text-white">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
       <Pagination
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

@@ -33,17 +33,6 @@ import TaskCompleted from "./pages/personal/components/taskCompleted";
 import TaskUncompleted from "./pages/personal/components/taskUncompleted";
 
 function App() {
-  useEffect(() => {
-    const initialValue = document.body.style.zoom;
-  
-    // Change zoom level on mount
-    document.body.style.zoom = "90%";
-  
-    return () => {
-      // Restore default value
-      document.body.style.zoom = initialValue;
-    };
-  }, []);
   
   return (
     <div>

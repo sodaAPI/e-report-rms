@@ -22,23 +22,23 @@ const CompleteReportChart = () => {
     fetchData();
   }, []);
 
-  // Filter the data to only include entries with a promote_status of "Complete" or "In Progress"
+  // Filter the data to only include entries with a status of "Complete" or "In Progress"
   const filteredData = data.map((entry) => {
-    if (entry.promote_status === "Complete" || entry.promote_status === "In Progress") {
+    if (entry.status === "Complete" || entry.status === "In Progress") {
       return entry;
     }
-  }).slice(4, 6); // Only include the first two entries
+  }).slice(2,4 ); // Only include the first two entries
 
   const getLength = (entry) => {
-    // Group the data by promote_status
+    // Group the data by status
     const grouped = data.reduce((acc, item) => {
-      acc[item.promote_status] = acc[item.promote_status] || [];
-      acc[item.promote_status].push(item);
+      acc[item.status] = acc[item.status] || [];
+      acc[item.status].push(item);
       return acc;
     }, {});
 
-    // Return the length of the promote_status group
-    return grouped[entry.promote_status].length;
+    // Return the length of the status group
+    return grouped[entry.status].length;
   };
 
   return (
@@ -53,7 +53,7 @@ const CompleteReportChart = () => {
         bottom: 0,
       }}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="promote_status" />
+      <XAxis dataKey="status" />
       <YAxis />
       <Tooltip />
       <Bar dataKey={getLength} name="Report" fill="#2384d8" />

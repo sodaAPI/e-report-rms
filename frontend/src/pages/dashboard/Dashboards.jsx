@@ -17,6 +17,7 @@ import Clock from "../../components/Clock";
 import CompleteReportChart from "./completeReportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
+import Pagination from "../../components/Pagination";
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
@@ -24,7 +25,8 @@ export default function Dashboards() {
   const [users, setUsers] = useState([]);
   const [task, setTask] = useState([]);
   const [value, onChange] = useState(new Date());
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const navigate = useNavigate();
 
   //User
@@ -97,6 +99,10 @@ export default function Dashboards() {
     getTasks();
     getUsers();
   }, []);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <section>
@@ -196,8 +202,8 @@ export default function Dashboards() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Promote Name</th>
-                <th>Promote PIC</th>
+                <th>Nama Project</th>
+                <th>PIC CMT</th>
                 <th>Changes</th>
                 <th>Promote Date</th>
                 <th className="md:block hidden">Report Type</th>
@@ -208,20 +214,29 @@ export default function Dashboards() {
                 .filter(
                   (report) => report.promote_status === "In Progress" || "N/A"
                 )
-                .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
-                .slice(0, 10)
+                .sort((a, b) => (a.tanggal_promote < b.tanggal_promote ? 1 : -1))
+                .slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage
+                )
                 .map((report, index) => (
                   <tr key={index}>
                     <td>{report.id}</td>
-                    <td>{report.promote_name}</td>
-                    <td>{report.promote_pic}</td>
+                    <td>{report.nama}</td>
+                    <td>{report.cmt}</td>
                     <td>{report.changes}</td>
-                    <td>{report.promote_date}</td>
-                    <td className="md:block hidden">{report.side_promote}</td>
+                    <td>{report.tanggal_promote}</td>
+                    <td className="md:block hidden">{report.report_type}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            totalItems={reports.length}
+            handlePageChange={handlePageChange}
+          />
         </div>
 
         {/* Calendar & Clock */}

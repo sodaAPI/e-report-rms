@@ -3,25 +3,30 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
 const statusList = ["In Progress", "Complete"];
-const sidePromoteList = [
+const promoteType = [
   "POK Promote",
   "Hasil Promote",
   "Checklist Promote",
   "Other",
 ];
+const newOrExisting = ["New", "Existing"];
+const coreOrNonCore = ["Core", "Non Core"];
+const riskSummaryList = ["Low", "Medium", "High"];
 
 const EditReport = () => {
+  const [reports, setReport] = useState([]);
   const [Id, setId] = useState("");
   const [uuid, setUUID] = useState("");
   const [project_code, setProjectCode] = useState("");
-  const [new_existing, setNewExisting] = useState("");
+  const [new_existing, setNewExisting] = useState(newOrExisting[0]);
   const [ip, setIp] = useState("");
   const [nopcr_ir, setNoPCRIR] = useState("");
   const [nama, setNama] = useState("");
   const [user_division, setUserDivision] = useState("");
-  const [core_noncore, setCoreNonCore] = useState("");
+  const [core_noncore, setCoreNonCore] = useState(coreOrNonCore[0]);
   const [detail_deploy, setDetailDeploy] = useState("");
   const [changes, setChanges] = useState("");
   const [programmer, setProgrammer] = useState("");
@@ -36,15 +41,24 @@ const EditReport = () => {
   const [nolap_promote, setNoLapPromote] = useState("");
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
-  const [risk_summary, setRiskSummary] = useState("");
+  const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
   const [source_file, setSourceFile] = useState("");
-  const [report_type, setReportType] = useState("");
+  const [report_type, setReportType] = useState(promoteType[0]);
   const [userId, setUserId] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getReports();
+  }, []);
+
+  const getReports = async () => {
+    const response = await axios.get(`http://localhost:5000/report`);
+    setReport(response.data);
+  };
 
   const updateReport = async (e) => {
     e.preventDefault();
@@ -87,7 +101,11 @@ const EditReport = () => {
 
   useEffect(() => {
     getReportById();
+    getReports();
   }, []);
+
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   const getReportById = async () => {
     const response = await axios.get(`http://localhost:5000/report/${id}`);
@@ -116,7 +134,7 @@ const EditReport = () => {
     setWeekEksekusi(response.data.week_eksekusi);
     setRiskSummary(response.data.risk_summary);
     setSourceFile(response.data.source_file);
-    setUserId(response.data.userId);
+    setUserId(response.data.user.name);
     setReportType(response.data.report_type);
     setCreatedAt(response.data.createdAt);
     setUpdatedAt(response.data.updatedAt);
@@ -152,11 +170,11 @@ const EditReport = () => {
             {/* ID */}
 
             <div>
-              <label className="label">Project ID</label>
+              <label className="label text-white">Project ID</label>
               <input
                 className="input input-bordered w-full "
                 type="text"
-                placeholder="Project ID"
+                placeholder="Project ID ..."
                 value={Id}
                 onChange={(e) => setId(e.target.value)}
                 disabled
@@ -165,11 +183,11 @@ const EditReport = () => {
             {/* Project UUID */}
 
             <div>
-              <label className="label">Project UUID</label>
+              <label className="label text-white">Project UUID</label>
               <input
                 className="input input-bordered w-full "
                 type="text"
-                placeholder="Project UUID"
+                placeholder="Project UUID ..."
                 value={uuid}
                 onChange={(e) => setUUID(e.target.value)}
                 disabled
@@ -178,48 +196,599 @@ const EditReport = () => {
             {/* Project Code */}
 
             <div>
-              <label className="label">Project Code</label>
+              <label className="label text-white">Project Code</label>
               <input
                 className="input input-bordered w-full "
                 type="text"
-                placeholder="Project Code"
+                placeholder="Project Code ..."
                 value={project_code}
                 onChange={(e) => setProjectCode(e.target.value)}
               />
             </div>
 
-            {/* Promote Name */}
-
-            <div>
-              <label className="label">Promote Name</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Promote Name"
-                value={promote_name}
-                onChange={(e) => setPromoteName(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Promote Status */}
+            {/* New / Existing */}
 
             <div>
               <Listbox
                 as="div"
                 className="space-y-1"
-                value={promote_status}
-                onChange={setPromoteStatus}>
+                value={new_existing}
+                onChange={setNewExisting}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block py-1">
-                      Promote Status
+                    <Listbox.Label className="block py-1 text-white">
+                      New / Existing
                     </Listbox.Label>
                     <div className="relative">
                       <span className="inline-block w-full rounded-md shadow-sm">
-                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-3 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                           <span className="block truncate text-gray-900">
-                            {promote_status}
+                            {new_existing}
+                          </span>
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-gray-700"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              stroke="currentColor">
+                              <path
+                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </Listbox.Button>
+                      </span>
+
+                      <Transition
+                        show={open}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+                        <Listbox.Options
+                          static
+                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
+                          {newOrExisting.map((newOrExisting) => (
+                            <Listbox.Option
+                              key={newOrExisting}
+                              value={newOrExisting}>
+                              {({ selected, active }) => (
+                                <div
+                                  className={`${
+                                    active
+                                      ? "text-white bg-blue-600"
+                                      : "text-gray-900"
+                                  } cursor-default select-none relative py-2 pl-8 pr-4`}>
+                                  <span
+                                    className={`${
+                                      selected ? "font-semibold" : "font-normal"
+                                    } block truncate`}>
+                                    {newOrExisting}
+                                  </span>
+                                  {selected && (
+                                    <span
+                                      className={`${
+                                        active ? "text-white" : "text-blue-600"
+                                      } absolute inset-y-0 left-0 flex items-center pl-1.5`}>
+                                      <svg
+                                        className="h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
+            </div>
+
+            {/* IP */}
+
+            <div>
+              <label className="label text-white">IP</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="IP Address ..."
+                value={ip}
+                onChange={(e) => setIp(e.target.value)}
+              />
+            </div>
+
+            {/* No PCR/IR */}
+
+            <div>
+              <label className="label text-white">No PCR/IR</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="No PCR/IR ..."
+                value={nopcr_ir}
+                onChange={(e) => setNoPCRIR(e.target.value)}
+              />
+            </div>
+
+            {/* Nama */}
+
+            <div>
+              <label className="label text-white">Nama PCR/Project</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Nama PCR/Project ..."
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
+              />
+            </div>
+
+            {/* User Division */}
+
+            <div>
+              <label className="label text-white">User Division</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="User Division ..."
+                value={user_division}
+                onChange={(e) => setUserDivision(e.target.value)}
+              />
+            </div>
+
+            {/* Core/Non Core */}
+
+            <div>
+              <Listbox
+                as="div"
+                className="space-y-1"
+                value={core_noncore}
+                onChange={setCoreNonCore}>
+                {({ open }) => (
+                  <>
+                    <Listbox.Label className="block py-1 text-white">
+                      Core / Non Core
+                    </Listbox.Label>
+                    <div className="relative">
+                      <span className="inline-block w-full rounded-md shadow-sm">
+                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-3 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                          <span className="block truncate text-gray-900">
+                            {core_noncore}
+                          </span>
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-gray-700"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              stroke="currentColor">
+                              <path
+                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </Listbox.Button>
+                      </span>
+
+                      <Transition
+                        show={open}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+                        <Listbox.Options
+                          static
+                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
+                          {coreOrNonCore.map((coreOrNonCore) => (
+                            <Listbox.Option
+                              key={coreOrNonCore}
+                              value={coreOrNonCore}>
+                              {({ selected, active }) => (
+                                <div
+                                  className={`${
+                                    active
+                                      ? "text-white bg-blue-600"
+                                      : "text-gray-900"
+                                  } cursor-default select-none relative py-2 pl-8 pr-4`}>
+                                  <span
+                                    className={`${
+                                      selected ? "font-semibold" : "font-normal"
+                                    } block truncate`}>
+                                    {coreOrNonCore}
+                                  </span>
+                                  {selected && (
+                                    <span
+                                      className={`${
+                                        active ? "text-white" : "text-blue-600"
+                                      } absolute inset-y-0 left-0 flex items-center pl-1.5`}>
+                                      <svg
+                                        className="h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
+            </div>
+
+            {/* Detail Deploy */}
+
+            <div>
+              <label className="label text-white">Detail Deploy</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Detail Deploy ..."
+                value={detail_deploy}
+                onChange={(e) => setDetailDeploy(e.target.value)}
+              />
+            </div>
+
+            {/* Risk Summary */}
+
+            <div>
+              <Listbox
+                as="div"
+                className="space-y-1"
+                value={risk_summary}
+                onChange={setRiskSummary}>
+                {({ open }) => (
+                  <>
+                    <Listbox.Label className="block py-1 text-white">
+                      Risk Summary
+                    </Listbox.Label>
+                    <div className="relative">
+                      <span className="inline-block w-full rounded-md shadow-sm">
+                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-3 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                          <span className="block truncate text-gray-900">
+                            {risk_summary}
+                          </span>
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-gray-700"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              stroke="currentColor">
+                              <path
+                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </Listbox.Button>
+                      </span>
+
+                      <Transition
+                        show={open}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+                        <Listbox.Options
+                          static
+                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
+                          {riskSummaryList.map((riskSummaryList) => (
+                            <Listbox.Option
+                              key={riskSummaryList}
+                              value={riskSummaryList}>
+                              {({ selected, active }) => (
+                                <div
+                                  className={`${
+                                    active
+                                      ? "text-white bg-blue-600"
+                                      : "text-gray-900"
+                                  } cursor-default select-none relative py-2 pl-8 pr-4`}>
+                                  <span
+                                    className={`${
+                                      selected ? "font-semibold" : "font-normal"
+                                    } block truncate`}>
+                                    {riskSummaryList}
+                                  </span>
+                                  {selected && (
+                                    <span
+                                      className={`${
+                                        active ? "text-white" : "text-blue-600"
+                                      } absolute inset-y-0 left-0 flex items-center pl-1.5`}>
+                                      <svg
+                                        className="h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
+            </div>
+
+            {/* Dependensi */}
+
+            <div>
+              <label className="label text-white">Dependensi</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Dependensi ..."
+                value={dependensi}
+                onChange={(e) => setDependensi(e.target.value)}
+              />
+            </div>
+
+            {/* Report Type */}
+
+            <div>
+              <Listbox
+                as="div"
+                className="space-y-1"
+                value={report_type}
+                onChange={setReportType}>
+                {({ open }) => (
+                  <>
+                    <Listbox.Label className="block py-1 text-white">
+                      Report Type
+                    </Listbox.Label>
+                    <div className="relative">
+                      <span className="inline-block w-full rounded-md shadow-sm">
+                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-3 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                          <span className="block truncate text-gray-900">
+                            {report_type}
+                          </span>
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-gray-700"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              stroke="currentColor">
+                              <path
+                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </Listbox.Button>
+                      </span>
+
+                      <Transition
+                        show={open}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+                        <Listbox.Options
+                          static
+                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
+                          {promoteType.map((promoteType) => (
+                            <Listbox.Option
+                              key={promoteType}
+                              value={promoteType}>
+                              {({ selected, active }) => (
+                                <div
+                                  className={`${
+                                    active
+                                      ? "text-white bg-blue-600"
+                                      : "text-gray-900"
+                                  } cursor-default select-none relative py-2 pl-8 pr-4`}>
+                                  <span
+                                    className={`${
+                                      selected ? "font-semibold" : "font-normal"
+                                    } block truncate`}>
+                                    {promoteType}
+                                  </span>
+                                  {selected && (
+                                    <span
+                                      className={`${
+                                        active ? "text-white" : "text-blue-600"
+                                      } absolute inset-y-0 left-0 flex items-center pl-1.5`}>
+                                      <svg
+                                        className="h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </>
+                )}
+              </Listbox>
+            </div>
+          </section>
+
+          <section className="sm:w-full w-2/5">
+            {/* No Lap Promote */}
+
+            <div>
+              <label className="label text-white">No Lap Promote</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="No Lap Promote ..."
+                value={nolap_promote}
+                onChange={(e) => setNoLapPromote(e.target.value)}
+              />
+            </div>
+
+            {/* Programmer */}
+
+            <div>
+              <label className="label text-white">Programmer</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Programmer ..."
+                value={programmer}
+                onChange={(e) => setProgrammer(e.target.value)}
+              />
+            </div>
+
+            {/* BP */}
+
+            <div>
+              <label className="label text-white">BP</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="BP ..."
+                value={bp}
+                onChange={(e) => setBP(e.target.value)}
+              />
+            </div>
+
+            {/* PM */}
+
+            <div>
+              <label className="label text-white">PM</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="PM ..."
+                value={pm}
+                onChange={(e) => setPM(e.target.value)}
+              />
+            </div>
+
+            {/* QA */}
+
+            <div>
+              <label className="label text-white">QA</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="QA ..."
+                value={qa}
+                onChange={(e) => setQA(e.target.value)}
+              />
+            </div>
+
+            {/* SA */}
+
+            <div>
+              <label className="label text-white">SA</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="SA ..."
+                value={sa}
+                onChange={(e) => setSA(e.target.value)}
+              />
+            </div>
+
+            {/* CMT */}
+
+            <div>
+              <label className="label text-white">CMT</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="CMT ..."
+                value={cmt}
+                onChange={(e) => setCMT(e.target.value)}
+              />
+            </div>
+
+            {/* Tanggal Promote */}
+
+            <div>
+              <label className="label">Tanggal Promote</label>
+              <input
+                className="input input-bordered w-full"
+                type="date"
+                placeholder="Tanggal Promote"
+                value={tanggal_promote}
+                onChange={(e) => setTanggalPromote(e.target.value)}
+              />
+            </div>
+
+            {/*Week Eksekusi */}
+
+            <div>
+              <label className="label">Week Eksekusi</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Week Eksekusi"
+                value={week_eksekusi}
+                onChange={(e) => setWeekEksekusi(e.target.value)}
+              />
+            </div>
+
+            {/* Status */}
+
+            <div>
+              <Listbox
+                as="div"
+                className="space-y-1"
+                value={status}
+                onChange={setStatus}>
+                {({ open }) => (
+                  <>
+                    <Listbox.Label className="block py-1 text-white">
+                      Status
+                    </Listbox.Label>
+                    <div className="relative">
+                      <span className="inline-block w-full rounded-md shadow-sm">
+                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-3 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                          <span className="block truncate text-gray-900">
+                            {status}
                           </span>
                           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                             <svg
@@ -292,180 +861,18 @@ const EditReport = () => {
               </Listbox>
             </div>
 
-            {/* Promote PIC */}
-
-            <div>
-              <label className="label">Promote PIC</label>
-              <input
-                className="input input-bordered w-full"
-                type="phone"
-                placeholder="Promote PIC"
-                value={promote_pic}
-                onChange={(e) => setPromotePIC(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* SRC File */}
-
-            <div>
-              <label className="label">Source File</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Source File"
-                value={src_file}
-                onChange={(e) => setSrcFile(e.target.value)}
-                disabled
-              />
-            </div>
-          </section>
-
-          <section className="sm:w-full w-2/5">
-            {/*Promote Date */}
-
-            <div>
-              <label className="label">Promote Date</label>
-              <input
-                className="input input-bordered w-full"
-                type="date"
-                placeholder="Promote Date"
-                value={promote_date}
-                onChange={(e) => setPromoteDate(e.target.value)}
-              />
-            </div>
-
-            {/*Execute Week */}
-
-            <div>
-              <label className="label">Execute Week</label>
-              <input
-                className="input input-bordered w-full"
-                type="week"
-                placeholder="Execute Week"
-                value={execute_week}
-                onChange={(e) => setExecuteWeek(e.target.value)}
-              />
-            </div>
-
-            {/*Request Week */}
-
-            <div>
-              <label className="label">Request Week</label>
-              <input
-                className="input input-bordered w-full"
-                type="week"
-                placeholder="Request Week"
-                value={request_week}
-                onChange={(e) => setRequestWeek(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Side Promote */}
-
-            <div>
-              <Listbox
-                as="div"
-                className="space-y-1"
-                value={side_promote}
-                onChange={setSidePromote}>
-                {({ open }) => (
-                  <>
-                    <Listbox.Label className="block py-1">
-                      Side Promote
-                    </Listbox.Label>
-                    <div className="relative">
-                      <span className="inline-block w-full rounded-md shadow-sm">
-                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                          <span className="block truncate text-gray-900">
-                            {side_promote}
-                          </span>
-                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                            <svg
-                              className="h-5 w-5 text-gray-700"
-                              viewBox="0 0 20 20"
-                              fill="none"
-                              stroke="currentColor">
-                              <path
-                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </Listbox.Button>
-                      </span>
-
-                      <Transition
-                        show={open}
-                        leave="transition ease-in duration-100"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
-                        <Listbox.Options
-                          static
-                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5">
-                          {sidePromoteList.map((sidePromoteList) => (
-                            <Listbox.Option
-                              key={sidePromoteList}
-                              value={sidePromoteList}>
-                              {({ selected, active }) => (
-                                <div
-                                  className={`${
-                                    active
-                                      ? "text-white bg-blue-600"
-                                      : "text-gray-900"
-                                  } cursor-default select-none relative py-2 pl-8 pr-4`}>
-                                  <span
-                                    className={`${
-                                      selected ? "font-semibold" : "font-normal"
-                                    } block truncate`}>
-                                    {sidePromoteList}
-                                  </span>
-                                  {selected && (
-                                    <span
-                                      className={`${
-                                        active ? "text-white" : "text-blue-600"
-                                      } absolute inset-y-0 left-0 flex items-center pl-1.5`}>
-                                      <svg
-                                        className="h-5 w-5"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path
-                                          fillRule="evenodd"
-                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                          clipRule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  )}
-                                </div>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
-                      </Transition>
-                    </div>
-                  </>
-                )}
-              </Listbox>
-            </div>
-            {/*Edited By */}
+            {/* By */}
 
             <div>
               <label className="label">Edited By</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Edited By"
-                value={editedBy}
-                onChange={(e) => setEditedBy(e.target.value)}
+                value={userId}
                 disabled
               />
             </div>
+
             {/*Created At */}
 
             <div>
@@ -479,6 +886,7 @@ const EditReport = () => {
                 disabled
               />
             </div>
+
             {/*Updated At */}
 
             <div>
@@ -494,12 +902,13 @@ const EditReport = () => {
             </div>
           </section>
         </div>
+
         {/* Changes*/}
 
         <div>
-          <label className="label">Changes</label>
+          <label className="label text-white">Changes</label>
           <textarea
-            className="input input-bordered w-full"
+            className="input input-bordered w-full py-2 px-4"
             type="text"
             placeholder="Changes"
             value={changes}
@@ -508,18 +917,19 @@ const EditReport = () => {
           />
         </div>
 
-        {/* Promote Desc */}
+        {/* Keterangan Project */}
 
         <div>
-          <label className="label">Promote Desc</label>
+          <label className="label text-white">Keterangan Project</label>
           <textarea
-            className="input input-bordered h-40 w-full"
+            className="input input-bordered h-40 w-full py-2 px-4"
             type="text"
-            placeholder="Promote Desc"
-            value={promote_desc}
-            onChange={(e) => setPromoteDesc(e.target.value)}
+            placeholder="Keterangan Project"
+            value={keterangan_project}
+            onChange={(e) => setKeteranganProject(e.target.value)}
           />
         </div>
+
         <div className="pt-5">
           <button className="w-full bg-sky-500 p-3 rounded-lg text-white">
             Add Report
