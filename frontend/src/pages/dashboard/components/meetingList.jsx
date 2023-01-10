@@ -9,8 +9,6 @@ import {
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 
-//TODO: Add Notification 1-2 day Before Meeting
-
 const MeetingList = () => {
   //User
   const { user } = useSelector((state) => state.auth);
