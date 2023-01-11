@@ -47,6 +47,78 @@ export const getNotifications = async (req, res) => {
   }
 };
 
+export const getNotificationsByUserId = async (req, res) => {
+  try {
+    const response = await Notification.findAll({
+      where: {
+        userId: req.userId,
+      },
+      attributes: [
+        "id",
+        "uuid",
+        "notifmsg",
+        "taskId",
+        "meetingId",
+        "userId",
+        "createdAt",
+        "updatedAt",
+      ],
+      include: [
+        {
+          model: User,
+          attributes: ["name", "username", "email"],
+        },
+        {
+          model: Task,
+          attributes: ["name", "status", "deadline", "userId"],
+        },
+        {
+          model: Meeting,
+          attributes: [
+            "meeting_name",
+            "online_meeting_link",
+            "meeting_date",
+            "userId",
+          ],
+        },
+      ],
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+export const addNotificationById = async (req, res) => {
+  const { id, uuid, taskId, meetingId } = req.body;
+  let notifmsg;
+  try {
+    const task = await Task.findByPk(taskId);
+    const meeting = await Meeting.findByPk(meetingId);
+    if (task && meeting) {
+      notifmsg = `${task.name} & ${meeting.meeting_name}`;
+    } else if (task) {
+      notifmsg = task.name;
+    } else if (meeting) {
+      notifmsg = meeting.meeting_name;
+    } else {
+      return res.status(404).json({ msg: "task or meeting not found" });
+    }
+    await Notification.create({
+      id: id,
+      uuid: uuid,
+      notifmsg: notifmsg,
+      taskId: taskId,
+      meetingId: meetingId,
+      userId: req.userId,
+    });
+    res.status(201).json({ msg: "Notification Created Successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 export const addNotification = async (req, res) => {
   const { id, uuid, notifmsg, taskId, meetingId } = req.body;
   try {
@@ -59,6 +131,7 @@ export const addNotification = async (req, res) => {
       userId: req.userId,
     });
     res.status(201).json({ message: "Notification created successfully" });
+    res.status(200).json(response);
   } catch (error) {
     res
       .status(500)
@@ -95,7 +168,7 @@ export const deleteNotification = async (req, res) => {
   }
 };
 
-// TODO: FIX PUSH NOTIFICATION FETCH DATA & ADD CRON NODE IN NOTIFICATION ROUTE
+// TODO: ADD CRON NODE SCHEDULE
 export const pushNotification = async (req, res) => {
   const notification = await Notification.findAll({
     attributes: [
@@ -153,47 +226,47 @@ export const pushNotification = async (req, res) => {
   notification.forEach((notification) => {
     if (notification.userId === req.userId) {
       let message = `
-      <h1>Hello ${notification.user?.name},</h1>
-      <h2>This is from Bank BTN E-Report Management System</h2>
+      <tr><td><h1>Hello ${notification.user?.name},</h1></td></tr>
+      <tr><td><h2>This is from Bank BTN E-Report Management System</h2></td></tr>
       `;
       if (notification.meetingId && notification.taskId !== null) {
         message += `
-        <h2>You have a Uncomplete Meeting / Task: ${notification.notifmsg}</h2>
         <div>
-          <h3>Task Detail: </h3>
-          <p><b>Task Name</b>: ${notification.task?.name}</p>
-          <p><b>Task Status</b>: ${notification.task?.status}</p>
-          <p><b>Task Deadline</b>: ${notification.task?.deadline}</p>
+        <h2 style="font-weight:400"><b>You have a Uncomplete Meeting / Task</b>: ${notification.notifmsg}</h2>
+          <tr><td><h3>Task Detail: </h3></td></tr>
+          <tr><td><b>Task Name</b>: ${notification.task?.name}</td></tr>
+          <tr><td><b>Task Status</b>: ${notification.task?.status}</td></tr>
+          <tr><td><b>Task Deadline</b>: ${notification.task?.deadline}</td></tr>
         </div>
         <div>
-          <h3>Meeting Detail: </h3>
-          <p><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</p>
-          <p><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</p>
-          <p><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</p>
+        <tr><td><h3>Meeting Detail: </h3><td></tr>
+          <tr><td><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</td></tr>
+          <tr><td><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</td></tr>
+          <tr<td><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</td></tr>
         </div>`;
       }
       if (notification.meetingId === null) {
         message += `
         <div>
-        <h2>You have a Uncomplete Task: ${notification.notifmsg}</h2>
-          <h3>Task Detail: </h3>
-          <p><b>Task Name</b>: ${notification.task?.name}</p>
-          <p><b>Task Status</b>: ${notification.task?.status}</p>
-          <p><b>Task Deadline</b>: ${notification.task?.deadline}</p>
+        <h2 style="font-weight:400"><b>You have a Uncomplete Task</b>: ${notification.notifmsg}</h2>
+        <tr><td><h3>Task Detail: </h3></td></tr>
+        <tr><td><b>Task Name</b>: ${notification.task?.name}</td></tr>
+        <tr><td><b>Task Status</b>: ${notification.task?.status}</td></tr>
+        <tr><td><b>Task Deadline</b>: ${notification.task?.deadline}</td></tr>
         </div>`;
       }
       if (notification.taskId === null) {
         message += `
         <div>
-        <h2>You have a Upcoming Meeting: ${notification.notifmsg}</h2>
-          <h3>Meeting Detail: </h3>
-          <p><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</p>
-          <p><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</p>
-          <p><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</p>
+        <h2 style="font-weight:400"><b>You have a Upcoming Meeting</b>: ${notification.notifmsg}</h2>
+        <tr><td><h3>Meeting Detail: </h3><td></tr>
+          <tr><td><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</td></tr>
+          <tr><td><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</td></tr>
+          <tr><td><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</td></tr>
         </div>`;
       }
 
-      message += `<h4>Thank you for using our service!</h4>`;
+      message += `<tr<td><h3>Thank you for using our service!</h3></td></tr>`;
 
       if (
         formatDate(Date.now()) < notification.meeting?.meeting_date ||
@@ -208,31 +281,33 @@ export const pushNotification = async (req, res) => {
           .then(console.info)
           .catch(console.error);
       } else {
-        console.log(`Sorry, Notification (${notification.notifmsg}) is not up to date`);
+        console.log(
+          `Sorry, Notification (${notification.notifmsg}) is not up to date`
+        );
         console.log(formatDate(Date.now()));
       }
     }
   });
 };
 
-  // function formatDate(date) {
-  //   var d = new Date(date),
-  //     month = "" + (d.getMonth() + 1),
-  //     day = "" + d.getDate(),
-  //     year = d.getFullYear();
+// function formatDate(date) {
+//   var d = new Date(date),
+//     month = "" + (d.getMonth() + 1),
+//     day = "" + d.getDate(),
+//     year = d.getFullYear();
 
-  //   if (month.length < 2) month = "0" + month;
-  //   if (day.length < 2) day = "0" + day;
+//   if (month.length < 2) month = "0" + month;
+//   if (day.length < 2) day = "0" + day;
 
-  //   return [year, month, day].join("-");
-  // }
+//   return [year, month, day].join("-");
+// }
 
-  // console.log(formatDate(Date.now()));
-  // console.log(emailMessage);
+// console.log(formatDate(Date.now()));
+// console.log(emailMessage);
 
-  // const jsonToString = JSON.stringify(emailMessage);
+// const jsonToString = JSON.stringify(emailMessage);
 
-  //Check if Notification is up to date
+//Check if Notification is up to date
 //   if (
 //     Date.now() < notification.meeting?.meeting_date ||
 //     notification.task?.deadline
@@ -242,6 +317,7 @@ export const pushNotification = async (req, res) => {
 //       () => {
 //         transporter
 //           .sendMail({
+
 //             subject: "BTN E-Report Management System - New Notification",
 //             html: emailMessage,
 //           })

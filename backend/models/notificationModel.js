@@ -24,7 +24,6 @@ const Notification = db.define(
     },
     userId: {
       type: DataTypes.INTEGER,
-      
       allowNull: false,
       validate: {
         notEmpty: true,

@@ -15,7 +15,7 @@ const EditTask = () => {
   const [status, setStatus] = useState(statusList[0]);
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [by_user, setByUser] = useState("");
+  const [user, setUser] = useState("");
   const history = useNavigate();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const EditTask = () => {
       status: status,
       description: description,
       deadline: deadline,
-      by_user: by_user,
+      user: user,
       createdAt: createdAt,
       updatedAt: updatedAt,
     });
@@ -53,7 +53,7 @@ const EditTask = () => {
     setStatus(response.data.status);
     setDescription(response.data.description);
     setDeadline(response.data.deadline);
-    setByUser(response.data.by_user);
+    setUser(response.data.user);
   };
 
   return (
@@ -219,9 +219,8 @@ const EditTask = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="By User"
-                value={by_user}
-                onChange={(e) => setByUser(e.target.value)}
-                required
+                value={user.name}
+                disabled
               />
             </div>
 

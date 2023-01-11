@@ -1,25 +1,53 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { UserCircleIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
-
-import { getMe, LogOut, reset } from "../../../auth/authSlice";
+import {
+  UserCircleIcon,
+  PencilSquareIcon,
+  BellAlertIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Profiles() {
   const [users, setUsers] = useState([]);
+  const [notification, setNotification] = useState([]);
+  const [notifmsg, setNotifmsg] = useState("");
+  const [taskId, setTaskId] = useState("");
+  const [meetingId, setMeetingId] = useState("");
+  const history = useNavigate();
+
   //User
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getUsers();
+    getNotification();
   }, []);
 
   const getUsers = async () => {
     const response = await axios.get(`http://localhost:5000/user`);
     setUsers(response.data);
   };
+
+  const getNotification = async () => {
+    const response = await axios.get(`http://localhost:5000/notification/get`);
+    setNotification(response.data);
+  };
+
+  const allowNotification = async (e) => {
+    e.preventDefault();
+    await axios.post(`http://localhost:5000/notification/push`, {
+      notifmsg: taskId.name || meetingId.meeting_name,
+      taskId: taskId,
+      meetingId: meetingId,
+    });
+    window.alert(
+      "Email Notification has been allowed successfully, you will be get notified every week"
+    );
+    history.push("/notification");
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col justify-center items-center">
@@ -38,7 +66,7 @@ export default function Profiles() {
 
       <div className="px-10">
         <form>
-          <div className="flex sm:flex-row flex-col sm:gap-20 gap-2 justify-center">
+          <div className="flex font sm:flex-row flex-col sm:gap-20 gap-2 justify-center">
             <section className="w-80">
               {/* Name */}
 
@@ -90,6 +118,13 @@ export default function Profiles() {
                   value={users.phone}
                   disabled
                 />
+              </div>
+
+              {/* Notification */}
+
+              <div className="flex flex-row gap-2 sm:w-64 w-full text-center justify-center items-center bg-sky-700 p-3 rounded-lg text-white mt-9">
+                <input type="checkbox" onChange={allowNotification}></input>
+                Allow Email Notification <BellAlertIcon className="w-5 h-5" />
               </div>
             </section>
 
@@ -175,7 +210,8 @@ export default function Profiles() {
                 <>
                   <Link to={`/dashboard/profile/edit/${user.id}`}>
                     <button className="flex flex-row items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-400 p-3 rounded-lg text-white">
-                      <PencilSquareIcon className="w-5 h-5"/>Edit Profile
+                      <PencilSquareIcon className="w-5 h-5" />
+                      Edit Profile
                     </button>
                   </Link>
                 </>

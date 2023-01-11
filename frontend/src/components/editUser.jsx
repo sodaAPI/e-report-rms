@@ -41,10 +41,10 @@ const EditUser = () => {
   };
 
   useEffect(() => {
-    getProductById();
+    getUserById();
   }, []);
 
-  const getProductById = async () => {
+  const getUserById = async () => {
     const response = await axios.get(`http://localhost:5000/user/${id}`);
     setName(response.data.name);
     setUsername(response.data.username);

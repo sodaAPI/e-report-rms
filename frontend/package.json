@@ -6,7 +6,6 @@
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
     "@material-tailwind/react": "^1.2.4",
-    "@multiavatar/multiavatar": "^1.0.7",
     "@react-google-maps/api": "^2.17.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",

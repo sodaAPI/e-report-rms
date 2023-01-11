@@ -5,6 +5,7 @@ import {
   InformationCircleIcon,
   MagnifyingGlassIcon,
   ChatBubbleBottomCenterIcon,
+  BellAlertIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
@@ -13,6 +14,7 @@ const MeetingList = () => {
   //User
   const { user } = useSelector((state) => state.auth);
   const [meetings, setMeetings] = useState([]);
+  const [notification, setNotification] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const handlePageChange = (page) => {
@@ -21,6 +23,7 @@ const MeetingList = () => {
 
   useEffect(() => {
     getMeetings();
+    getNotification();
   }, []);
 
   const getMeetings = async () => {
@@ -28,13 +31,30 @@ const MeetingList = () => {
     setMeetings(response.data);
   };
 
+  const getNotification = async () => {
+    const response = await axios.get("http://localhost:5000/notification/get");
+    setNotification(response.data);
+  };
+
   const deleteMeetings = async (id) => {
     await axios.delete(`http://localhost:5000/meeting/${id}`);
     getMeetings();
   };
 
+  const addNotification = async (id) => {
+    const response = await axios.get(`http://localhost:5000/meeting/${id}`);
+    const meetingId = response.data.id;
+    await axios.post(`http://localhost:5000/notification/addbyid`, {
+      meetingId: meetingId,
+    });
+    window.alert(
+      "Meeting Notification has been added successfully, Allow Email Notification in Profile Page to get notified"
+    );
+    getNotification();
+  };
+
   const truncate = (input) =>
-    input?.length > 4 ? `${input.substring(0, 40)}...` : input;
+    input?.length > 40 ? `${input.substring(0, 40)}...` : input;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -79,6 +99,7 @@ const MeetingList = () => {
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -120,6 +141,20 @@ const MeetingList = () => {
                 <td>{meeting.user?.name}</td>
                 <td>{meeting.createdAt}</td>
                 <td>{meeting.updatedAt}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to add notification from this item?"
+                        )
+                      )
+                        addNotification(meeting.id);
+                    }}
+                    className="flex flex-row bg-purple-700 p-2 rounded-lg text-white">
+                    <BellAlertIcon className="w-5 h-5" />
+                  </button>
+                </td>
                 <td>
                   <a
                     href={meeting.online_meeting_link}

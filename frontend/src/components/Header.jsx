@@ -1,4 +1,5 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import axios from "axios";
 import { useProSidebar } from "react-pro-sidebar";
 import {
   Bars3Icon,
@@ -9,7 +10,7 @@ import {
   DocumentCheckIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import {  InformationCircleIcon } from "@heroicons/react/20/solid";
+import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { DropdownButton } from "./dropdownLink";
@@ -20,19 +21,31 @@ import { getMe, LogOut, reset } from "../auth/authSlice";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-  
+
 export default function Header() {
   const { collapseSidebar } = useProSidebar();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { isError } = useSelector((state) => state.auth);
+  const [notification, setNotification] = useState([]);
 
   const logout = () => {
     dispatch(LogOut());
     dispatch(reset());
     navigate("/");
   };
+
+  const getNotification = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/notification/getuser`
+    );
+    setNotification(response.data);
+  };
+
+  useEffect(() => {
+    getNotification();
+  }, []);
 
   useEffect(() => {
     dispatch(getMe());
@@ -44,10 +57,13 @@ export default function Header() {
     }
   }, [isError, navigate]);
 
+  const truncate = (input) =>
+    input?.length > 25 ? `${input.substring(0, 25)} ...` : input;
+
   return (
     <section className="w-full">
       <div className="flex flex-row md:gap-40 gap-60 text-slate-300">
-      {/* Menu */}
+        {/* Menu */}
         <div className="md:w-1/2">
           <button
             onClick={() => collapseSidebar()}
@@ -77,34 +93,57 @@ export default function Header() {
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
-              <Menu.Items className="absolute flex flex-col -right-0 md:w-72 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+              <Menu.Items className="absolute flex flex-col -right-0 md:w-96 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
                 <>
-                  {/* Notification Sample 1 */}
-
-                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
-                    <DropdownButton className="flex flex-row">
-                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
-                      You Got Notification Sample!
-                    </DropdownButton>
-                  </Menu.Item>
-
-                  {/* Notification Sample 2 */}
-
-                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
-                    <DropdownButton className="flex flex-row">
-                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
-                      You Got Notification Sample!
-                    </DropdownButton>
-                  </Menu.Item>
-
-                  {/* Notification Sample 3 */}
-
-                  <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
-                    <DropdownButton className="flex flex-row">
-                      <InformationCircleIcon className="w-5 h-5 text-red-900" />
-                      You Got Notification Sample!
-                    </DropdownButton>
-                  </Menu.Item>
+                  {/* Notification */}
+                  {notification
+                    .sort((a, b) => {
+                      let dateA = a.task
+                        ? new Date(a.task.deadline)
+                        : new Date(a.meeting.meeting_date);
+                      let dateB = b.task
+                        ? new Date(b.task.deadline)
+                        : new Date(b.meeting.meeting_date);
+                      return dateA - dateB;
+                    })
+                    .reverse()
+                    .slice(0, 3)
+                    .map((val, index) => {
+                      let date;
+                      let options;
+                      if (val.taskId !== null) {
+                        date = new Date(val.task.deadline);
+                        options = {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          timeZone: "Asia/Bangkok",
+                        };
+                      } else {
+                        date = new Date(val.meeting.meeting_date);
+                        options = {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          timeZone: "Asia/Bangkok",
+                        };
+                      }
+                      const formattedDate = date.toLocaleString(
+                        "en-US",
+                        options
+                      );
+                      return (
+                        <Menu.Item
+                          data-tip={val.notifmsg}
+                          className="tooltip tooltip-right flex flex-row py-2 text-sm gap-2 text-gray-700">
+                          <DropdownButton className=" flex flex-row">
+                            <InformationCircleIcon className="flex flex-row w-5 h-5 text-red-900" />
+                            {truncate(val.notifmsg)}{" "}
+                            <p className="text-blue-800">{formattedDate}</p>
+                          </DropdownButton>
+                        </Menu.Item>
+                      );
+                    })}
                 </>
               </Menu.Items>
             </Transition>

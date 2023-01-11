@@ -3,7 +3,11 @@ import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowsRightLeftIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowsRightLeftIcon,
+  DocumentIcon,
+  BellAlertIcon,
+} from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 
@@ -18,6 +22,7 @@ export default function Tasks() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [notification, setNotification] = useState([]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -25,6 +30,7 @@ export default function Tasks() {
   useEffect(() => {
     getTasks();
     getTaskById();
+    getNotification();
   }, []);
 
   const getTasks = async () => {
@@ -56,6 +62,23 @@ export default function Tasks() {
   const getTaskById = async () => {
     const response = await axios.get(`http://localhost:5000/task/${id}`);
     setStatus(response.data.status);
+  };
+
+  const getNotification = async () => {
+    const response = await axios.get("http://localhost:5000/notification/get");
+    setNotification(response.data);
+  };
+
+  const addNotification = async (id) => {
+    const response = await axios.get(`http://localhost:5000/task/${id}`);
+    const taskId = response.data.id;
+    await axios.post(`http://localhost:5000/notification/addbyid`, {
+      taskId: taskId,
+    });
+    window.alert(
+      "Task Notification has been added successfully, Allow Email Notification in Profile Page to get notified"
+    );
+    getNotification();
   };
 
   const category = [
@@ -182,7 +205,26 @@ export default function Tasks() {
                     <td>
                       <button
                         onClick={() => {
-                          updateStatus(task.id);
+                          if (
+                            window.confirm(
+                              "Are you sure you wish to add notification from this item?"
+                            )
+                          )
+                          addNotification(task.id);
+                        }}
+                        className="flex flex-row bg-purple-700 p-2 rounded-lg text-white">
+                        <BellAlertIcon className="w-5 h-5" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you wish to update status of this item?"
+                            )
+                          )
+                            updateStatus(task.id);
                         }}
                         className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                         <ArrowsRightLeftIcon className="w-4 h-4" /> Status
