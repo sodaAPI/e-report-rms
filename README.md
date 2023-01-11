@@ -119,7 +119,7 @@ _Below is an example of how you can instruct your audience on installing and set
 - [x] Add Chat Feature
 - [x] Add CRUD Function
 - [x] Add Chart
-- [?] Add Email Web Push Notification Schedule (50%)
+- [o] Add Email Web Push Notification Schedule (85%)
 - [ ] Add New Chat Channels
 - [ ] Add Chat Customization
 - [ ] Add Themes
