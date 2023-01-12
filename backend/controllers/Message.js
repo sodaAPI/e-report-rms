@@ -55,7 +55,6 @@ export const deleteMessage = async (req, res) => {
       },
     });
     if (!messages) return res.status(404).json({ msg: "Data not found" });
-    const { id, uuid, text, room } = req.body;
     if (req.roles === "admin") {
       await Messages.destroy({
         where: {

@@ -57,11 +57,11 @@ const ReportList = () => {
   };
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full py-8 min-h-screen">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
         <Link
           to="/dashboard/report/add"
-          className="flex flex-row p-3 items-center gap-2 bg-sky-900 hover:bg-sky-800 rounded-xl text-white">
+          className="flex flex-row p-3 items-center gap-2 bg-sky-900 hover:bg-sky-800 rounded-xl p-3 text-white">
           <PlusCircleIcon className="w-5 h-5" />
           Add New e-Report
         </Link>
@@ -106,7 +106,6 @@ const ReportList = () => {
               <th>Tanggal Promote</th>
               <th>Week Eksekusi</th>
               <th>Risk Summary</th>
-              <th>Report Type</th>
               <th>By</th>
               <th>Created At</th>
               <th>Updated At</th>
@@ -176,7 +175,6 @@ const ReportList = () => {
                   <td>{report.tanggal_promote}</td>
                   <td>{report.week_eksekusi}</td>
                   <td>{report.risk_summary}</td>
-                  <td>{report.report_type}</td>
                   <td>{report.user?.name}</td>
                   <td>{report.createdAt}</td>
                   <td>{report.updatedAt}</td>

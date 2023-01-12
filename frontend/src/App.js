@@ -23,10 +23,6 @@ import EditProfiles from "./pages/personal/components/editProfiles";
 import Preference from "./pages/settings/Preference";
 import FAQ from "./pages/settings/FAQ";
 import Task from "./pages/personal/Task";
-import ChecklistPromote from "./pages/dashboard/components/checklistPromote";
-import PokPromote from "./pages/dashboard/components/pokPromote";
-import HasilPromote from "./pages/dashboard/components/hasilPromote";
-import OtherPromote from "./pages/dashboard/components/otherPromote";
 import EditTasks from "./pages/personal/components/editTasks";
 import AddTasks from "./pages/personal/components/addTasks";
 import TaskCompleted from "./pages/personal/components/taskCompleted";
@@ -54,10 +50,6 @@ function App() {
           <Route path="/dashboard/user" element={<Users />} />
           <Route path="/dashboard/discussion" element={<Discussion />} />
           <Route path="/dashboard/meeting" element={<Meeting />} />
-          <Route path="/report/pok" element={<PokPromote />} />
-          <Route path="/report/hasil-promote" element={<HasilPromote />} />
-          <Route path="/report/checklist-promote" element={<ChecklistPromote />} />
-          <Route path="/report/others" element={<OtherPromote />} />
 
           {/* Dashboard Edit */}
 

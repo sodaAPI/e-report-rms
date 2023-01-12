@@ -191,8 +191,6 @@ export const deleteMeeting = async (req, res) => {
       },
     });
     if (!meeting) return res.status(404).json({ msg: "Data not found" });
-    const { meeting_name, meeting_desc, online_meeting_link, meeting_date } =
-      req.body;
     if (req.roles === "admin" || "user") {
       await Meetings.destroy({
         where: {

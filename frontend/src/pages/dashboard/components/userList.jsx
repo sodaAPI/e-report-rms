@@ -37,7 +37,7 @@ const UserList = () => {
   };
 
   return (
-    <div className="w-fit min-h-screen pt-5">
+    <div className="w-fit min-h-screen py-8">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
         <Link
           to="/dashboard/user/add"
@@ -52,7 +52,7 @@ const UserList = () => {
           <input
             className="input bg-white rounded-r-xl rounded-l-none e p-3 text-gray-800"
             type="text"
-            placeholder="Search users..."
+            placeholder="Search Users..."
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />

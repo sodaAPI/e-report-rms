@@ -77,12 +77,6 @@ const Report = db.define(
     risk_summary: {
       type: DataTypes.STRING,
     },
-    source_file: {
-      type: DataTypes.STRING,
-    },
-    report_type: {
-      type: DataTypes.STRING,
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

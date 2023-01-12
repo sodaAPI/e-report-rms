@@ -227,7 +227,7 @@ export default function Dashboards() {
                     <td>{report.cmt}</td>
                     <td>{report.changes}</td>
                     <td>{report.tanggal_promote}</td>
-                    <td className="md:block hidden">{report.report_type}</td>
+                    <td className="md:block hidden">{report.risk_summary}</td>
                   </tr>
                 ))}
             </tbody>

@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 const MeetingList = () => {
   //User
@@ -63,7 +64,8 @@ const MeetingList = () => {
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
         <Link
           to="/dashboard/meeting/add"
-          className=" bg-sky-900 hover:bg-sky-800 rounded-xl p-3 text-white">
+          className="flex flex-row items-center gap-2 bg-sky-900 hover:bg-sky-800 rounded-xl p-3 text-white">
+          <PlusCircleIcon className="w-5 h-5" />
           Add New Meeting
         </Link>
         <div className="flex flex-row items-center">
@@ -79,7 +81,7 @@ const MeetingList = () => {
           />
         </div>
         <div className="py-3 sm:px-10 px-0">
-          <span className="flex flex-row items-center gap-2 p-3 rounded-xl text-white">
+          <span className="flex flex-row items-center gap-2  rounded-xl text-white">
             <InformationCircleIcon className="w-5 h-5" />
             Click on Online Meeting Link to Copy
           </span>

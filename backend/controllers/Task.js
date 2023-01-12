@@ -177,7 +177,6 @@ export const deleteTask = async (req, res) => {
       },
     });
     if (!task) return res.status(404).json({ msg: "Data not found" });
-    const { name, status, description, deadline } = req.body;
     if (req.roles === "admin") {
       await Task.destroy({
         where: {

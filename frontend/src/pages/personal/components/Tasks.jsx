@@ -6,6 +6,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   DocumentIcon,
+  PlusCircleIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { BellAlertIcon } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
@@ -153,16 +155,22 @@ export default function Tasks() {
           <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3 mt-5">
             <Link
               to="/dashboard/task/add"
-              className=" bg-sky-900 hover:bg-sky-800 rounded-xl p-3 text-white">
+              className="flex flex-row gap-2 items-center bg-sky-900 hover:bg-sky-800 rounded-xl p-3 text-white">
+              <PlusCircleIcon className="w-5 h-5" />
               Add New Task
             </Link>
-            <input
-              className="input bg-white rounded-xl e p-3 text-gray-800"
-              type="text"
-              placeholder="Search Tasks..."
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-            />
+            <div className="flex flex-row items-center">
+              <div className="bg-slate-700 p-3 rounded-l-xl">
+                <MagnifyingGlassIcon className="w-6 h-6 text-white" />
+              </div>
+              <input
+                className="input bg-white rounded-r-xl rounded-l-none e p-3 text-gray-800"
+                type="text"
+                placeholder="Search Reports..."
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+            </div>
           </div>
           <table className="table-compact table-zebra text-center bg-slate-800 rounded-2xl text-white mt-7">
             <thead>
@@ -210,7 +218,7 @@ export default function Tasks() {
                               "Are you sure you wish to add notification from this item?"
                             )
                           )
-                          addNotification(task.id);
+                            addNotification(task.id);
                         }}
                         className="flex flex-row bg-purple-700 p-2 rounded-lg text-white">
                         <BellAlertIcon className="w-5 h-5" />
