@@ -12,12 +12,13 @@ import {
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import 'react-calendar/dist/Calendar.css';
 import Clock from "../../components/Clock";
 import CompleteReportChart from "./completeReportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
 import Pagination from "../../components/Pagination";
+import DateNow from "../../components/dateNow";
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
@@ -242,7 +243,7 @@ export default function Dashboards() {
         {/* Calendar & Clock */}
         <div className="flex flex-col items-center h-fit px-5 md:w-1/4 w-full bg-slate-800 rounded-xl py-2">
           <span className="flex flex-row mt-3 gap-1">
-            Time : <Clock />
+            Date & Time : <DateNow />
           </span>
           <div className="divider" />
           <span className="text-lg text-white ">Calendar</span>

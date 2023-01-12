@@ -257,7 +257,7 @@ export const pushNotification = async (req, res) => {
             job.stop();
             transporter
               .sendMail({
-
+                from: "",
                 to: `${notification.user?.email}`,
                 subject: "BTN E-Report Management System - New Notification",
                 html: message,
