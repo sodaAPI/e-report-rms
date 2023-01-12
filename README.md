@@ -39,7 +39,7 @@
 
 <div>
 <h3>E-Report Management System (CMS),</h3>
-<h4>The E-Report Management System is a software application that allows users to create, read, update, and delete reports, as well as manage users, meetings, tasks, and notifications. The system includes authentication features to ensure secure access, and supports multiple user roles. The system also uses a MySQL database to store data and has a built-in chatting feature for messaging.</h4>
+<p align="justify">The E-Report Management System is a software application that allows users to create, read, update, and delete reports, as well as manage users, meetings, tasks, and notifications. The system includes authentication features to ensure secure access, and supports multiple user roles. The system also uses a MySQL database to store data and has a built-in chatting feature for messaging.</p>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -64,7 +64,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Follow the steps below for installation of this project.
 
 1. Clone the repo
    ```sh
