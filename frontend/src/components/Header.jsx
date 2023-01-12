@@ -96,54 +96,64 @@ export default function Header() {
               <Menu.Items className="absolute flex flex-col -right-0 md:w-96 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
                 <>
                   {/* Notification */}
-                  {notification
-                    .sort((a, b) => {
-                      let dateA = a.task
-                        ? new Date(a.task.deadline)
-                        : new Date(a.meeting.meeting_date);
-                      let dateB = b.task
-                        ? new Date(b.task.deadline)
-                        : new Date(b.meeting.meeting_date);
-                      return dateA - dateB;
-                    })
-                    .reverse()
-                    .slice(0, 3)
-                    .map((val, index) => {
-                      let date;
-                      let options;
-                      if (val.taskId !== null) {
-                        date = new Date(val.task.deadline);
-                        options = {
-                          year: "numeric",
-                          month: "numeric",
-                          day: "numeric",
-                          timeZone: "Asia/Bangkok",
-                        };
-                      } else {
-                        date = new Date(val.meeting.meeting_date);
-                        options = {
-                          year: "numeric",
-                          month: "numeric",
-                          day: "numeric",
-                          timeZone: "Asia/Bangkok",
-                        };
-                      }
-                      const formattedDate = date.toLocaleString(
-                        "en-US",
-                        options
-                      );
-                      return (
-                        <Menu.Item
-                          data-tip={val.notifmsg}
-                          className="tooltip tooltip-right flex flex-row py-2 text-sm gap-2 text-gray-700">
-                          <DropdownButton className=" flex flex-row">
-                            <InformationCircleIcon className="flex flex-row w-5 h-5 text-red-900" />
-                            {truncate(val.notifmsg)}{" "}
-                            <p className="text-blue-800">{formattedDate}</p>
-                          </DropdownButton>
-                        </Menu.Item>
-                      );
-                    })}
+  {notification ? (       
+    notification
+      .sort((a, b) => {
+        let dateA = a.task
+          ? new Date(a.task.deadline)
+          : new Date(a.meeting.meeting_date);
+        let dateB = b.task
+          ? new Date(b.task.deadline)
+          : new Date(b.meeting.meeting_date);
+        return dateA - dateB;
+      })
+      .reverse()
+      .slice(0, 3)
+      .map((val, index) => {
+        let date;
+        let options;
+        if (val.taskId !== null) {
+          date = new Date(val.task.deadline);
+          options = {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            timeZone: "Asia/Bangkok",
+          };
+        } else {
+          date = new Date(val.meeting.meeting_date);
+          options = {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            timeZone: "Asia/Bangkok",
+          };
+        }
+        const formattedDate = date.toLocaleString(
+          "en-US",
+          options
+        );
+        return (
+         <Menu.Item
+            data-tip={val.notifmsg}
+            className="tooltip tooltip-right flex flex-row py-2 text-sm gap-2 text-gray-700">
+            <DropdownButton className=" flex flex-row">
+              <InformationCircleIcon className="flex flex-row w-5 h-5 text-red-900" />
+              {truncate(val.notifmsg)}{" "}
+              <p className="text-blue-800">{formattedDate}</p>
+            </DropdownButton>
+         </Menu.Item>
+        );
+      })
+  ) : (
+    <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
+      <DropdownButton className=" flex flex-row">
+        There is no notification at the moment
+      </DropdownButton>
+    </Menu.Item>
+  )}
+
+
                 </>
               </Menu.Items>
             </Transition>

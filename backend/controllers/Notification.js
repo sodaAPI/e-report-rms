@@ -140,35 +140,14 @@ export const addNotification = async (req, res) => {
 };
 
 export const deleteNotification = async (req, res) => {
-  try {
-    const notification = await Notification.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!notification) return res.status(404).json({ msg: "Data not found" });
-    if (req.roles === "admin") {
-      await Notification.destroy({
-        where: {
-          id: notification.id,
-        },
-      });
-    } else {
-      if (req.userId !== notification.userId)
-        return res.status(403).json({ msg: "Unauthorized Access" });
-      await Notification.destroy({
-        where: {
-          [Op.and]: [{ id: notification.id }, { userId: req.userId }],
-        },
-      });
-    }
-    res.status(200).json({ msg: "Notification deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ msg: error.message });
-  }
+  await Notification.destroy({
+    where: {
+      userId: req.userId,
+    },
+  });
+  res.status(200).json({ message: "Notification deleted successfully" });
 };
 
-// TODO: ADD CRON NODE SCHEDULE
 export const pushNotification = async (req, res) => {
   const notification = await Notification.findAll({
     attributes: [
@@ -272,64 +251,31 @@ export const pushNotification = async (req, res) => {
         formatDate(Date.now()) < notification.meeting?.meeting_date ||
         formatDate(Date.now()) < notification.task?.deadline
       ) {
-        transporter
-          .sendMail({
+        const job = cron.schedule(
+          " * * * * Sunday ", // Every day of week
+          () => {
+            job.stop();
+            transporter
+              .sendMail({
 
-            subject: "BTN E-Report Management System - New Notification",
-            html: message,
-          })
-          .then(console.info)
-          .catch(console.error);
+                to: `${notification.user?.email}`,
+                subject: "BTN E-Report Management System - New Notification",
+                html: message,
+              })
+              .then(console.info)
+              .catch(console.error);
+            job.start();
+          },
+          {
+            scheduled: false,
+            timezone: "Asia/Jakarta",
+          }
+        );
       } else {
         console.log(
           `Sorry, Notification (${notification.notifmsg}) is not up to date`
         );
-        console.log(formatDate(Date.now()));
       }
     }
   });
 };
-
-// function formatDate(date) {
-//   var d = new Date(date),
-//     month = "" + (d.getMonth() + 1),
-//     day = "" + d.getDate(),
-//     year = d.getFullYear();
-
-//   if (month.length < 2) month = "0" + month;
-//   if (day.length < 2) day = "0" + day;
-
-//   return [year, month, day].join("-");
-// }
-
-// console.log(formatDate(Date.now()));
-// console.log(emailMessage);
-
-// const jsonToString = JSON.stringify(emailMessage);
-
-//Check if Notification is up to date
-//   if (
-//     Date.now() < notification.meeting?.meeting_date ||
-//     notification.task?.deadline
-//   ) {
-//     cron.schedule(
-//       " * ", // Every day of week
-//       () => {
-//         transporter
-//           .sendMail({
-
-//             subject: "BTN E-Report Management System - New Notification",
-//             html: emailMessage,
-//           })
-//           .then(console.info)
-//           .catch(console.error);
-//       },
-//       {
-//         scheduled: true,
-//         timezone: "Asia/Jakarta",
-//       }
-//     );
-//   } else {
-//     console.log("Sorry, Notification is not up to date");
-//   }
-// };

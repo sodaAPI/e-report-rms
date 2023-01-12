@@ -3,18 +3,27 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import Dashboards from "./dashboard/Dashboards";
-import Announcement from "./dashboard/components/Announcement";
 import { PresentationChartLineIcon } from "@heroicons/react/24/outline";
+import Announcement from "react-popup-announcement";
+import Logo from "../image/menarabankbtn.jpg";
 
 export default function Dashboard() {
-  const [showAnnouncement, setShowAnnouncement] = useState(true);
+
   return (
     <div className="flex flex-row">
       <Sidebar />
       <div className=" w-full p-4">
         <Header />
-        {showAnnouncement && <div>{/* <Announcement /> */}</div>}
-        
+        <Announcement
+          title="Announcement"
+          subtitle="Selamat datang di Bank BTN E-Report Management System."
+          imageSource={Logo}
+          daysToLive={1}
+          closeIconSize={30}
+          animateInDuration={1500}
+          animateOutDuration={500}
+        />
+
         {/* TODO: Just show Announcement once after login */}
 
         {/* Page Header */}

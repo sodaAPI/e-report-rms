@@ -19,7 +19,7 @@ router.get("/get", verifyUser, getNotifications);
 router.get("/getuser", verifyUser, getNotificationsByUserId);
 
 //Delete Notification
-router.delete("/delete/:id", verifyUser, deleteNotification);
+router.delete("/delete", verifyUser, deleteNotification);
 
 //Send Notification / Check Notification
 router.post("/push", verifyUser, pushNotification);

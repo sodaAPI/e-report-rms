@@ -7,6 +7,7 @@ import {
   UserCircleIcon,
   PencilSquareIcon,
   BellAlertIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Profiles() {
@@ -16,6 +17,7 @@ export default function Profiles() {
   const [taskId, setTaskId] = useState("");
   const [meetingId, setMeetingId] = useState("");
   const history = useNavigate();
+  const navigate = useNavigate("");
 
   //User
   const { user } = useSelector((state) => state.auth);
@@ -38,7 +40,7 @@ export default function Profiles() {
   const allowNotification = async (e) => {
     e.preventDefault();
     await axios.post(`http://localhost:5000/notification/push`, {
-      notifmsg: taskId.name || meetingId.meeting_name,
+      notifmsg: notifmsg,
       taskId: taskId,
       meetingId: meetingId,
     });
@@ -46,6 +48,24 @@ export default function Profiles() {
       "Email Notification has been allowed successfully, you will be get notified every week"
     );
     history.push("/notification");
+  };
+
+  const deleteNotification = async () => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:5000/notification/delete`
+      );
+      if (res.status === 200) {
+        let path = "/dashboard";
+        setTimeout(() => {
+          navigate(path);
+          window.alert("Notification Deleted Successfully");
+        }, 2000);
+        getNotification();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -120,11 +140,31 @@ export default function Profiles() {
                 />
               </div>
 
-              {/* Notification */}
+              <div className="flex flex-col sm:items-center sm:justify-center pb-20">
+                <>
+                  {/* Notification */}
 
-              <div className="flex flex-row gap-2 sm:w-64 w-full text-center justify-center items-center bg-sky-700 p-3 rounded-lg text-white mt-9">
-                <input type="checkbox" onChange={allowNotification}></input>
-                Allow Email Notification <BellAlertIcon className="w-5 h-5" />
+                  <div className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-sky-700 p-3 rounded-lg text-white mt-9">
+                    <input type="checkbox" onChange={allowNotification}></input>
+                    Allow Email Notification{" "}
+                    <BellAlertIcon className="w-5 h-5" />
+                  </div>
+
+                  {/* Delete Notification */}
+
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to add notification from this item?"
+                        )
+                      )
+                        deleteNotification();
+                    }}
+                    className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-red-700 hover:bg-red-600 p-3 rounded-lg text-white mt-9">
+                    <TrashIcon className="w-5 h-5" /> Remove Notification
+                  </button>
+                </>
               </div>
             </section>
 
@@ -208,7 +248,7 @@ export default function Profiles() {
 
               <div className="sm:items-center sm:justify-center pt-10 pb-20 sm:gap-6 gap-7">
                 <>
-                  <Link to={`/dashboard/profile/edit/${user.id}`}>
+                  <Link to={`/dashboard/profile/edit/${user.uuid}`}>
                     <button className="flex flex-row items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-400 p-3 rounded-lg text-white">
                       <PencilSquareIcon className="w-5 h-5" />
                       Edit Profile

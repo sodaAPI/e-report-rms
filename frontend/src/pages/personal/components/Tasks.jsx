@@ -6,8 +6,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   DocumentIcon,
-  BellAlertIcon,
 } from "@heroicons/react/24/outline";
+import { BellAlertIcon } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 
