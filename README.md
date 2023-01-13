@@ -70,7 +70,7 @@ Follow the steps below for installation of this project.
    ```sh
    git clone https://github.com/sodaAPI/e-report-cms.git
    ```
-2. Install NPM packages
+2. Install NPM packages in ./backend/ and ./frontend/
    ```sh
    npm install
    ```
@@ -93,7 +93,7 @@ Follow the steps below for installation of this project.
    ```js
    npm start
    ```
-6. Start Back-End on folder backend
+6. Start Back-End in ./backend/ folder
    ```js
    nodemon
    ```
