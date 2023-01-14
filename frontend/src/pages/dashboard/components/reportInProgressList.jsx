@@ -11,7 +11,7 @@ import Pagination from "../../../components/Pagination";
 
 const statusList = ["In Progress", "Complete"];
 
-const ReportList = () => {
+const ReportInProgressList = () => {
   const [reports, setReport] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -118,32 +118,35 @@ const ReportList = () => {
             {reports
               .filter(
                 (report) =>
-                  new RegExp(searchTerm, "i").test(report.id) ||
-                  new RegExp(searchTerm, "i").test(report.project_code) ||
-                  new RegExp(searchTerm, "i").test(report.new_existing) ||
-                  new RegExp(searchTerm, "i").test(report.ip) ||
-                  new RegExp(searchTerm, "i").test(report.nopcr_ir) ||
-                  new RegExp(searchTerm, "i").test(report.nama) ||
-                  new RegExp(searchTerm, "i").test(report.user_division) ||
-                  new RegExp(searchTerm, "i").test(report.core_noncore) ||
-                  new RegExp(searchTerm, "i").test(report.detail_deploy) ||
-                  new RegExp(searchTerm, "i").test(report.changes) ||
-                  new RegExp(searchTerm, "i").test(report.programmer) ||
-                  new RegExp(searchTerm, "i").test(report.bp) ||
-                  new RegExp(searchTerm, "i").test(report.pm) ||
-                  new RegExp(searchTerm, "i").test(report.qa) ||
-                  new RegExp(searchTerm, "i").test(report.sa) ||
-                  new RegExp(searchTerm, "i").test(report.cmt) ||
-                  new RegExp(searchTerm, "i").test(report.dependensi) ||
-                  new RegExp(searchTerm, "i").test(report.keterangan_project) ||
-                  new RegExp(searchTerm, "i").test(report.status) ||
-                  new RegExp(searchTerm, "i").test(report.nolap_promote) ||
-                  new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
-                  new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
-                  new RegExp(searchTerm, "i").test(report.risk_summary) ||
-                  new RegExp(searchTerm, "i").test(report.user?.name) ||
-                  new RegExp(searchTerm, "i").test(report.createdAt) ||
-                  new RegExp(searchTerm, "i").test(report.updatedAt)
+                  report.status === "In Progress" &&
+                  (new RegExp(searchTerm, "i").test(report.id) ||
+                    new RegExp(searchTerm, "i").test(report.project_code) ||
+                    new RegExp(searchTerm, "i").test(report.new_existing) ||
+                    new RegExp(searchTerm, "i").test(report.ip) ||
+                    new RegExp(searchTerm, "i").test(report.nopcr_ir) ||
+                    new RegExp(searchTerm, "i").test(report.nama) ||
+                    new RegExp(searchTerm, "i").test(report.user_division) ||
+                    new RegExp(searchTerm, "i").test(report.core_noncore) ||
+                    new RegExp(searchTerm, "i").test(report.detail_deploy) ||
+                    new RegExp(searchTerm, "i").test(report.changes) ||
+                    new RegExp(searchTerm, "i").test(report.programmer) ||
+                    new RegExp(searchTerm, "i").test(report.bp) ||
+                    new RegExp(searchTerm, "i").test(report.pm) ||
+                    new RegExp(searchTerm, "i").test(report.qa) ||
+                    new RegExp(searchTerm, "i").test(report.sa) ||
+                    new RegExp(searchTerm, "i").test(report.cmt) ||
+                    new RegExp(searchTerm, "i").test(report.dependensi) ||
+                    new RegExp(searchTerm, "i").test(
+                      report.keterangan_project
+                    ) ||
+                    new RegExp(searchTerm, "i").test(report.status) ||
+                    new RegExp(searchTerm, "i").test(report.nolap_promote) ||
+                    new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
+                    new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
+                    new RegExp(searchTerm, "i").test(report.risk_summary) ||
+                    new RegExp(searchTerm, "i").test(report.user?.name) ||
+                    new RegExp(searchTerm, "i").test(report.createdAt) ||
+                    new RegExp(searchTerm, "i").test(report.updatedAt))
               )
               .sort((a, b) => (a.promote_date < b.promote_date ? 1 : -1))
               .slice(
@@ -227,4 +230,4 @@ const ReportList = () => {
     </div>
   );
 };
-export default ReportList;
+export default ReportInProgressList;

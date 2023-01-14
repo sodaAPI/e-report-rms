@@ -4,7 +4,9 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import {
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline";
 
 function Icon({ id, open }) {
   return (
@@ -29,113 +31,66 @@ export default function FAQs() {
     setOpen(open === value ? 0 : value);
   };
 
+  const faqList = [
+    {
+      id: 1,
+      name: "Apa itu E-Report?",
+      desc: "E-report adalah sistem yang memungkinkan pengguna untuk membuat, membaca, memperbarui, dan menghapus laporan data. Fitur CRUD (create, read, update, delete) memungkinkan pengguna untuk mengelola data secara efisien. Data dapat ditampilkan secara visual melalui grafik atau tabel, dan dapat diexport ke file excel dengan format yang teratur. E-report ini didukung oleh basis data MySQL.",
+    },
+    {
+      id: 2,
+      name: "Apa itu Discussion?",
+      desc: "Discussion adalah sistem yang memungkinkan pengguna untuk berinteraksi dengan user lainnya satu sama lain dengan menggunakan fitur chat messages.",
+    },
+    {
+      id: 3,
+      name: "Apa itu Meeting?",
+      desc: "Meeting adalah sistem yang memungkinkan pengguna untuk membuat, membaca, memperbarui, dan menghapus sebuah online meeting. Fitur ini dapat menjadi sarana reminder atau pengingat user yang memiliki meeting dalam beberapa hari kedepan.",
+    },
+    {
+      id: 4,
+      name: "Apa itu Profile?",
+      desc: "Profile adalah sistem yang memungkinkan pengguna untuk membuat, membaca, dan memperbarui data user.",
+    },
+    {
+      id: 5,
+      name: "Apa itu My Task?",
+      desc: "My Task adalah sistem yang memungkinkan pengguna untuk membuat, membaca, memperbarui, dan menghapus data task. Fitur ini dapat menjadi sarana untuk pengingat user bahwa terdapat tugas atau task yang belum terselesaikan melalui email notification",
+    },
+  ];
+
   return (
     <section className="flex-1 py-5 px-5 text-white">
       <div className="flex flex-col gap-5 mb-5 text-justify">
         <a className="text-4xl font-bold ">FAQ</a>
         <a className="text-slate-200">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus
-          velit vitae vulputate elementum. Donec aliquet est ut nisi tristique
-          rutrum. Quisque eleifend sagittis aliquet. Mauris malesuada aliquam
-          tincidunt. Mauris vel dapibus lorem. Integer porttitor non massa eget
-          aliquam. Suspendisse non venenatis diam. Aliquam in sapien eros. Fusce
-          eleifend in ex vel mattis. Nam a iaculis est.Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit. Proin finibus velit vitae vulputate
-          elementum. Donec aliquet est ut nisi tristique rutrum. Quisque
-          eleifend sagittis aliquet. Mauris malesuada aliquam tincidunt. Mauris
-          vel dapibus lorem. Integer porttitor non massa eget aliquam.
-          Suspendisse non venenatis diam. Aliquam in sapien eros. Fusce eleifend
-          in ex vel mattis. Nam a iaculis est. Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Proin finibus velit vitae vulputate
-          elementum. Donec aliquet est ut nisi tristique rutrum. Quisque
-          eleifend sagittis aliquet. Mauris malesuada aliquam tincidunt. Mauris
-          vel dapibus lorem. Integer porttitor non massa eget aliquam.
-          Suspendisse non venenatis diam. Aliquam in sapien eros. Fusce eleifend
-          in ex vel mattis. Nam a iaculis est.
+          Sistem Manajemen E-Report adalah aplikasi perangkat lunak yang
+          memungkinkan pengguna untuk membuat, membaca, memperbarui, dan
+          menghapus laporan, serta mengelola pengguna, rapat, tugas, dan
+          memiliki pemberitahuan berbasis e-mail. Sistem mencakup fitur
+          autentikasi untuk memastikan akses yang aman, dan mendukung banyak
+          peran pengguna. Sistem ini juga menggunakan database MySQL untuk
+          menyimpan data dan memiliki fitur obrolan bawaan untuk perpesanan
+          dengan sesama user.
         </a>
       </div>
       <div className="flex flex-col gap-2">
         <Fragment>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 1}
-            icon={<Icon id={1} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(1)}>
-              <InformationCircleIcon className="h-5 w-5" /> What is e-Report?
-            </AccordionHeader>
-            <AccordionBody className=" text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 2}
-            icon={<Icon id={2} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(2)}>
-              <InformationCircleIcon className="h-5 w-5" /> What is Reminder?
-            </AccordionHeader>
-            <AccordionBody className="text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 3}
-            icon={<Icon id={3} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(3)}>
-              <InformationCircleIcon className="h-5 w-5" /> How to use e-Report?
-            </AccordionHeader>
-            <AccordionBody className="text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 4}
-            icon={<Icon id={4} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(4)}>
-              <InformationCircleIcon className="h-5 w-5" /> How to use Reminder?
-            </AccordionHeader>
-            <AccordionBody className="text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 5}
-            icon={<Icon id={5} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(5)}>
-              <InformationCircleIcon className="h-5 w-5" /> What can I do with
-              e-Report?
-            </AccordionHeader>
-            <AccordionBody className="text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            className="py-1 px-2 bg-slate-800 rounded-2xl"
-            open={open === 6}
-            icon={<Icon id={6} open={open} />}>
-            <AccordionHeader onClick={() => handleOpen(6)}>
-              <InformationCircleIcon className="h-5 w-5" /> What can I do with
-              Reminder?
-            </AccordionHeader>
-            <AccordionBody className="text-slate-200">
-              We're not always in the position that we want to be at. We're
-              constantly growing. We're constantly making mistakes. We're
-              constantly trying to express ourselves and actualize our dreams.
-            </AccordionBody>
-          </Accordion>
+          {faqList.map((val, index) => {
+            return (
+              <Accordion
+                className="py-1 px-2 bg-slate-800 rounded-2xl"
+                open={open === val.id}
+                icon={<Icon id={val.id} open={open} />}>
+                <AccordionHeader onClick={() => handleOpen(val.id)}>
+                  <InformationCircleIcon className="h-5 w-5" /> {val.name}
+                </AccordionHeader>
+                <AccordionBody className=" text-slate-200">
+                  {val.desc}
+                </AccordionBody>
+              </Accordion>
+            );
+          })}
         </Fragment>
       </div>
     </section>

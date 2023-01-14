@@ -815,7 +815,7 @@ const EditReport = () => {
         {/* Changes*/}
 
         <div>
-          <label className="label text-white">Changes</label>
+          <label className="label text-ju text-white">Changes</label>
           <textarea
             className="input input-bordered h-32 w-full py-2 px-4"
             type="text"

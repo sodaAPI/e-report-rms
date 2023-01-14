@@ -281,7 +281,7 @@ export default function Dashboards() {
                         href={meeting.online_meeting_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-row gap-2 bg-blue-500 p-2 rounded-lg text-white">
+                        className="flex flex-row gap-2 bg-blue-500 hover:bg-blue-400 p-2 rounded-lg text-white">
                         <ChatBubbleBottomCenterIcon className="w-5 h-5" />
                         Join
                       </a>
@@ -330,7 +330,7 @@ export default function Dashboards() {
                           )
                             updateStatus(singletask.id);
                         }}
-                        className="flex flex-row gap-2 bg-green-600 p-2 rounded-lg text-white">
+                        className="flex flex-row gap-2 bg-green-600 hover:bg-green-500 p-2 rounded-lg text-white">
                         <CheckCircleIcon className="w-5 h-5" />
                         Done
                       </button>

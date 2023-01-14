@@ -1,5 +1,5 @@
-import { Routes, Route, BrowserRouter} from "react-router-dom";
-import React, { useEffect} from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import Home from "./pages/Home";
@@ -20,16 +20,17 @@ import EditMeetings from "./pages/dashboard/components/editMeetings";
 import Discussion from "./pages/dashboard/discussion/discussionPage";
 import Profile from "./pages/personal/Profile";
 import EditProfiles from "./pages/personal/components/editProfiles";
-import Preference from "./pages/settings/Preference";
 import FAQ from "./pages/settings/FAQ";
 import Task from "./pages/personal/Task";
 import EditTasks from "./pages/personal/components/editTasks";
 import AddTasks from "./pages/personal/components/addTasks";
 import TaskCompleted from "./pages/personal/components/taskCompleted";
 import TaskUncompleted from "./pages/personal/components/taskUncompleted";
+import ReportCompleteList from "./pages/dashboard/components/reportCompleteList";
+import ReportsComplete from "./pages/dashboard/reportComplete";
+import ReportsInProgress from "./pages/dashboard/reportInProgress";
 
 function App() {
-  
   return (
     <div>
       <BrowserRouter>
@@ -47,6 +48,8 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/report" element={<Reports />} />
+          <Route path="/dashboard/report/completed" element={<ReportsComplete/>} />
+          <Route path="/dashboard/report/in_progress" element={<ReportsInProgress/>} />
           <Route path="/dashboard/user" element={<Users />} />
           <Route path="/dashboard/discussion" element={<Discussion />} />
           <Route path="/dashboard/meeting" element={<Meeting />} />
@@ -79,9 +82,8 @@ function App() {
           <Route path="/task/completed" element={<TaskCompleted />} />
           <Route path="/task/uncompleted" element={<TaskUncompleted />} />
 
-          {/* Settings */}
+          {/* Info */}
 
-          <Route path="/dashboard/preferences" element={<Preference />} />
           <Route path="/dashboard/faq" element={<FAQ />} />
         </Routes>
       </BrowserRouter>

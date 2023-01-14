@@ -24,25 +24,25 @@ const features = [
   {
     name: "Monitoring Reports",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Monitoring report adalah laporan yang menunjukkan hasil dari pemantauan sistem CMS (Content Management System) yang digunakan. Laporan ini dapat menunjukkan statistik report.",
     icon: PresentationChartBarIcon,
   },
   {
-    name: "Discussing Reports",
+    name: "Discussion",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Discussion adalah fitur yang terdapat di Website E-Report Management System yang dapat memudahkan user untuk berinteraksi dengan user lainnya satu sama lain menggunakan chat messages.",
     icon: ChatBubbleLeftRightIcon,
   },
   {
     name: "Mobile Responsive",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Website E-Report Management System memiliki fitur Mobile Responsive sehingga website ini dapat dijalakankan secara efektif diplatform mobile.",
     icon: DevicePhoneMobileIcon,
   },
   {
     name: "Task Remainder",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "Task Remainder adalah sebuah fitur yang dapat memudahkan user untuk mengingatkan bahwa user memiliki task yang belum selesai ataupun adanya meeting online melalui email notification.",
     icon: ChatBubbleBottomCenterTextIcon,
   },
 ];
@@ -310,8 +310,10 @@ export default function Homepage() {
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                  Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
-                  magnam voluptatum cupiditate veritatis in accusamus quisquam.
+                  Sistem Manajemen E-Report adalah aplikasi perangkat lunak yang
+                  memungkinkan pengguna untuk membuat, membaca, memperbarui, dan
+                  menghapus laporan, serta mengelola pengguna, rapat, tugas, dan
+                  memiliki pemberitahuan berbasis e-mail.
                 </p>
 
                 <div className="sm:pb-0 pt-11 pb-1">
@@ -373,8 +375,8 @@ export default function Homepage() {
               Bank BTN e-Report Management System
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto pb-11">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
-              magnam voluptatum cupiditate veritatis in accusamus quisquam.
+              Berikut ini adalah beberapa fitur yang terdapat di Website
+              E-Report Management System
             </p>
           </div>
 
@@ -390,7 +392,7 @@ export default function Homepage() {
                       {feature.name}
                     </p>
                   </dt>
-                  <dd className="mt-2 ml-16 text-base text-gray-500">
+                  <dd className="mt-2 text-justify ml-16 text-base text-gray-500">
                     {feature.description}
                   </dd>
                 </div>

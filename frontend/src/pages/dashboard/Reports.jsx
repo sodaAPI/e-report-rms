@@ -1,11 +1,28 @@
-import React, { useNavigate } from "react";
+import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
 import ReportList from "./components/reportList";
 import { Link } from "react-router-dom";
-import { ChartBarIcon } from "@heroicons/react/24/outline";
+import { ChartBarIcon, CheckCircleIcon, XCircleIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 
 export default function Reports() {
+  const status = [
+    {
+      name: "All",
+      icon: <DocumentTextIcon />,
+      path: "/dashboard/report/#",
+    },
+    {
+      name: "Completed",
+      icon: <CheckCircleIcon />,
+      path: "/dashboard/report/completed",
+    },
+    {
+      name: "In Progress",
+      icon: <XCircleIcon />,
+      path: "/dashboard/report/in_progress",
+    },
+  ];
   return (
     <div className="flex flex-row">
       <Sidebar />
@@ -25,6 +42,25 @@ export default function Reports() {
             </Link>
           </p>
         </div>
+        <div className="pt-5 text-white font-bold">Report Category</div>
+        <div className="flex mt-5 p-2 bg-slate-800 rounded-xl sm:flex-row flex-col gap-5 sm:w-full w-48 sm:justify-start justify-center">
+          {status.map((val, index) => {
+            return (
+              <Link
+                key={index}
+                className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
+                Link
+                to={val.path}>
+                <div className="flex flex-row gap-2 px-5  items-center">
+                  <div className="w-5">{val.icon}</div>
+                  <div>{val.name}</div>
+                </div>
+                <div className="divider divider-vertical divide-rose-400"></div>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="divider sm:px-20 px-32 py-0" />
         <ReportList />
       </div>
     </div>
