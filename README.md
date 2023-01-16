@@ -1,13 +1,5 @@
 <a name="readme-top"></a>
 
-<!-- LOGO -->
-<br />
-<div align="center">
- <!-- <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
-</div>
-
   <h3 align="center">E-Report Management System (CMS)</h3>
 
 <!-- TABLE OF CONTENTS -->
@@ -59,14 +51,13 @@ This Project is built with :
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Follow the instruction below to install the project locally.
 
 ### Installation
 
 Follow the steps below for installation of this project.
 
-1. Clone the repo
+1. Clone the repo.
    ```sh
    git clone https://github.com/sodaAPI/e-report-cms.git
    ```
@@ -74,7 +65,11 @@ Follow the steps below for installation of this project.
    ```sh
    npm install
    ```
-3. Setting your databases in ./backend/config/database.js
+   or
+   ```sh
+   npm install --force
+   ```
+3. Setting your databases in ./backend/config/database.js and make sure you already create database in your local server.
    ```sh
    const db = new Sequelize("your_databases", "root", "", {
    host: "localhost",
@@ -88,12 +83,12 @@ Follow the steps below for installation of this project.
     },
    });
    ```
-4. Run your database server (i'm using XAMPP)
+4. Run your MySQL server (i'm using XAMPP).
 5. Start Front-End on folder frontend
    ```js
    npm start
    ```
-6. Start Back-End in ./backend/ folder
+6. Start Back-End in ./backend/ folder.
    ```js
    nodemon
    ```
@@ -110,25 +105,26 @@ Follow the steps below for installation of this project.
     - [x] Reports Page
     - [x] Discussion/Chat Page
     - [x] Meeting Page
-    - [x] Users Page
+    - [x] Users Page (Admin Only)
     - [x] Profile Page
     - [x] My Task Page
     - [x] FAQ Page
 - [x] Add Databases
 - [x] Add Controllers
+- [x] Add Middleware
 - [x] Add Models
 - [x] Add Routes
 - [x] Add Authentication & Multi Roles
 - [x] Add Chat Feature
 - [x] Add CRUD Function
 - [x] Add Chart
-- [x] Add Email Web Push Notification Schedule (85%)
+- [x] Add Email Web Push Notification Schedule
 - [ ] Add Auto Create Zoom Meeting Room
 - [ ] Add Realtime Chat
 - [ ] Add New Chat Channels
 - [ ] Add Chat Customization
 - [ ] Add Themes
-    - [x] Dark Mode
+    - [ ] Dark Mode
     - [ ] Light Mode
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -142,9 +138,9 @@ If you have a suggestion that would make this better, please fork the repo and c
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/newFeature`)
+3. Commit your Changes (`git commit -m 'Add some newFeature'`)
+4. Push to the Branch (`git push origin feature/newFeature`)
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
