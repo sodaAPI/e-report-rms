@@ -1,8 +1,17 @@
 import * as XLSX from "xlsx";
 import axios from "axios";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import React, { useState, useEffect } from "react";
 
 export default function DataToExcel() {
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   async function downloadExcel() {
     /* fetch the data from the API using axios */
     const response = await axios.get("http://localhost:5000/report");
@@ -72,15 +81,23 @@ export default function DataToExcel() {
       "Updated At",
     ]);
 
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      timeZone: "Asia/Bangkok",
+    };
+
+    const formattedDate = date.toLocaleString("en-US", options);
+
     /* create a workbook and add the data */
     const ws = XLSX.utils.aoa_to_sheet(dataAsArray);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "E-Report");
+    XLSX.utils.book_append_sheet(wb, ws, "E-Report In Progress");
 
-    const now = new Date();
-    const dateString = `In Progress E-Report ${now.getFullYear()}-${
-      now.getMonth() + 1
-    }-${now.getDate()}.xlsx`;
+    const dateString = `In Progress E-Report ${formattedDate}.xlsx`;
 
     /* generate the Excel file and trigger a download */
     XLSX.writeFile(wb, dateString);

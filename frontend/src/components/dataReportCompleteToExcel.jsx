@@ -1,8 +1,17 @@
 import * as XLSX from "xlsx";
 import axios from "axios";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import React, { useState, useEffect } from "react";
 
 export default function DataToExcel() {
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   async function downloadExcel() {
     /* fetch the data from the API using axios */
     const response = await axios.get("http://localhost:5000/report");
@@ -72,15 +81,23 @@ export default function DataToExcel() {
       "Updated At",
     ]);
 
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      timeZone: "Asia/Bangkok",
+    };
+
+    const formattedDate = date.toLocaleString("en-US", options);
+
     /* create a workbook and add the data */
     const ws = XLSX.utils.aoa_to_sheet(dataAsArray);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "E-Report");
+    XLSX.utils.book_append_sheet(wb, ws, "E-Report Complete");
 
-    const now = new Date();
-    const dateString = `Complete E-Report ${now.getFullYear()}-${
-      now.getMonth() + 1
-    }-${now.getDate()}.xlsx`;
+    const dateString = `Complete E-Report ${formattedDate}.xlsx`;
 
     /* generate the Excel file and trigger a download */
     XLSX.writeFile(wb, dateString);
@@ -91,8 +108,8 @@ export default function DataToExcel() {
       <button
         className="flex flex-row gap-2 bg-sky-700 hover:bg-sky-600 p-3 text-white rounded-xl"
         onClick={downloadExcel}>
-        <ArrowDownTrayIcon className="w-5 h-5" /> Download Complete Promote Report
-        file
+        <ArrowDownTrayIcon className="w-5 h-5" /> Download Complete Promote
+        Report file
       </button>
     </div>
   );
