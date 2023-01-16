@@ -6,7 +6,6 @@ import "aos/dist/aos.css";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { LoginUser, reset, getMe } from "../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Announcement from "./dashboard/components/Announcement";
 import { ProgressBar } from "react-loader-spinner";
 import Logo from "../image/logobtn.png";
 

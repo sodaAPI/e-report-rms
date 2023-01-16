@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 
 import Home from "./pages/Home";
@@ -26,7 +26,6 @@ import EditTasks from "./pages/personal/components/editTasks";
 import AddTasks from "./pages/personal/components/addTasks";
 import TaskCompleted from "./pages/personal/components/taskCompleted";
 import TaskUncompleted from "./pages/personal/components/taskUncompleted";
-import ReportCompleteList from "./pages/dashboard/components/reportCompleteList";
 import ReportsComplete from "./pages/dashboard/reportComplete";
 import ReportsInProgress from "./pages/dashboard/reportInProgress";
 

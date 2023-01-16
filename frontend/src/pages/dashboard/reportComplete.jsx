@@ -1,7 +1,6 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
-import ReportList from "./components/reportList";
 import { Link } from "react-router-dom";
 import { ChartBarIcon, CheckCircleIcon, XCircleIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import ReportCompleteList from "./components/reportCompleteList";

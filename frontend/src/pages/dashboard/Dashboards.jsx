@@ -13,7 +13,6 @@ import {
 } from "@heroicons/react/24/outline";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
-import Clock from "../../components/Clock";
 import CompleteReportChart from "./completeReportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";

@@ -54,7 +54,6 @@ export default function Homepage() {
   //Logout
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isError } = useSelector((state) => state.auth);
 
   const logout = () => {
     dispatch(LogOut());
@@ -352,7 +351,6 @@ export default function Homepage() {
             </main>
           </div>
         </div>
-
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <img
             data-aos="fade-up"

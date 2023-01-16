@@ -104,9 +104,6 @@ const EditReport = () => {
     getReports();
   }, []);
 
-  //User
-  const { user } = useSelector((state) => state.auth);
-
   const getReportById = async () => {
     const response = await axios.get(`http://localhost:5000/report/${id}`);
     setId(response.data.id);

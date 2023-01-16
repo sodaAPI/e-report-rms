@@ -9,35 +9,37 @@ export default function DataToExcel() {
     const data = response.data;
 
     /* convert the data to an array of arrays */
-    const dataAsArray = data.map((report) => [
-      report.id,
-      report.uuid,
-      report.project_code,
-      report.new_existing,
-      report.ip,
-      report.nopcr_ir,
-      report.nama,
-      report.user_division,
-      report.core_noncore,
-      report.detail_deploy,
-      report.changes,
-      report.programmer,
-      report.bp,
-      report.pm,
-      report.qa,
-      report.sa,
-      report.cmt,
-      report.dependensi,
-      report.keterangan_project,
-      report.status,
-      report.nolap_promote,
-      report.tanggal_promote,
-      report.week_eksekusi,
-      report.risk_summary,
-      report.user.name,
-      report.createdAt,
-      report.updatedAt,
-    ]);
+    const dataAsArray = data
+      .filter((report) => report.status === "In Progress")
+      .map((report) => [
+        report.id,
+        report.uuid,
+        report.project_code,
+        report.new_existing,
+        report.ip,
+        report.nopcr_ir,
+        report.nama,
+        report.user_division,
+        report.core_noncore,
+        report.detail_deploy,
+        report.changes,
+        report.programmer,
+        report.bp,
+        report.pm,
+        report.qa,
+        report.sa,
+        report.cmt,
+        report.dependensi,
+        report.keterangan_project,
+        report.status,
+        report.nolap_promote,
+        report.tanggal_promote,
+        report.week_eksekusi,
+        report.risk_summary,
+        report.user.name,
+        report.createdAt,
+        report.updatedAt,
+      ]);
 
     /* add the header row */
     dataAsArray.unshift([
@@ -76,7 +78,7 @@ export default function DataToExcel() {
     XLSX.utils.book_append_sheet(wb, ws, "E-Report");
 
     const now = new Date();
-    const dateString = `E-Report ${now.getFullYear()}-${
+    const dateString = `In Progress E-Report ${now.getFullYear()}-${
       now.getMonth() + 1
     }-${now.getDate()}.xlsx`;
 
@@ -89,7 +91,8 @@ export default function DataToExcel() {
       <button
         className="flex flex-row gap-2 bg-sky-700 hover:bg-sky-600 p-3 text-white rounded-xl"
         onClick={downloadExcel}>
-        <ArrowDownTrayIcon className="w-5 h-5" /> Download All Promote Report file
+        <ArrowDownTrayIcon className="w-5 h-5" /> Download In Progress Promote Report
+        file
       </button>
     </div>
   );

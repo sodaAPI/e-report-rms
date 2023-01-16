@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2023 at 04:48 AM
+-- Generation Time: Jan 16, 2023 at 02:47 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -64,7 +64,7 @@ CREATE TABLE `messages` (
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `uuid` varchar(255) NOT NULL,
-  `notifmsg` varchar(255) NOT NULL,
+  `notifmsg` varchar(255) DEFAULT NULL,
   `taskId` int(11) DEFAULT NULL,
   `meetingId` int(11) DEFAULT NULL,
   `userId` int(11) NOT NULL,
@@ -103,8 +103,6 @@ CREATE TABLE `reports` (
   `tanggal_promote` date DEFAULT NULL,
   `week_eksekusi` text DEFAULT NULL,
   `risk_summary` varchar(255) DEFAULT NULL,
-  `source_file` varchar(255) DEFAULT NULL,
-  `report_type` varchar(255) DEFAULT NULL,
   `userId` int(11) NOT NULL,
   `createdAt` date DEFAULT NULL,
   `updatedAt` date DEFAULT NULL
@@ -158,6 +156,7 @@ CREATE TABLE `users` (
   `birth` date NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) NOT NULL,
+  `allow_notification` varchar(255) DEFAULT 'false',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(255) DEFAULT NULL,
@@ -165,6 +164,10 @@ CREATE TABLE `users` (
   `updatedAt` date DEFAULT NULL,
   `roles` varchar(255) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `meetings`
@@ -223,19 +226,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `meetings`
 --
 ALTER TABLE `meetings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `reports`
@@ -247,7 +250,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`

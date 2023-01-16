@@ -24,8 +24,6 @@ export default function Dashboard() {
           animateOutDuration={500}
         />
 
-        {/* TODO: Just show Announcement once after login */}
-
         {/* Page Header */}
         <div className="flex mt-5 bg-slate-800 p-5 rounded-xl text-slate-200">
           <p className="flex">

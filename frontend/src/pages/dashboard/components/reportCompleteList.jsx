@@ -6,7 +6,7 @@ import {
   PlusCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import DataToExcel from "../../../components/dataReportToExcel";
+import DataToExcel from "../../../components/dataReportCompleteToExcel";
 import Pagination from "../../../components/Pagination";
 
 const statusList = ["In Progress", "Complete"];
