@@ -38,6 +38,9 @@ const User = db.define(
     roles: {
       type: DataTypes.STRING,
     },
+    token: {
+      type: DataTypes.STRING,
+    },
   },
   {
     freezeTableName: true,

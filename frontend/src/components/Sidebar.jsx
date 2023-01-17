@@ -31,11 +31,11 @@ import SmallLogo from "../image/logo.png";
 const themes = {
   dark: {
     sidebar: {
-      backgroundColor: "#0b2948",
+      backgroundColor: "#1E293B",
       color: "#e8f4ff",
     },
     menu: {
-      menuContent: "#082440",
+      menuContent: "#192333",
       icon: "#59d0ff",
       hover: {
         backgroundColor: "#0e3052",
@@ -53,7 +53,7 @@ const themes = {
 };
 
 export default function Sidebars() {
-  const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
+  const { collapsed } = useProSidebar();
 
   //User
   const { user } = useSelector((state) => state.auth);

@@ -296,62 +296,9 @@ const Register = () => {
                     </a>
                   </Link>
                 </div>
-                <button className="p-2 text-white font-bold rounded-lg w-full text-center gap-3 items-center justify-center text-lg mt-3 mb-3 bg-sky-900">
+                <button className="p-2 text-white font-bold rounded-lg w-full text-center gap-3 items-center justify-center text-lg mt-3 mb-3 hover:bg-sky-800 bg-sky-900">
                   Register
                 </button>
-                {/* <div className="field mt-5">
-                  <label className="label">Name</label>
-                  <div className="controls">
-                    <input
-                      type="text"
-                      className="input"
-                      placeholder="Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="field mt-5">
-                  <label className="label">Email</label>
-                  <div className="controls">
-                    <input
-                      type="email"
-                      className="input"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="field mt-5">
-                  <label className="label">Password</label>
-                  <div className="controls">
-                    <input
-                      type="password"
-                      className="input"
-                      placeholder="******"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="field mt-5">
-                  <label className="label">Confirm Password</label>
-                  <div className="controls">
-                    <input
-                      type="password"
-                      className="input"
-                      placeholder="******"
-                      value={confPassword}
-                      onChange={(e) => setConfPassword(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="field mt-5">
-                  <button className="button is-success is-fullwidth">
-                    Register
-                  </button>
-                </div> */}
               </form>
             </div>
           </div>

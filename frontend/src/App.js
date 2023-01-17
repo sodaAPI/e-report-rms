@@ -28,6 +28,7 @@ import TaskCompleted from "./pages/personal/components/taskCompleted";
 import TaskUncompleted from "./pages/personal/components/taskUncompleted";
 import ReportsComplete from "./pages/dashboard/reportComplete";
 import ReportsInProgress from "./pages/dashboard/reportInProgress";
+import ResetPassword from "./pages/resetPassword";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Dashboard */}
 

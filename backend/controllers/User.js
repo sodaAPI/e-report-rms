@@ -1,5 +1,7 @@
 import User from "../models/userModel.js";
 import argon2 from "argon2";
+import nodemailer from "nodemailer";
+import randtoken from "rand-token";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -54,6 +56,91 @@ export const createUser = async (req, res) => {
       phone: phone,
     });
     res.status(201).json({ msg: "Register Successfully" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  });
+  if (!user)
+    return res
+      .status(404)
+      .json({ msg: "Email not recognized, Please try again." });
+  const token = randtoken.generate(20);
+  try {
+    await User.update(
+      {
+        token: token,
+      },
+      {
+        where: {
+          email: req.body.email,
+        },
+      }
+    );
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: "587",
+      auth: {
+
+      },
+    });
+
+    let message =
+      ` <tr><td><h1>Hello ${user.name}/${user.username},</h1></td></tr>
+    <tr><td><h2>This is from Bank BTN E-Report Management System</h2></td></tr>
+    <h2>We have noticed that you forgot your password, ignore this message if you didn't forgot your password
+    </h2><h2>Click Link below to change your password</h2>
+    <tr><td><h2><a href=${process.env.URL_ORIGIN}/reset-password/` +
+      token +
+      `><b>Click Here !</b></a></h2></td></tr>`;
+
+    transporter
+      .sendMail({
+        from: "",
+        to: `${req.body.email}`,
+        subject: "Change Password - BTN E-Report Management System",
+        html: message,
+      })
+      .then(console.info)
+      .catch(console.error);
+
+    res.status(200).json({ msg: "Email sent" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      token: req.params.token,
+    },
+  });
+  if (!user) return res.status(404).json({ msg: "User not found" });
+  const { password, confPassword } = req.body;
+  if (password !== confPassword)
+    return res.status(400).json({
+      msg: "Password and Confirmation Password do not match, Please try again.",
+    });
+  const hashPassword = await argon2.hash(password);
+  try {
+    await User.update(
+      {
+        password: hashPassword,
+      },
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+    res.status(200).json({ msg: "Password Updated" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }

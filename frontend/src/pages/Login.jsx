@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import {
+  ExclamationTriangleIcon,
+  ArrowLeftCircleIcon,
+} from "@heroicons/react/24/outline";
 import { LoginUser, reset, getMe } from "../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ProgressBar } from "react-loader-spinner";
@@ -19,7 +22,7 @@ const Login = () => {
     (state) => state.auth
   );
 
-    useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       setIsLoaded(false);
     }, 1000);
@@ -52,6 +55,11 @@ const Login = () => {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const gotoHome = async () => {
+    let path = "/home";
+    navigate(path);
+  };
 
   return (
     <>
@@ -172,13 +180,19 @@ const Login = () => {
                           </a>
                         </Link>
                       </div>
-                      <button className=" p-2 text-white font-bold rounded-lg w-full text-center gap-3 items-center justify-center text-lg mt-3 mb-3 bg-sky-900">
+                      <button className=" p-2 text-white font-bold rounded-lg w-full text-center gap-3 items-center justify-center text-lg mt-3 mb-3 hover:bg-sky-800 bg-sky-900">
                         {isLoading ? "Loading..." : "Login"}
                       </button>
                     </form>
                   </div>
                 </div>
               </div>
+            </div>
+            <div>
+              <button onClick={gotoHome} className="flex flex-row items-center px-3 py-2 gap-2 bg-sky-600 hover:bg-sky-500 text-white mt-5 rounded-lg">
+                <ArrowLeftCircleIcon className="w-5 h-5" />
+                Home
+              </button>
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "e-report-backend",
+  "version": "1.1.0",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -22,6 +22,7 @@
     "mysql2": "^2.3.3",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.8.0",
+    "rand-token": "^1.0.1",
     "sequelize": "^6.25.3",
     "socket.io": "^4.5.4"
   },
