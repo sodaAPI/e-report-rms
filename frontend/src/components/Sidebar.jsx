@@ -1,5 +1,13 @@
 import React from "react";
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import {
+  Sidebar,
+  Menu,
+  MenuItem,
+  SubMenu,
+  useProSidebar,
+  menuClasses,
+  MenuItemStyles,
+} from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import {
   ChartBarIcon,
@@ -20,10 +28,37 @@ import {
 import Logo from "../image/logobtn.png";
 import SmallLogo from "../image/logo.png";
 
+const themes = {
+  dark: {
+    sidebar: {
+      backgroundColor: "#0b2948",
+      color: "#e8f4ff",
+    },
+    menu: {
+      menuContent: "#082440",
+      icon: "#59d0ff",
+      hover: {
+        backgroundColor: "#0e3052",
+        color: "#e8f4ff",
+      },
+      active: {
+        backgroundColor: "#13395e",
+        color: "#e8f4ff",
+      },
+      disabled: {
+        color: "#3e5e7e",
+      },
+    },
+  },
+};
+
 export default function Sidebars() {
+  const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
+
   //User
   const { user } = useSelector((state) => state.auth);
 
+  //Menu
   const menu = [
     {
       name: "Home",
@@ -68,26 +103,62 @@ export default function Sidebars() {
     },
   ];
 
+  //Sidebar Settings - Theme
+  const [theme, setTheme] = React.useState("dark");
+
+  const handleThemeChange = (e) => {
+    setTheme(e.target.checked ? "dark" : "light");
+  };
+
+  const menuItemStyles = {
+    root: {
+      fontSize: "15px",
+      fontWeight: 400,
+    },
+    icon: {
+      color: themes[theme].menu.icon,
+    },
+    SubMenuExpandIcon: {
+      color: "#b6b7b9",
+    },
+    subMenuContent: {
+      backgroundColor: themes[theme].menu.menuContent,
+    },
+    button: {
+      [`&.${menuClasses.active}`]: {
+        backgroundColor: themes[theme].menu.active.backgroundColor,
+        color: themes[theme].menu.active.color,
+      },
+      [`&.${menuClasses.disabled}`]: {
+        color: themes[theme].menu.disabled.color,
+      },
+      "&:hover": {
+        backgroundColor: themes[theme].menu.hover.backgroundColor,
+        color: themes[theme].menu.hover.color,
+      },
+    },
+    label: ({ open }) => ({
+      fontWeight: open ? 600 : undefined,
+    }),
+  };
+
   return (
-    <section className="flex min-h-screen">
+    <section className="flex min-h-screen ">
       <Sidebar
-        transitionDuration={750}
-        collapsedWidth="75px"
-        backgroundColor="white"
-        className="text-gray-900">
-        <Menu>
+        transitionDuration={900}
+        collapsedWidth="78px"
+        backgroundColor={themes[theme].sidebar.backgroundColor}
+        rootStyles={{
+          color: themes[theme].sidebar.color,
+        }}>
+        <Menu menuItemStyles={menuItemStyles}>
           <div className="flex md:pl-0 pl-5 md:items-center md:justify-center">
             <Link to="/dashboard">
-              <img
-                className="md:block hidden w-40 h-20 py-5"
-                alt="logo"
-                src={Logo}
-              />
-              <img
-                className="md:hidden block w-10 py-5"
-                alt="logos"
-                src={SmallLogo}
-              />
+              {!collapsed ? (
+                <img className="w-40 h-20 py-5" alt="logo" src={Logo} />
+              ) : (
+                <img className=" w-10 py-5" alt="logos" src={SmallLogo} />
+              )}
             </Link>
           </div>
 
@@ -99,9 +170,8 @@ export default function Sidebars() {
             icon={<PresentationChartLineIcon className="w-6" />}>
             {menu.map((val, index) => {
               return (
-                <MenuItem key={index} routerLink={<Link to={val.href} />}>
-                  <div
-                    className="flex flex-row items-center gap-3">
+                <MenuItem key={index} component={<Link to={val.href} />}>
+                  <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
                   </div>
@@ -109,7 +179,7 @@ export default function Sidebars() {
               );
             })}
             {user && user.roles === "admin" && (
-              <MenuItem routerLink={<Link to="/dashboard/user"/>}>
+              <MenuItem component={<Link to="/dashboard/user" />}>
                 <div className="flex flex-row items-center gap-3">
                   <div className="w-5">
                     <UsersIcon />
@@ -128,9 +198,8 @@ export default function Sidebars() {
             icon={<UserCircleIcon className="w-6" />}>
             {personal.map((val, index) => {
               return (
-                <MenuItem key={index} routerLink={<Link to={val.href} />}>
-                  <div
-                    className="flex flex-row items-center gap-3">
+                <MenuItem key={index} component={<Link to={val.href} />}>
+                  <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
                   </div>
@@ -147,9 +216,8 @@ export default function Sidebars() {
             icon={<InformationCircleIcon className="w-6" />}>
             {settings.map((val, index) => {
               return (
-                <MenuItem key={index} routerLink={<Link to={val.href} />}>
-                  <div
-                    className="flex flex-row items-center gap-3">
+                <MenuItem key={index} component={<Link to={val.href} />}>
+                  <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
                   </div>
