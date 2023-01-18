@@ -29,6 +29,7 @@ import TaskUncompleted from "./pages/personal/components/taskUncompleted";
 import ReportsComplete from "./pages/dashboard/reportComplete";
 import ReportsInProgress from "./pages/dashboard/reportInProgress";
 import ResetPassword from "./pages/resetPassword";
+import DocMids from "./pages/dashboard/components/DocMid";
 
 function App() {
   return (
@@ -49,8 +50,14 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/report" element={<Reports />} />
-          <Route path="/dashboard/report/completed" element={<ReportsComplete/>} />
-          <Route path="/dashboard/report/in_progress" element={<ReportsInProgress/>} />
+          <Route
+            path="/dashboard/report/completed"
+            element={<ReportsComplete />}
+          />
+          <Route
+            path="/dashboard/report/in_progress"
+            element={<ReportsInProgress />}
+          />
           <Route path="/dashboard/user" element={<Users />} />
           <Route path="/dashboard/discussion" element={<Discussion />} />
           <Route path="/dashboard/meeting" element={<Meeting />} />
@@ -71,6 +78,7 @@ function App() {
           <Route path="/dashboard/user/add" element={<AddUsers />} />
           <Route path="/dashboard/meeting/add" element={<AddMeetings />} />
           <Route path="/dashboard/task/add" element={<AddTasks />} />
+          <Route path="/dashboard/doc/mid/add" element={<DocMids />} />
 
           {/* Personal */}
 

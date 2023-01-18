@@ -129,10 +129,12 @@ export const resetPassword = async (req, res) => {
       msg: "Password and Confirmation Password do not match, Please try again.",
     });
   const hashPassword = await argon2.hash(password);
+  const token = randtoken.generate(20);
   try {
     await User.update(
       {
         password: hashPassword,
+        token: token,
       },
       {
         where: {

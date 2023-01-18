@@ -19,6 +19,7 @@ import {
   BriefcaseIcon,
   ChatBubbleLeftIcon,
   UsersIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import {
@@ -79,6 +80,11 @@ export default function Sidebars() {
       name: "Meeting",
       icon: <UserGroupIcon />,
       href: "/dashboard/meeting",
+    },
+    {
+      name: "Document",
+      icon: <DocumentTextIcon />,
+      href: "/dashboard/doc/mid/add",
     },
   ];
 

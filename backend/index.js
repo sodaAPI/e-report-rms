@@ -11,6 +11,7 @@ import MeetingRoute from "./routes/MeetingRoute.js";
 import TaskRoute from "./routes/TaskRoute.js";
 import MessageRoute from "./routes/MessageRoute.js";
 import NotificationRoute from "./routes/NotificationRoute.js";
+import DocRoute from "./routes/DocRoute.js";
 import bodyParser from "body-parser";
 import corsOptions from "cors";
 import { Server } from "socket.io";
@@ -63,6 +64,7 @@ app.use("/meeting", MeetingRoute);
 app.use("/task", TaskRoute);
 app.use("/message", MessageRoute);
 app.use("/notification", NotificationRoute);
+app.use("/doc", DocRoute);
 
 app.use(cors(corsOptions));
 

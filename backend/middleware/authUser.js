@@ -12,6 +12,7 @@ export const verifyUser = async (req, res, next) => {
   if (!user)
     return res.status(404).json({ msg: "User not found, Please try again" });
   req.userId = user.id;
+  req.email = user.email;
   req.roles = user.roles;
   next();
 };

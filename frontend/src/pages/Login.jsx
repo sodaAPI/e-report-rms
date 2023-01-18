@@ -79,11 +79,13 @@ const Login = () => {
         <section className="hero bg-slate-100  min-h-screen">
           <div className="hero-body">
             <div className="container">
-              {isError && (
+              {isError ? (
                 <div className="flex flex-row items-center justify-center gap-2 py-2 text-center text-white bg-red-500 rounded-xl mb-5">
                   <ExclamationTriangleIcon className="w-5 h-5" />
                   <a>{message}</a>
                 </div>
+              ) : (
+                <div></div>
               )}
               <div className="columns is-centered">
                 <div className="bg-white shadow-lg p-5 rounded-lg">
@@ -189,7 +191,9 @@ const Login = () => {
               </div>
             </div>
             <div>
-              <button onClick={gotoHome} className="flex flex-row items-center px-3 py-2 gap-2 bg-sky-600 hover:bg-sky-500 text-white mt-5 rounded-lg">
+              <button
+                onClick={gotoHome}
+                className="flex flex-row items-center px-3 py-2 gap-2 bg-sky-600 hover:bg-sky-500 text-white mt-5 rounded-lg">
                 <ArrowLeftCircleIcon className="w-5 h-5" />
                 Home
               </button>
