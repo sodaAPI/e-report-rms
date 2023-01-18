@@ -119,6 +119,7 @@ Follow the steps below for installation of this project.
 - [x] Add CRUD Function
 - [x] Add Chart
 - [x] Add Email Web Push Notification Schedule
+- [x] Add Document Template 
 - [ ] Add Auto Create Zoom Meeting Room
 - [ ] Add Realtime Chat
 - [ ] Add New Chat Channels
