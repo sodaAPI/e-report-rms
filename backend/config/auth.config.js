@@ -1,3 +1,3 @@
 export const config = {
-  secret: "BTN-EREPORT-MANAGEMENT-SYSTEM"
+  secret: process.env.SESS_SECRET
 };
