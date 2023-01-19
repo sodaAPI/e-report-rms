@@ -1,4 +1,7 @@
 backend/controllers/Notification.js
+backend/controllers/User.js
+backend/controllers/doc
+frontend/src/image
 
 # Created by https://www.toptal.com/developers/gitignore/api/react,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,node
