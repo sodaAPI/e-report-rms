@@ -2,12 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ImagePreview from "../image/doc_mid_preview.png";
+import ImagePreview from "../image/doc_iloan_consumer_preview.png";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 
-const AddDocMid = () => {
+const AddDocIloanCon = () => {
   const [nama_project, setNamaProject] = useState("");
-  const [sisi_project, setSisiProject] = useState("Middleware");
+  const [sisi_project, setSisiProject] = useState("API");
   const [project_code, setProjectCode] = useState("");
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [new_existing, setNewExisting] = useState("");
@@ -15,21 +15,25 @@ const AddDocMid = () => {
   const [unit_pengguna, setUnitPengguna] = useState("");
   const [week_request, setWeekRequest] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
-  const [durasi_ibm, setDurasiIBM] = useState("");
-  const [nama_file_sql, setNamaFileSQL] = useState("");
-  const [hasil_query, setHasilQuery] = useState("");
-  const [durasi_sql, setDurasiSQL] = useState("");
-  const [durasi_email, setDurasiEmail] = useState("");
-  const [broker_1, setBroker1] = useState("");
-  const [broker_2, setBroker2] = useState("");
-  const [broker_3, setBroker3] = useState("");
-  const [broker_4, setBroker4] = useState("");
+  const [path_server_backup, setPathServerBackup] = useState("");
+  const [path_iloan_backup, setPathIloanBackup] = useState("");
+  const [path_copy_promote, setPathCopyPromote] = useState("");
+  const [path_server_promote, setPathServerPromote] = useState("");
+  const [path_copy_tujuan, setPathCopyTujuan] = useState("");
+  const [path_tujuan, setPathTujuan] = useState("");
+  const [ip_db, setIPDB] = useState("");
+  const [path_db_sql, setPathDBSQL] = useState("");
+  const [durasi_akses_server, setDurasiAksesServer] = useState("");
+  const [durasi_backup, setDurasiBackup] = useState("");
+  const [durasi_copy_server_promote, setDurasiCopyServerPromote] = useState("");
+  const [durasi_copy_tujuan, setDurasiCopyTujuan] = useState("");
+  const [durasi_query, setDurasiQuery] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/doc/mid", {
+    await axios.post("http://localhost:5000/doc/api", {
       nama_project: nama_project,
       sisi_project: sisi_project,
       project_code: project_code,
@@ -39,15 +43,19 @@ const AddDocMid = () => {
       unit_pengguna: unit_pengguna,
       week_request: week_request,
       week_eksekusi: week_eksekusi,
-      durasi_ibm: durasi_ibm,
-      nama_file_sql: nama_file_sql,
-      durasi_sql: durasi_sql,
-      hasil_query: hasil_query,
-      durasi_email: durasi_email,
-      broker_1: broker_1,
-      broker_2: broker_2,
-      broker_3: broker_3,
-      broker_4: broker_4,
+      path_server_backup: path_server_backup,
+      path_iloan_backup: path_iloan_backup,
+      path_copy_promote: path_copy_promote,
+      path_server_promote: path_server_promote,
+      path_copy_tujuan: path_copy_tujuan,
+      path_tujuan: path_tujuan,
+      ip_db: ip_db,
+      path_db_sql: path_db_sql,
+      durasi_akses_server: durasi_akses_server,
+      durasi_backup: durasi_backup,
+      durasi_copy_server_promote: durasi_copy_server_promote,
+      durasi_copy_tujuan: durasi_copy_tujuan,
+      durasi_query: durasi_query,
     });
     // let path = "/dashboard/doc";
     // navigate(path);
@@ -210,131 +218,197 @@ const AddDocMid = () => {
                 required
               />
             </div>
+
+            {/* IP DB */}
+            <div>
+              <label className="  font-base text-white label">
+                IP Database
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="IP"
+                value={ip_db}
+                onChange={(e) => setIPDB(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path DB */}
+            <div>
+              <label className="  font-base text-white label">Path DB</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_db_sql}
+                onChange={(e) => setPathDBSQL(e.target.value)}
+                required
+              />
+            </div>
           </section>
           <section className="sm:w-full w-2/5">
-            {/* Durasi IBM */}
+            {/* Path Server Backup */}
             <div>
               <label className="  font-base text-white label">
-                Durasi IBM (Menit/Detik)
+                Path Server Backup
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_server_backup}
+                onChange={(e) => setPathServerBackup(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path Iloan Backup */}
+            <div>
+              <label className="  font-base text-white label">
+                Path Iloan Backup
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_iloan_backup}
+                onChange={(e) => setPathIloanBackup(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path Copy Promote */}
+            <div>
+              <label className="  font-base text-white label">
+                Path Copy Promote
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_copy_promote}
+                onChange={(e) => setPathCopyPromote(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path Server Promote */}
+            <div>
+              <label className="  font-base text-white label">
+                Path Server Promote
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_server_promote}
+                onChange={(e) => setPathServerPromote(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path Copy Tujuan */}
+            <div>
+              <label className="  font-base text-white label">
+                Path Copy Tujuan
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_copy_tujuan}
+                onChange={(e) => setPathCopyTujuan(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Path Tujuan */}
+            <div>
+              <label className="  font-base text-white label">
+                Path Tujuan
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Path"
+                value={path_tujuan}
+                onChange={(e) => setPathTujuan(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi Akses Server */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi Akses Server
               </label>
               <input
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Durasi"
-                value={durasi_ibm}
-                onChange={(e) => setDurasiIBM(e.target.value)}
+                value={durasi_akses_server}
+                onChange={(e) => setDurasiAksesServer(e.target.value)}
                 required
               />
             </div>
 
-            {/* Nama File SQL */}
+            {/* Durasi Backup */}
             <div>
               <label className="  font-base text-white label">
-                Nama File SQL
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="SQL"
-                value={nama_file_sql}
-                onChange={(e) => setNamaFileSQL(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Durasi SQL */}
-            <div>
-              <label className="  font-base text-white label">
-                Durasi SQL (Menit/Detik)
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="SQL"
-                value={durasi_sql}
-                onChange={(e) => setDurasiSQL(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Hasil Query */}
-            <div>
-              <label className="  font-base text-white label">
-                Hasil Query
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Query"
-                value={hasil_query}
-                onChange={(e) => setHasilQuery(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Durasi Email */}
-            <div>
-              <label className="  font-base text-white label">
-                Durasi Email
+                Durasi Backup
               </label>
               <input
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Durasi"
-                value={durasi_email}
-                onChange={(e) => setDurasiEmail(e.target.value)}
+                value={durasi_backup}
+                onChange={(e) => setDurasiBackup(e.target.value)}
                 required
               />
             </div>
 
-            {/* Broker 1 */}
+            {/* Durasi Copy Server Promote */}
             <div>
-              <label className="  font-base text-white label">Broker 1</label>
+              <label className="  font-base text-white label">
+                Durasi Copy Server Promote
+              </label>
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Broker 1"
-                value={broker_1}
-                onChange={(e) => setBroker1(e.target.value)}
+                placeholder="Durasi"
+                value={durasi_copy_server_promote}
+                onChange={(e) => setDurasiCopyServerPromote(e.target.value)}
                 required
               />
             </div>
 
-            {/* Broker 2 */}
+            {/* Durasi Copy Tujuan */}
             <div>
-              <label className="  font-base text-white label">Broker 2</label>
+              <label className="  font-base text-white label">
+                Durasi Copy Tujuan
+              </label>
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Broker 2"
-                value={broker_2}
-                onChange={(e) => setBroker2(e.target.value)}
+                placeholder="Durasi"
+                value={durasi_copy_tujuan}
+                onChange={(e) => setDurasiCopyTujuan(e.target.value)}
                 required
               />
             </div>
 
-            {/* Broker 3 */}
+            {/* Durasi Query */}
             <div>
-              <label className="  font-base text-white label">Broker 3</label>
+              <label className="  font-base text-white label">
+                Durasi Query
+              </label>
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Broker 3"
-                value={broker_3}
-                onChange={(e) => setBroker3(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Broker 4 */}
-            <div>
-              <label className="  font-base text-white label">Broker 3</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Broker 4"
-                value={broker_4}
-                onChange={(e) => setBroker4(e.target.value)}
+                placeholder="Durasi"
+                value={durasi_query}
+                onChange={(e) => setDurasiQuery(e.target.value)}
                 required
               />
             </div>
@@ -355,4 +429,4 @@ const AddDocMid = () => {
   );
 };
 
-export default AddDocMid;
+export default AddDocIloanCon;

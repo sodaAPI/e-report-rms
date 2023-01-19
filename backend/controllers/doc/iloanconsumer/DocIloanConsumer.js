@@ -3,12 +3,15 @@ import Docxtemplater from "docxtemplater";
 import fs from "fs";
 import path from "path";
 import nodemailer from "nodemailer";
-import User from "../../models/UserModel.js";
+import User from "../../../models/UserModel.js";
 
-export const DocMiddleware = async (req, res) => {
+export const DocIloanConsumer = async (req, res) => {
   // Load the docx file as binary content
   const content = fs.readFileSync(
-    path.resolve("./controllers/doc", "template_checklist_middleware.docx"),
+    path.resolve(
+      "./controllers/doc/iloanconsumer",
+      "template_checklist_iloan_consumer.docx"
+    ),
     "binary"
   );
   const zip = new PizZip(content);
@@ -27,15 +30,19 @@ export const DocMiddleware = async (req, res) => {
     unit_pengguna: req.body.unit_pengguna,
     week_request: req.body.week_request,
     week_eksekusi: req.body.week_eksekusi,
-    durasi_ibm: req.body.durasi_ibm,
-    nama_file_sql: req.body.nama_file_sql,
-    durasi_sql: req.body.durasi_sql,
-    hasil_query: req.body.hasil_query,
-    durasi_email: req.body.durasi_email,
-    broker_1: req.body.broker_1,
-    broker_2: req.body.broker_2,
-    broker_3: req.body.broker_3,
-    broker_4: req.body.broker_4,
+    path_server_backup: req.body.path_server_backup,
+    path_iloan_backup: req.body.path_iloan_backup,
+    path_copy_promote: req.body.path_copy_promote,
+    path_server_promote: req.body.path_server_promote,
+    path_copy_tujuan: req.body.path_copy_tujuan,
+    path_tujuan: req.body.path_tujuan,
+    ip_db: req.body.ip_db,
+    path_db_sql: req.body.path_db_sql,
+    durasi_akses_server: req.body.durasi_akses_server,
+    durasi_backup: req.body.durasi_backup,
+    durasi_copy_server_promote: req.body.durasi_copy_server_promote,
+    durasi_copy_tujuan: req.body.durasi_copy_tujuan,
+    durasi_query: req.body.durasi_query,
   });
   const buf = doc.getZip().generate({
     type: "nodebuffer",
@@ -48,7 +55,7 @@ export const DocMiddleware = async (req, res) => {
   // file or res.send it with express for example.
   fs.writeFileSync(
     path.resolve(
-      "./controllers/doc/middleware",
+      "./controllers/doc/iloanconsumer",
       `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`
     ),
     buf
@@ -65,7 +72,7 @@ export const DocMiddleware = async (req, res) => {
 
   // Send the file content in the response
   const filepath = path.resolve(
-    `./controllers/doc/middleware/`,
+    `./controllers/doc/iloanconsumer`,
     `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`
   );
 
@@ -81,7 +88,8 @@ export const DocMiddleware = async (req, res) => {
       host: "smtp.gmail.com",
       port: "587",
       auth: {
-
+        user: `${process.env.EMAIL_API}`,
+        pass: `${process.env.PASSWORD_API}`,
       },
     });
 
@@ -91,14 +99,15 @@ export const DocMiddleware = async (req, res) => {
 
     transporter
       .sendMail({
-        from: "",
+        from: `${process.env.EMAIL_API}`,
         to: `${user.email}`,
-        subject: "Generated Checklist Promote - BTN E-Report Management System",
+        subject:
+          "Generated Iloan Consumer Checklist Promote - BTN E-Report Management System",
         html: message,
         attachments: [
           {
             filename: `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
-            path: `./controllers/doc/middleware/Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
+            path: `./controllers/doc/iloanconsumer/Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
           },
         ],
       })

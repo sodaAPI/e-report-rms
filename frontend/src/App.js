@@ -30,6 +30,8 @@ import ReportsComplete from "./pages/dashboard/reportComplete";
 import ReportsInProgress from "./pages/dashboard/reportInProgress";
 import ResetPassword from "./pages/resetPassword";
 import DocMids from "./pages/dashboard/components/DocMid";
+import DocAPI from "./pages/dashboard/components/DocAPI";
+import DocIloanConsumer from "./pages/dashboard/components/DocIloanConsumer";
 
 function App() {
   return (
@@ -79,6 +81,8 @@ function App() {
           <Route path="/dashboard/meeting/add" element={<AddMeetings />} />
           <Route path="/dashboard/task/add" element={<AddTasks />} />
           <Route path="/dashboard/doc/mid/add" element={<DocMids />} />
+          <Route path="/dashboard/doc/api/add" element={<DocAPI />} />
+          <Route path="/dashboard/doc/iloan/add" element={<DocIloanConsumer />} />
 
           {/* Personal */}
 

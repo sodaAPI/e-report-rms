@@ -87,7 +87,8 @@ export const forgotPassword = async (req, res) => {
       host: "smtp.gmail.com",
       port: "587",
       auth: {
-
+        user: `${process.env.EMAIL_API}`,
+        pass: `${process.env.PASSWORD_API}`,
       },
     });
 
@@ -102,7 +103,7 @@ export const forgotPassword = async (req, res) => {
 
     transporter
       .sendMail({
-        from: "",
+        from: `${process.env.EMAIL_API}`,
         to: `${req.body.email}`,
         subject: "Change Password - BTN E-Report Management System",
         html: message,

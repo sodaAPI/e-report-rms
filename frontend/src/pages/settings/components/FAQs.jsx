@@ -57,6 +57,11 @@ export default function FAQs() {
       name: "Apa itu My Task?",
       desc: "My Task adalah sistem yang memungkinkan pengguna untuk membuat, membaca, memperbarui, dan menghapus data task. Fitur ini dapat menjadi sarana untuk pengingat user bahwa terdapat tugas atau task yang belum terselesaikan melalui email notification",
     },
+    {
+      id: 6,
+      name: "Apa itu Document?",
+      desc: "Document adalah sistem yang memungkinkan pengguna untuk membuat suatu dokumen yang memiliki beberapa tipe dari sebuah template yang sudah di integrasikan. Fitur ini dapat menjadi sarana untuk memudahkan user membuat dokumen secara instan",
+    },
   ];
 
   return (

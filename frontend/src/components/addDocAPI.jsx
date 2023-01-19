@@ -2,12 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ImagePreview from "../image/doc_mid_preview.png";
+import ImagePreview from "../image/doc_api_preview.png";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 
-const AddDocMid = () => {
+const AddDocAPI = () => {
   const [nama_project, setNamaProject] = useState("");
-  const [sisi_project, setSisiProject] = useState("Middleware");
+  const [sisi_project, setSisiProject] = useState("API");
   const [project_code, setProjectCode] = useState("");
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [new_existing, setNewExisting] = useState("");
@@ -15,21 +15,19 @@ const AddDocMid = () => {
   const [unit_pengguna, setUnitPengguna] = useState("");
   const [week_request, setWeekRequest] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
-  const [durasi_ibm, setDurasiIBM] = useState("");
-  const [nama_file_sql, setNamaFileSQL] = useState("");
-  const [hasil_query, setHasilQuery] = useState("");
-  const [durasi_sql, setDurasiSQL] = useState("");
-  const [durasi_email, setDurasiEmail] = useState("");
-  const [broker_1, setBroker1] = useState("");
-  const [broker_2, setBroker2] = useState("");
-  const [broker_3, setBroker3] = useState("");
-  const [broker_4, setBroker4] = useState("");
+  const [nama_api_1, setNamaAPI1] = useState("");
+  const [nama_api_2, setNamaAPI2] = useState("");
+  const [durasi_api_1, setDurasiAPI1] = useState("");
+  const [durasi_api_2, setDurasiAPI2] = useState("");
+  const [durasi_build_1, setDurasiBuild1] = useState("");
+  const [durasi_build_2, setDurasiBuild2] = useState("");
+  const [durasi_login, setDurasiLogin] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/doc/mid", {
+    await axios.post("http://localhost:5000/doc/api", {
       nama_project: nama_project,
       sisi_project: sisi_project,
       project_code: project_code,
@@ -39,15 +37,13 @@ const AddDocMid = () => {
       unit_pengguna: unit_pengguna,
       week_request: week_request,
       week_eksekusi: week_eksekusi,
-      durasi_ibm: durasi_ibm,
-      nama_file_sql: nama_file_sql,
-      durasi_sql: durasi_sql,
-      hasil_query: hasil_query,
-      durasi_email: durasi_email,
-      broker_1: broker_1,
-      broker_2: broker_2,
-      broker_3: broker_3,
-      broker_4: broker_4,
+      nama_api_1: nama_api_1,
+      nama_api_2: nama_api_2,
+      durasi_login: durasi_login,
+      durasi_api_2: durasi_api_1,
+      durasi_api_2: durasi_api_2,
+      durasi_build_1: durasi_build_1,
+      durasi_build_2: durasi_build_2,
     });
     // let path = "/dashboard/doc";
     // navigate(path);
@@ -195,6 +191,112 @@ const AddDocMid = () => {
                 required
               />
             </div>
+          </section>
+          <section className="sm:w-full w-2/5">
+            {/* Nama API 1 */}
+            <div>
+              <label className="  font-base text-white label">
+                Nama API (1)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="API"
+                value={nama_api_1}
+                onChange={(e) => setNamaAPI1(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Nama API 2 */}
+            <div>
+              <label className="  font-base text-white label">
+                Nama API (2)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="API"
+                value={nama_api_2}
+                onChange={(e) => setNamaAPI2(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi API 1 */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi API 1 (Menit/Detik)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Durasi"
+                value={durasi_api_1}
+                onChange={(e) => setDurasiAPI1(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi API 2 */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi API 2 (Menit/Detik)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Durasi"
+                value={durasi_api_2}
+                onChange={(e) => setDurasiAPI2(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi Build 1 */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi Build 1 (Menit/Detik)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Durasi"
+                value={durasi_build_1}
+                onChange={(e) => setDurasiBuild1(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi Build 2 */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi Build 2 (Menit/Detik)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Durasi"
+                value={durasi_build_2}
+                onChange={(e) => setDurasiBuild2(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Durasi Login */}
+            <div>
+              <label className="  font-base text-white label">
+                Durasi Login (Menit/Detik)
+              </label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Durasi"
+                value={durasi_login}
+                onChange={(e) => setDurasiLogin(e.target.value)}
+                required
+              />
+            </div>
 
             {/* Week Eks */}
             <div>
@@ -207,134 +309,6 @@ const AddDocMid = () => {
                 placeholder="Week Eksekusi"
                 value={week_eksekusi}
                 onChange={(e) => setWeekEksekusi(e.target.value)}
-                required
-              />
-            </div>
-          </section>
-          <section className="sm:w-full w-2/5">
-            {/* Durasi IBM */}
-            <div>
-              <label className="  font-base text-white label">
-                Durasi IBM (Menit/Detik)
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Durasi"
-                value={durasi_ibm}
-                onChange={(e) => setDurasiIBM(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Nama File SQL */}
-            <div>
-              <label className="  font-base text-white label">
-                Nama File SQL
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="SQL"
-                value={nama_file_sql}
-                onChange={(e) => setNamaFileSQL(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Durasi SQL */}
-            <div>
-              <label className="  font-base text-white label">
-                Durasi SQL (Menit/Detik)
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="SQL"
-                value={durasi_sql}
-                onChange={(e) => setDurasiSQL(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Hasil Query */}
-            <div>
-              <label className="  font-base text-white label">
-                Hasil Query
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Query"
-                value={hasil_query}
-                onChange={(e) => setHasilQuery(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Durasi Email */}
-            <div>
-              <label className="  font-base text-white label">
-                Durasi Email
-              </label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Durasi"
-                value={durasi_email}
-                onChange={(e) => setDurasiEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Broker 1 */}
-            <div>
-              <label className="  font-base text-white label">Broker 1</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Broker 1"
-                value={broker_1}
-                onChange={(e) => setBroker1(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Broker 2 */}
-            <div>
-              <label className="  font-base text-white label">Broker 2</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Broker 2"
-                value={broker_2}
-                onChange={(e) => setBroker2(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Broker 3 */}
-            <div>
-              <label className="  font-base text-white label">Broker 3</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Broker 3"
-                value={broker_3}
-                onChange={(e) => setBroker3(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Broker 4 */}
-            <div>
-              <label className="  font-base text-white label">Broker 3</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Broker 4"
-                value={broker_4}
-                onChange={(e) => setBroker4(e.target.value)}
                 required
               />
             </div>
@@ -355,4 +329,4 @@ const AddDocMid = () => {
   );
 };
 
-export default AddDocMid;
+export default AddDocAPI;
