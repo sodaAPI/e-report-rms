@@ -24,12 +24,6 @@ const store = new sessionStore({
   expiration: process.env.SESSION_EXPIRED * 60 * 60 * 1000,
 });
 
-// Sync Database
-// (async () => {
-//   await db.sync();
-// })();
-// store.sync();
-
 app.use(
   session({
     secret: process.env.SESS_SECRET,
@@ -92,3 +86,9 @@ io.on("connection", (socket) => {
     console.log(`User disconnected ${socket.id}`);
   });
 });
+
+// Sync Database
+// (async () => {
+//   await db.sync();
+// })();
+// store.sync();

@@ -78,7 +78,7 @@ export default function Footer(props) {
                     btncontactcenter@btn.co.id
                   </a>
                   <div className="flex justify-center items-center pt-5">
-                    <LoadScript googleMapsApiKey="AIzaSyAkTmkH8h2HiN6S-loeJZvXTCEBguMmoew">
+                    <LoadScript googleMapsApiKey="">
                       <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={center}
