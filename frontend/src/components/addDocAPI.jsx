@@ -3,7 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImagePreview from "../image/doc_api_preview.png";
-import { InformationCircleIcon } from "@heroicons/react/20/solid";
+import {
+  InformationCircleIcon,
+  ArrowUpTrayIcon,
+} from "@heroicons/react/20/solid";
 
 const AddDocAPI = () => {
   const [nama_project, setNamaProject] = useState("");
@@ -316,7 +319,8 @@ const AddDocAPI = () => {
         </div>
         {/* Button */}
         <div className="pt-10">
-          <button className="w-full bg-sky-500 py-5 rounded-lg text-white">
+          <button className="flex flex-row items-center gap-2 justify-center w-full hover:bg-sky-600 bg-sky-500 py-5 rounded-lg text-white">
+            <ArrowUpTrayIcon className="w-5 h-5" />
             Generate Document
           </button>
           <p className="flex flex-row items-center gap-2 pt-5 text-slate-50">
