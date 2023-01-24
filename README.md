@@ -69,7 +69,7 @@ Follow the steps below for installation of this project.
    ```sh
    npm install --force
    ```
-3. Setting your databases in ./backend/config/database.js and make sure you already create database in your local server.
+3. Setting your databases in ./backend/config/database.js, setting your .env file and make sure you already create database in your local server.
    ```sh
    const db = new Sequelize("your_databases", "root", "", {
    host: "localhost",
