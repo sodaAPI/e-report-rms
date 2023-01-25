@@ -97,7 +97,6 @@ export default function DataToExcel() {
     XLSX.utils.book_append_sheet(wb, ws, "E-Report All");
 
     const dateString = `E-Report ${formattedDate}.xlsx`;
-    console.log(formattedDate);
 
     /* generate the Excel file and trigger a download */
     XLSX.writeFile(wb, dateString);

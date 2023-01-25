@@ -24,7 +24,6 @@ const TaskChart = () => {
     const grouped = data.reduce((acc, item) => {
       acc[item.status] = acc[item.status] || [];
       acc[item.status].push(item.status);
-      console.log(item);
       return acc;
     }, {});
 
@@ -36,8 +35,8 @@ const TaskChart = () => {
     <PieChart width={300} height={250}>
       <Tooltip />
       <Legend
-        formatter={(value) =>
-          value === "Uncompleted" ? "Uncompleted" : "Completed"
+        formatter={() =>
+          data.status === "Uncompleted" ? "Completed" : "Uncompleted"
         }
       />
 

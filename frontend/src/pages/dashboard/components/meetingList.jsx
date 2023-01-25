@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import {
   InformationCircleIcon,
   MagnifyingGlassIcon,
-  ChatBubbleBottomCenterIcon,
   BellAlertIcon,
+  FunnelIcon,
 } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { parseISO } from "date-fns";
+import moment from "moment";
 
 const MeetingList = () => {
   //User
@@ -59,6 +64,12 @@ const MeetingList = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [state, setState] = useState({
+    startDate: parseISO(moment().startOf("year").toISOString()),
+    endDate: parseISO(moment().toISOString()),
+    key: "selection",
+  });
+
   return (
     <div className="py-8 w-fit min-h-screen">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
@@ -79,6 +90,23 @@ const MeetingList = () => {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
+        </div>
+        <div className="dropdown">
+          <label
+            tabIndex={0}
+            className="flex flex-row gap-1 items-center justify-center btn normal-case m-1">
+            <FunnelIcon className="w-5 h-5" />
+            by Meeting Date
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <DateRange
+              ranges={[state]}
+              onChange={(item) => setState(item.selection)}
+              className="rounded-xl"
+            />
+          </ul>
         </div>
         <div className="py-3 sm:px-10 px-0">
           <span className="flex flex-row items-center gap-2  rounded-xl text-white">
@@ -106,6 +134,13 @@ const MeetingList = () => {
         </thead>
         <tbody>
           {meetings
+            .filter(
+              (meeting) =>
+                state.startDate == null ||
+                state.endDate == null ||
+                (new Date(meeting.meeting_date) >= state.startDate &&
+                  new Date(meeting.meeting_date) <= state.endDate)
+            )
             .filter(
               (meeting) =>
                 new RegExp(searchTerm, "i").test(meeting.id) ||

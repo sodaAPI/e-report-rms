@@ -102,7 +102,6 @@ export default function Discussions() {
   useEffect(() => {
     const element = scrollContainerRef.current;
     element.scrollTop = element.scrollHeight;
-    console.log(element);
   }, [showMessages]);
 
   useEffect(() => {

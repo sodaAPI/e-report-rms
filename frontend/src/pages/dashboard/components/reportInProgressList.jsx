@@ -5,9 +5,15 @@ import {
   ArrowsRightLeftIcon,
   PlusCircleIcon,
   MagnifyingGlassIcon,
+  FunnelIcon,
 } from "@heroicons/react/24/outline";
 import DataToExcel from "../../../components/dataReportInProgressToExcel";
 import Pagination from "../../../components/Pagination";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { parseISO } from "date-fns";
+import moment from "moment";
 
 const statusList = ["In Progress", "Complete"];
 
@@ -56,6 +62,12 @@ const ReportInProgressList = () => {
     setCurrentPage(page);
   };
 
+  const [state, setState] = useState({
+    startDate: parseISO(moment().startOf("year").toISOString()),
+    endDate: parseISO(moment().toISOString()),
+    key: "selection",
+  });
+
   return (
     <div className="w-full py-8 min-h-screen">
       <div className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-10 gap-3">
@@ -76,6 +88,23 @@ const ReportInProgressList = () => {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
+        </div>
+        <div className="dropdown">
+          <label
+            tabIndex={0}
+            className="flex flex-row gap-1 items-center justify-center btn normal-case m-1">
+            <FunnelIcon className="w-5 h-5" />
+            Promote by Date
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <DateRange
+              ranges={[state]}
+              onChange={(item) => setState(item.selection)}
+              className="rounded-xl"
+            />
+          </ul>
         </div>
         <DataToExcel />
       </div>
@@ -116,6 +145,13 @@ const ReportInProgressList = () => {
           </thead>
           <tbody>
             {reports
+              .filter(
+                (report) =>
+                  state.startDate == null ||
+                  state.endDate == null ||
+                  (new Date(report.tanggal_promote) >= state.startDate &&
+                    new Date(report.tanggal_promote) <= state.endDate)
+              )
               .filter(
                 (report) =>
                   report.status === "In Progress" &&
