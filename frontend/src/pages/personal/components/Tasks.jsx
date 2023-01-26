@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
@@ -12,6 +10,9 @@ import {
 import { BellAlertIcon } from "@heroicons/react/20/solid";
 import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
+
+import { Calendar } from "react-date-range";
+import * as locales from "react-date-range/dist/locale";
 
 const statusList = ["Uncompleted", "Completed"];
 
@@ -104,6 +105,13 @@ export default function Tasks() {
   const [searchTerm, setSearchTerm] = useState("");
   //User
   const { user } = useSelector((state) => state.auth);
+
+  const nameMapper = {
+    id: "Indonesian",
+  };
+
+  const [locale, setLocale] = React.useState("id");
+  const [date, setDate] = useState(null);
 
   return (
     <section>
@@ -272,12 +280,12 @@ export default function Tasks() {
         </div>
 
         <div className="flex flex-col items-center px-5 sm:w-1/4 w-full bg-slate-800 rounded-xl py-2">
-          <span className="text-lg text-white ">Calendar</span>
+          <span className="mb-3 text-lg text-white ">Calendar</span>
           <Calendar
-            className="rounded-xl mt-3 bg-sky-900 border-none bg-opacity-10 mb-3"
-            calendarType="US"
-            onChange={onChange}
-            value={value}
+            className="rounded-xl"
+            onChange={(item) => setDate(item)}
+            locale={locales[locale]}
+            date={date}
           />
           <div className="divider"></div>
           <span className="text-lg text-white pb-2">Task To Do</span>

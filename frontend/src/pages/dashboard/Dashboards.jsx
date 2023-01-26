@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,13 +11,14 @@ import {
   EllipsisHorizontalIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
-import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
 import CompleteReportChart from "./completeReportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
 import Pagination from "../../components/Pagination";
 import DateNow from "../../components/dateNow";
+
+import { Calendar } from "react-date-range";
+import * as locales from "react-date-range/dist/locale";
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
@@ -103,6 +104,13 @@ export default function Dashboards() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  const nameMapper = {
+    id: "Indonesian",
+  };
+
+  const [locale, setLocale] = React.useState("id");
+  const [date, setDate] = useState(null);
 
   return (
     <section>
@@ -214,7 +222,9 @@ export default function Dashboards() {
                 .filter(
                   (report) => report.promote_status === "In Progress" || "N/A"
                 )
-                .sort((a, b) => (a.tanggal_promote < b.tanggal_promote ? 1 : -1))
+                .sort((a, b) =>
+                  a.tanggal_promote < b.tanggal_promote ? 1 : -1
+                )
                 .slice(
                   (currentPage - 1) * itemsPerPage,
                   currentPage * itemsPerPage
@@ -245,15 +255,14 @@ export default function Dashboards() {
             Date & Time : <DateNow />
           </span>
           <div className="divider" />
-          <span className="text-lg text-white ">Calendar</span>
+          <span className="mb-3 text-lg text-white ">Calendar</span>
           <Calendar
-            className="rounded-xl mt-3 bg-sky-900 border-none bg-opacity-10 mb-3"
-            calendarType="US"
-            onChange={onChange}
-            value={value}
+            className="rounded-xl"
+            onChange={(item) => setDate(item)}
+            locale={locales[locale]}
+            date={date}
           />
           <div className="divider" />
-
           {/* Up Coming Meetings */}
           <span className="text-lg text-white pb-2">Up Coming Meetings</span>
           <table className="table-compact table-zebra w-full bg-slate-800 rounded-2xl text-white">
@@ -297,9 +306,7 @@ export default function Dashboards() {
             <EllipsisHorizontalIcon className="w-5 h-5" />
           </button>
           <div className="divider" />
-
           {/* Task List */}
-
           <span className="text-lg text-white pb-2">Task List</span>
           <table className="table-compact table-zebra w-full bg-slate-800 rounded-2xl text-white">
             <thead>

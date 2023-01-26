@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowsRightLeftIcon, DocumentIcon } from "@heroicons/react/24/outline";
+
+import { Calendar } from "react-date-range";
+import * as locales from "react-date-range/dist/locale";
 
 const statusList = ["Uncompleted", "Completed"];
 
@@ -68,6 +69,13 @@ export default function TaskUncompletedList() {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  const nameMapper = {
+    id: "Indonesian",
+  };
+
+  const [locale, setLocale] = React.useState("id");
+  const [date, setDate] = useState(null);
 
   return (
     <section>
@@ -207,12 +215,12 @@ export default function TaskUncompletedList() {
         </div>
 
         <div className="flex flex-col items-center px-5 sm:w-1/4 w-full bg-slate-800 rounded-xl py-2">
-          <span className="text-lg text-white ">Calendar</span>
+          <span className="mb-3 text-lg text-white ">Calendar</span>
           <Calendar
-            className="rounded-xl mt-3 bg-sky-900 border-none bg-opacity-10 mb-3"
-            calendarType="US"
-            onChange={onChange}
-            value={value}
+            className="flex flex-1 border-nonerounded-xl"
+            onChange={(item) => setDate(item)}
+            locale={locales[locale]}
+            date={date}
           />
           <div className="divider"></div>
           <span className="text-lg text-white pb-2">Task To Do</span>
