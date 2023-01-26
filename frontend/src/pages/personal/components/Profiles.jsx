@@ -12,10 +12,10 @@ import {
 
 export default function Profiles() {
   const [users, setUsers] = useState([]);
-  const [notification, setNotification] = useState([]);
-  const [notifmsg, setNotifmsg] = useState("");
-  const [taskId, setTaskId] = useState("");
-  const [meetingId, setMeetingId] = useState("");
+  const [setNotification] = useState([]);
+  const [notifmsg] = useState("");
+  const [taskId] = useState("");
+  const [meetingId] = useState("");
   const history = useNavigate();
   const navigate = useNavigate("");
 

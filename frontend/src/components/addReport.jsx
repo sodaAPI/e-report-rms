@@ -37,8 +37,8 @@ const AddReport = () => {
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
   const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
-  const [report_type, setReportType] = useState(promoteType[0]);
-  const [userId, setUserId] = useState("");
+  const [report_type] = useState(promoteType[0]);
+  const [userId] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();

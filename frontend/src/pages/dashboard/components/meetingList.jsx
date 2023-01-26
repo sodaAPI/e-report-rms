@@ -7,7 +7,6 @@ import {
   BellAlertIcon,
   FunnelIcon,
 } from "@heroicons/react/20/solid";
-import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import "react-date-range/dist/styles.css";
@@ -18,7 +17,7 @@ import moment from "moment";
 
 const MeetingList = () => {
   const [meetings, setMeetings] = useState([]);
-  const [notification, setNotification] = useState([]);
+  const [setNotification] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const handlePageChange = (page) => {

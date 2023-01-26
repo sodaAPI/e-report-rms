@@ -34,16 +34,6 @@ const TaskChart = () => {
     { name: "Uncompleted", value: uncompleted },
   ];
 
-  const getLength = (entry) => {
-    const grouped = data.reduce((acc, item) => {
-      acc[item.status] = acc[item.status] || [];
-      acc[item.status].push(item.status);
-      return acc;
-    }, {});
-
-    return grouped[entry.status].length;
-  };
-
   return (
     <PieChart width={300} height={250}>
       <Tooltip />

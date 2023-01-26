@@ -110,11 +110,7 @@ export default function Sidebars() {
   ];
 
   //Sidebar Settings - Theme
-  const [theme, setTheme] = React.useState("dark");
-
-  const handleThemeChange = (e) => {
-    setTheme(e.target.checked ? "dark" : "light");
-  };
+  const [theme] = React.useState("dark");
 
   const menuItemStyles = {
     root: {

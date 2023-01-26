@@ -17,7 +17,7 @@ const coreOrNonCore = ["Core", "Non Core"];
 const riskSummaryList = ["Low", "Medium", "High"];
 
 const EditReport = () => {
-  const [reports, setReport] = useState([]);
+  const [setReport] = useState([]);
   const [Id, setId] = useState("");
   const [uuid, setUUID] = useState("");
   const [project_code, setProjectCode] = useState("");
@@ -556,7 +556,6 @@ const EditReport = () => {
                 onChange={(e) => setDependensi(e.target.value)}
               />
             </div>
-
           </section>
 
           <section className="sm:w-full w-2/5">
