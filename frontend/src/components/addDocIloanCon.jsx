@@ -32,7 +32,6 @@ const AddDocIloanCon = () => {
   const [durasi_copy_tujuan, setDurasiCopyTujuan] = useState("");
   const [durasi_query, setDurasiQuery] = useState("");
   const history = useNavigate();
-  const navigate = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -60,8 +59,6 @@ const AddDocIloanCon = () => {
       durasi_copy_tujuan: durasi_copy_tujuan,
       durasi_query: durasi_query,
     });
-    // let path = "/dashboard/doc";
-    // navigate(path);
     window.alert("Document has been generated and sent to you email");
     history.push("/doc");
   };

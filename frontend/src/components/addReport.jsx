@@ -15,7 +15,6 @@ const coreOrNonCore = ["Core", "Non Core"];
 const riskSummaryList = ["Low", "Medium", "High"];
 
 const AddReport = () => {
-  const [reports, setReport] = useState([]);
   const [project_code, setProjectCode] = useState("");
   const [new_existing, setNewExisting] = useState(newOrExisting[0]);
   const [ip, setIp] = useState("");
@@ -38,13 +37,11 @@ const AddReport = () => {
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
   const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
-  const [source_file, setSourceFile] = useState("");
   const [report_type, setReportType] = useState(promoteType[0]);
   const [userId, setUserId] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();
-  const { id } = useParams();
   const navigate = useNavigate();
 
   const saveReport = async (e) => {
@@ -72,7 +69,6 @@ const AddReport = () => {
       tanggal_promote: tanggal_promote,
       week_eksekusi: week_eksekusi,
       risk_summary: risk_summary,
-      source_file: source_file,
       report_type: report_type,
       userId: userId,
       createdAt: createdAt,

@@ -82,7 +82,7 @@ export default function Dashboards() {
   };
 
   function formatDate(date) {
-    var d = new Date(date),
+    let d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
       year = d.getFullYear();
@@ -102,10 +102,6 @@ export default function Dashboards() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-  };
-
-  const nameMapper = {
-    id: "Indonesian",
   };
 
   const [locale, setLocale] = React.useState("id");

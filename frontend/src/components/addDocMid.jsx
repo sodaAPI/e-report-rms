@@ -28,7 +28,6 @@ const AddDocMid = () => {
   const [broker_3, setBroker3] = useState("");
   const [broker_4, setBroker4] = useState("");
   const history = useNavigate();
-  const navigate = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -52,8 +51,6 @@ const AddDocMid = () => {
       broker_3: broker_3,
       broker_4: broker_4,
     });
-    // let path = "/dashboard/doc";
-    // navigate(path);
     window.alert("Document has been generated and sent to you email");
     history.push("/doc");
   };

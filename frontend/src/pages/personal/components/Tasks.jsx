@@ -101,11 +101,6 @@ export default function Tasks() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-
-  const nameMapper = {
-    id: "Indonesian",
-  };
-
   const [locale, setLocale] = React.useState("id");
   const [date, setDate] = useState(null);
 

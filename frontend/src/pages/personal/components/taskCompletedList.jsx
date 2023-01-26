@@ -69,10 +69,6 @@ export default function TaskCompletedList() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const nameMapper = {
-    id: "Indonesian",
-  };
-
   const [locale, setLocale] = React.useState("id");
   const [date, setDate] = useState(null);
 

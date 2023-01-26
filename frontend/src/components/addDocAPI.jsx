@@ -26,7 +26,6 @@ const AddDocAPI = () => {
   const [durasi_build_2, setDurasiBuild2] = useState("");
   const [durasi_login, setDurasiLogin] = useState("");
   const history = useNavigate();
-  const navigate = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -48,8 +47,6 @@ const AddDocAPI = () => {
       durasi_build_1: durasi_build_1,
       durasi_build_2: durasi_build_2,
     });
-    // let path = "/dashboard/doc";
-    // navigate(path);
     window.alert("Document has been generated and sent to you email");
     history.push("/doc");
   };
