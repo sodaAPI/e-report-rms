@@ -14,20 +14,33 @@ const TaskChart = () => {
     fetchData();
   }, []);
 
-  // Filter the data to only include entries with a promote_status of "Complete" or "In Progress"
-  const filteredData = data
-    .filter((entry) => entry.status == "Completed" || "Uncompleted")
-    .slice(0, 2); // Only include the first two entries
+  const filteredData = data.filter(
+    (task) => task.status === "Completed" || task.status === "Uncompleted"
+  );
+
+  let completed = 0;
+  let uncompleted = 0;
+
+  filteredData.forEach((task) => {
+    if (task.status === "Completed") {
+      completed += 1;
+    } else if (task.status === "Uncompleted") {
+      uncompleted += 1;
+    }
+  });
+
+  const finalData = [
+    { name: "Completed", value: completed },
+    { name: "Uncompleted", value: uncompleted },
+  ];
 
   const getLength = (entry) => {
-    // Group the data by promote_status
     const grouped = data.reduce((acc, item) => {
       acc[item.status] = acc[item.status] || [];
       acc[item.status].push(item.status);
       return acc;
     }, {});
 
-    // Return the length of the promote_status group
     return grouped[entry.status].length;
   };
 
@@ -35,15 +48,15 @@ const TaskChart = () => {
     <PieChart width={300} height={250}>
       <Tooltip />
       <Legend
-        formatter={() =>
-          data.status === "Uncompleted" ? "Completed" : "Uncompleted"
+        formatter={(value) =>
+          value === "Completed" ? "Completed" : "Uncompleted"
         }
       />
 
       <Pie
-        data={filteredData}
-        dataKey={getLength}
-        nameKey="status"
+        data={finalData}
+        dataKey="value"
+        nameKey="name"
         name="status"
         cx="50%"
         cy="50%"
