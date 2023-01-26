@@ -10,7 +10,7 @@ const statusList = ["Uncompleted", "Completed"];
 
 export default function TaskUncompletedList() {
   const [tasks, setTask] = useState([]);
-  const [status, setStatus] = useState(statusList[0]);
+  const [setStatus] = useState(statusList[0]);
   const { id } = useParams();
 
   useEffect(() => {

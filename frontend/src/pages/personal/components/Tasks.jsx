@@ -8,7 +8,6 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { BellAlertIcon } from "@heroicons/react/20/solid";
-import { useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 
 import { Calendar } from "react-date-range";
@@ -18,11 +17,11 @@ const statusList = ["Uncompleted", "Completed"];
 
 export default function Tasks() {
   const [tasks, setTask] = useState([]);
-  const [status, setStatus] = useState(statusList[0]);
+  const [setStatus] = useState(statusList[0]);
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [notification, setNotification] = useState([]);
+  const [setNotification] = useState([]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
