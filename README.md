@@ -125,7 +125,7 @@ Follow the steps below for installation of this project.
 - [ ] Add New Chat Channels
 - [ ] Add Chat Customization
 - [ ] Add Themes
-    - [ ] Dark Mode
+    - [x] Dark Mode
     - [ ] Light Mode
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
