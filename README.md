@@ -124,7 +124,7 @@ Follow the steps below for installation of this project.
 - [ ] Add Realtime Chat
 - [ ] Add New Chat Channels
 - [ ] Add Chat Customization
-- [ ] Add Themes
+- [x] Add Themes
     - [x] Dark Mode
     - [ ] Light Mode
 
