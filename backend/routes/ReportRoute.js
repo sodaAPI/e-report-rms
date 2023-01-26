@@ -6,7 +6,7 @@ import {
   deleteReport,
   getAllReports,
 } from "../controllers/Report.js";
-import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
+import { verifyUser } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 

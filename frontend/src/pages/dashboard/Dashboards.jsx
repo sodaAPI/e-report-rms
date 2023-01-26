@@ -104,7 +104,7 @@ export default function Dashboards() {
     setCurrentPage(page);
   };
 
-  const [locale, setLocale] = React.useState("id");
+  const [locale] = React.useState("id");
   const [date, setDate] = useState(null);
 
   return (

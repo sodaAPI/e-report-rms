@@ -1,4 +1,3 @@
-import db from "../config/database.js";
 import User from "../models/userModel.js";
 
 export const checkDuplicateUsernameOrEmail = (req, res, next) => {

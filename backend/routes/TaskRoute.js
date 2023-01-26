@@ -6,13 +6,13 @@ import {
   deleteTask,
   getAllTasks,
 } from "../controllers/Task.js";
-import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
+import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
-router.get("/",verifyUser, getAllTasks);
-router.get("/:id",verifyUser, getTaskById);
-router.post("/",verifyUser, createTask);
-router.patch("/:id",verifyUser, updateTask);
-router.delete("/:id",verifyUser, deleteTask);
+router.get("/", verifyUser, getAllTasks);
+router.get("/:id", verifyUser, getTaskById);
+router.post("/", verifyUser, createTask);
+router.patch("/:id", verifyUser, updateTask);
+router.delete("/:id", verifyUser, deleteTask);
 
 export default router;

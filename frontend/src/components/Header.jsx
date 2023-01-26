@@ -12,9 +12,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DropdownButton } from "./dropdownLink";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMe, LogOut, reset } from "../auth/authSlice";
 

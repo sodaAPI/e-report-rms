@@ -6,7 +6,7 @@ import {
   deleteMeeting,
   getAllMeetings,
 } from "../controllers/Meeting.js";
-import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
+import { verifyUser } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 

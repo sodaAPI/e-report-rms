@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import corsOptions from "cors";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
 import session from "express-session";
@@ -13,7 +14,6 @@ import MessageRoute from "./routes/MessageRoute.js";
 import NotificationRoute from "./routes/NotificationRoute.js";
 import DocRoute from "./routes/DocRoute.js";
 import bodyParser from "body-parser";
-import corsOptions from "cors";
 import { Server } from "socket.io";
 dotenv.config();
 
