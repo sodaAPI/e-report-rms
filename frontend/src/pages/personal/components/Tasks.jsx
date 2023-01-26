@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   DocumentIcon,
@@ -17,12 +17,9 @@ import * as locales from "react-date-range/dist/locale";
 const statusList = ["Uncompleted", "Completed"];
 
 export default function Tasks() {
-  const [value, onChange] = useState(new Date());
   const [tasks, setTask] = useState([]);
   const [status, setStatus] = useState(statusList[0]);
   const { id } = useParams();
-  const history = useNavigate();
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [notification, setNotification] = useState([]);

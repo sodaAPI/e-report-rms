@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ArrowsRightLeftIcon, DocumentIcon } from "@heroicons/react/24/outline";
 
 import { Calendar } from "react-date-range";
@@ -9,7 +9,6 @@ import * as locales from "react-date-range/dist/locale";
 const statusList = ["Uncompleted", "Completed"];
 
 export default function TaskUncompletedList() {
-  const [value, onChange] = useState(new Date());
   const [tasks, setTask] = useState([]);
   const [status, setStatus] = useState(statusList[0]);
   const { id } = useParams();
