@@ -30,7 +30,7 @@
 ![Project Screen Shot][example-screenshot]
 
 <div>
-<h3>E-Report Management System (CMS),</h3>
+<h3>E-Report Management System (RMS),</h3>
 <p align="justify">The E-Report Management System is a software application that allows users to create, read, update, and delete reports, as well as manage users, meetings, tasks, and notifications. The system includes authentication features to ensure secure access, and supports multiple user roles. The system also uses a MySQL database to store data and has a built-in chatting feature for messaging.</p>
 </div>
 
