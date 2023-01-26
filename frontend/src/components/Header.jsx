@@ -54,7 +54,7 @@ export default function Header() {
   useEffect(() => {
     if (isError) {
       navigate("/");
-    } 
+    }
   }, [isError, navigate]);
 
   const truncate = (input) =>
@@ -81,7 +81,9 @@ export default function Header() {
             <div className="indicator hover:text-white">
               <Menu.Button className=" p-1 items-center gap-1 flex rounded-2xl focus:outline-none">
                 <span className="sr-only">Open user menu</span>
-                <span className="indicator-item badge badge-secondary">{notification.length}</span>
+                <span className="indicator-item badge badge-secondary">
+                  {notification.length}
+                </span>
                 <BellIcon className="h-6 w-6" />
               </Menu.Button>
             </div>
@@ -183,11 +185,10 @@ export default function Header() {
                   {/* Profile */}
 
                   <Menu.Item>
-                    {({ active }) => (
+                    
                       <Link
                         to="/dashboard/profile"
                         className={classNames(
-                          active ? "" : "",
                           "block py-2 text-sm text-gray-700"
                         )}>
                         <DropdownButton className="flex flex-row gap-2">
@@ -195,17 +196,16 @@ export default function Header() {
                           Profile
                         </DropdownButton>
                       </Link>
-                    )}
+                
                   </Menu.Item>
 
                   {/* Preferences */}
 
                   <Menu.Item>
-                    {({ active }) => (
+                  
                       <Link
                         to="/dashboard/task"
                         className={classNames(
-                          active ? "" : "",
                           "block py-2 text-sm text-gray-700"
                         )}>
                         <DropdownButton className="flex flex-row gap-2">
@@ -213,18 +213,17 @@ export default function Header() {
                           My Task
                         </DropdownButton>
                       </Link>
-                    )}
+                
                   </Menu.Item>
 
                   {/* Admin - Users */}
 
                   {user && user.roles === "admin" && (
                     <Menu.Item>
-                      {({ active }) => (
+                     
                         <Link
                           to="/dashboard/user"
                           className={classNames(
-                            active ? "" : "",
                             "block py-2 text-sm text-gray-700"
                           )}>
                           <DropdownButton className="flex flex-row gap-2">
@@ -232,7 +231,7 @@ export default function Header() {
                             Users
                           </DropdownButton>
                         </Link>
-                      )}
+               
                     </Menu.Item>
                   )}
                 </>

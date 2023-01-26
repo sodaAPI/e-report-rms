@@ -100,8 +100,7 @@ export default function Tasks() {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
-  //User
-  const { user } = useSelector((state) => state.auth);
+
 
   const nameMapper = {
     id: "Indonesian",

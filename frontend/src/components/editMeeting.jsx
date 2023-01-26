@@ -48,9 +48,6 @@ const EditMeeting = () => {
     getMeetings();
   }, []);
 
-  //User
-  const { user } = useSelector((state) => state.auth);
-
   const getMeetingById = async () => {
     const response = await axios.get(`http://localhost:5000/meeting/${id}`);
     setId(response.data.id);

@@ -43,7 +43,7 @@ const AddDocAPI = () => {
       nama_api_1: nama_api_1,
       nama_api_2: nama_api_2,
       durasi_login: durasi_login,
-      durasi_api_2: durasi_api_1,
+      durasi_api_1: durasi_api_1,
       durasi_api_2: durasi_api_2,
       durasi_build_1: durasi_build_1,
       durasi_build_2: durasi_build_2,
@@ -54,8 +54,6 @@ const AddDocAPI = () => {
     history.push("/doc");
   };
 
-  //User
-  const { user } = useSelector((state) => state.auth);
   const date = new Date(tanggal_promote);
   const options = {
     year: "numeric",

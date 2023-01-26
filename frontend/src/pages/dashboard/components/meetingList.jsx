@@ -17,8 +17,6 @@ import { parseISO } from "date-fns";
 import moment from "moment";
 
 const MeetingList = () => {
-  //User
-  const { user } = useSelector((state) => state.auth);
   const [meetings, setMeetings] = useState([]);
   const [notification, setNotification] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

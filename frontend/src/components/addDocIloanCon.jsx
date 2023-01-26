@@ -66,8 +66,6 @@ const AddDocIloanCon = () => {
     history.push("/doc");
   };
 
-  //User
-  const { user } = useSelector((state) => state.auth);
   const date = new Date(tanggal_promote);
   const options = {
     year: "numeric",
