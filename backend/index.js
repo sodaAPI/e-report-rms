@@ -1,6 +1,5 @@
 import express from "express";
-import cors from "cors";
-import corsOptions from "cors";
+import { cors, corsOptions } from "cors";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
 import session from "express-session";
