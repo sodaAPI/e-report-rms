@@ -18,6 +18,7 @@ import { Server } from "socket.io";
 dotenv.config();
 
 const app = express();
+app.disable("x-powered-by");
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
