@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-  <h3 align="center">E-Report Management System (CMS)</h3>
+  <h3 align="center">E-Report Management System (RMS)</h3>
 
 <!-- TABLE OF CONTENTS -->
 <details>
