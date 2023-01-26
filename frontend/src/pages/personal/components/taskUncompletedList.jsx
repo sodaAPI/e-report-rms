@@ -10,7 +10,6 @@ const statusList = ["Uncompleted", "Completed"];
 
 export default function TaskUncompletedList() {
   const [tasks, setTask] = useState([]);
-  const [setStatus] = useState(statusList[0]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -46,7 +45,7 @@ export default function TaskUncompletedList() {
 
   const getTaskById = async () => {
     const response = await axios.get(`http://localhost:5000/task/${id}`);
-    setStatus(response.data.status);
+    setStats(response.data.status);
   };
 
   const category = [
@@ -66,10 +65,11 @@ export default function TaskUncompletedList() {
       path: "/task/uncompleted",
     },
   ];
+  const [setStats] = useState(statusList[0]);
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [locale] = React.useState("id");
+  const [localeTime] = React.useState("id");
   const [date, setDate] = useState(null);
 
   return (
@@ -214,7 +214,7 @@ export default function TaskUncompletedList() {
           <Calendar
             className="flex flex-1 border-nonerounded-xl"
             onChange={(item) => setDate(item)}
-            locale={locales[locale]}
+            locale={locales[localeTime]}
             date={date}
           />
           <div className="divider"></div>

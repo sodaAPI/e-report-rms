@@ -80,6 +80,8 @@ export default function Tasks() {
     getNotification();
   };
 
+  const [locale] = React.useState("id");
+
   const category = [
     {
       name: "All",
@@ -100,7 +102,6 @@ export default function Tasks() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [locale] = React.useState("id");
   const [date, setDate] = useState(null);
 
   return (
