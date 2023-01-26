@@ -69,7 +69,7 @@ export default function TaskCompletedList() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [locale ] = React.useState("id");
+  const [locale] = React.useState("id");
   const [date, setDate] = useState(null);
 
   return (
