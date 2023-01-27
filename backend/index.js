@@ -1,5 +1,5 @@
 import express from "express";
-import { cors, corsOptions } from "cors";
+import pkg from "cors";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
 import session from "express-session";
@@ -18,6 +18,8 @@ dotenv.config();
 
 const app = express();
 app.disable("x-powered-by");
+const cors = pkg;
+const corsOptions = pkg;
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
