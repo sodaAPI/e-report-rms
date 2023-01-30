@@ -51,14 +51,14 @@ export const deleteMessage = async (req, res) => {
   try {
     const messages = await Messages.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!messages) return res.status(404).json({ msg: "Data not found" });
     if (req.roles === "admin") {
       await Messages.destroy({
         where: {
-          id: messages.id,
+          uuid: messages.uuid,
         },
       });
     } else {
@@ -66,7 +66,7 @@ export const deleteMessage = async (req, res) => {
         return res.status(403).json({ msg: "Unauthorized Access" });
       await Messages.destroy({
         where: {
-          [Op.and]: [{ id: messages.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: messages.uuid }, { userId: req.userId }],
         },
       });
     }

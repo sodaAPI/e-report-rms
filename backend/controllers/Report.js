@@ -26,11 +26,11 @@ export const getAllReports = async (req, res) => {
           "sa",
           "cmt",
           "dependensi",
-          "keterangan_project",
           "status",
           "nolap_promote",
           "tanggal_promote",
           "week_eksekusi",
+          "week_request",
           "risk_summary",
           "userId",
           "createdAt",
@@ -64,11 +64,11 @@ export const getAllReports = async (req, res) => {
           "sa",
           "cmt",
           "dependensi",
-          "keterangan_project",
           "status",
           "nolap_promote",
           "tanggal_promote",
           "week_eksekusi",
+          "week_request",
           "risk_summary",
           "userId",
           "createdAt",
@@ -95,7 +95,7 @@ export const getReportById = async (req, res) => {
   try {
     const report = await Report.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!report) return res.status(404).json({ msg: "Data not Found" });
@@ -121,18 +121,18 @@ export const getReportById = async (req, res) => {
           "sa",
           "cmt",
           "dependensi",
-          "keterangan_project",
           "status",
           "nolap_promote",
           "tanggal_promote",
           "week_eksekusi",
+          "week_request",
           "risk_summary",
           "userId",
           "createdAt",
           "updatedAt",
         ],
         where: {
-          id: report.id,
+          uuid: report.uuid,
         },
         include: [
           {
@@ -162,18 +162,18 @@ export const getReportById = async (req, res) => {
           "sa",
           "cmt",
           "dependensi",
-          "keterangan_project",
           "status",
           "nolap_promote",
           "tanggal_promote",
           "week_eksekusi",
+          "week_request",
           "risk_summary",
           "userId",
           "createdAt",
           "updatedAt",
         ],
         where: {
-          [Op.and]: [{ id: report.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: report.uuid }, { userId: req.userId }],
         },
         include: [
           {
@@ -209,11 +209,11 @@ export const createReport = async (req, res) => {
     sa,
     cmt,
     dependensi,
-    keterangan_project,
     status,
     nolap_promote,
     tanggal_promote,
     week_eksekusi,
+    week_request,
     risk_summary,
     createdAt,
     updatedAt,
@@ -238,11 +238,11 @@ export const createReport = async (req, res) => {
       sa: sa,
       cmt: cmt,
       dependensi: dependensi,
-      keterangan_project: keterangan_project,
       status: status,
       nolap_promote: nolap_promote,
       tanggal_promote: tanggal_promote,
       week_eksekusi: week_eksekusi,
+      week_request: week_request,
       risk_summary: risk_summary,
       userId: req.userId,
       createdAt: createdAt,
@@ -258,7 +258,7 @@ export const updateReport = async (req, res) => {
   try {
     const report = await Report.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!report) return res.status(404).json({ msg: "Data Not Found" });
@@ -281,11 +281,11 @@ export const updateReport = async (req, res) => {
       sa,
       cmt,
       dependensi,
-      keterangan_project,
       status,
       nolap_promote,
       tanggal_promote,
       week_eksekusi,
+      week_request,
       risk_summary,
       createdAt,
       updatedAt,
@@ -311,11 +311,11 @@ export const updateReport = async (req, res) => {
           sa: sa,
           cmt: cmt,
           dependensi: dependensi,
-          keterangan_project: keterangan_project,
           status: status,
           nolap_promote: nolap_promote,
           tanggal_promote: tanggal_promote,
           week_eksekusi: week_eksekusi,
+          week_request: week_request,
           risk_summary: risk_summary,
           userId: req.userId,
           createdAt: createdAt,
@@ -323,7 +323,7 @@ export const updateReport = async (req, res) => {
         },
         {
           where: {
-            id: report.id,
+            uuid: report.uuid,
           },
         }
       );
@@ -350,11 +350,11 @@ export const updateReport = async (req, res) => {
           sa: sa,
           cmt: cmt,
           dependensi: dependensi,
-          keterangan_project: keterangan_project,
           status: status,
           nolap_promote: nolap_promote,
           tanggal_promote: tanggal_promote,
           week_eksekusi: week_eksekusi,
+          week_request: week_request,
           risk_summary: risk_summary,
           userId: req.userId,
           createdAt: createdAt,
@@ -362,7 +362,7 @@ export const updateReport = async (req, res) => {
         },
         {
           where: {
-            [Op.and]: [{ id: report.id }, { userId: req.userId }],
+            [Op.and]: [{ uuid: report.uuid }, { userId: req.userId }],
           },
         }
       );
@@ -377,14 +377,14 @@ export const deleteReport = async (req, res) => {
   try {
     const report = await Report.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!report) return res.status(404).json({ msg: "Data not found" });
     if (req.roles === "admin" || "user") {
       await Report.destroy({
         where: {
-          id: report.id,
+          uuid: report.uuid,
         },
       });
     } else {

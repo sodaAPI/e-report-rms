@@ -26,8 +26,8 @@ const UserList = () => {
     setUsers(response.data);
   };
 
-  const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/user/${id}`);
+  const deleteUser = async (uuid) => {
+    await axios.delete(`http://localhost:5000/user/${uuid}`);
     getUsers();
   };
 
@@ -111,7 +111,7 @@ const UserList = () => {
                 <td>{user.updatedAt}</td>
                 <td>
                   <Link
-                    to={`/dashboard/user/edit/${user.id}`}
+                    to={`/dashboard/user/edit/${user.uuid}`}
                     className="bg-green-500 p-2 rounded-lg text-white">
                     Edit
                   </Link>

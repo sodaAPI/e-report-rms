@@ -23,7 +23,7 @@ export default function AddReports() {
                 <ChartBarIcon className="w-5 h-5" /> Reports
               </span>
             </Link>
-            <Link to="/dashboard/profile/edit/:id">
+            <Link to="/dashboard/report/add">
               <span className="hover:text-white">
                 / <b>Add</b>
               </span>

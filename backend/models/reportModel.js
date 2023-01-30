@@ -13,15 +13,18 @@ const Report = db.define(
     },
     project_code: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     new_existing: {
       type: DataTypes.STRING,
     },
     ip: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     nopcr_ir: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     nama: {
       type: DataTypes.STRING,
@@ -34,44 +37,54 @@ const Report = db.define(
     },
     detail_deploy: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     changes: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     programmer: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     bp: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     pm: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     qa: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     sa: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     cmt: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     dependensi: {
       type: DataTypes.STRING,
-    },
-    keterangan_project: {
-      type: DataTypes.STRING,
+      defaultValue: "-",
     },
     status: {
       type: DataTypes.STRING,
     },
     nolap_promote: {
       type: DataTypes.STRING,
+      defaultValue: "-",
     },
     tanggal_promote: {
       type: DataTypes.DATE,
     },
     week_eksekusi: {
+      type: DataTypes.STRING,
+    },
+    week_request: {
       type: DataTypes.STRING,
     },
     risk_summary: {

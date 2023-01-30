@@ -23,7 +23,7 @@ export default function EditMeetings() {
                 <UserGroupIcon className="w-5 h-5" /> Meeting
               </span>
             </Link>
-            <Link to="/dashboard/profile/edit/:id">
+            <Link to="/dashboard/meeting/edit/:uuid">
               <span className="hover:text-white">
                 / <b>Edit</b>
               </span>

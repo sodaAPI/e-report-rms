@@ -23,7 +23,7 @@ export default function EditReports() {
                 <ChartBarIcon className="w-5 h-5" /> Reports
               </span>
             </Link>
-            <Link to="/dashboard/profile/edit/:id">
+            <Link to="/dashboard/report/edit/:uuid">
               <span className="hover:text-white">
                 / <b>Edit</b>
               </span>

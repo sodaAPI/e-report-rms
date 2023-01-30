@@ -39,13 +39,13 @@ const MeetingList = () => {
     setNotification(response.data);
   };
 
-  const deleteMeetings = async (id) => {
-    await axios.delete(`http://localhost:5000/meeting/${id}`);
+  const deleteMeetings = async (uuid) => {
+    await axios.delete(`http://localhost:5000/meeting/${uuid}`);
     getMeetings();
   };
 
-  const addNotification = async (id) => {
-    const response = await axios.get(`http://localhost:5000/meeting/${id}`);
+  const addNotification = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/meeting/${uuid}`);
     const meetingId = response.data.id;
     await axios.post(`http://localhost:5000/notification/addbyid`, {
       meetingId: meetingId,
@@ -183,7 +183,7 @@ const MeetingList = () => {
                           "Are you sure you wish to add notification from this item?"
                         )
                       )
-                        addNotification(meeting.id);
+                        addNotification(meeting.uuid);
                     }}
                     className="flex flex-row bg-purple-700 p-2 rounded-lg text-white">
                     <BellAlertIcon className="w-5 h-5" />
@@ -200,7 +200,7 @@ const MeetingList = () => {
                 </td>
                 <td>
                   <Link
-                    to={`/dashboard/meeting/edit/${meeting.id}`}
+                    to={`/dashboard/meeting/edit/${meeting.uuid}`}
                     className="bg-green-500 p-2 rounded-lg text-white">
                     Edit
                   </Link>
@@ -213,7 +213,7 @@ const MeetingList = () => {
                           "Are you sure you wish to delete this item?"
                         )
                       )
-                        deleteMeetings(meeting.id);
+                        deleteMeetings(meeting.uuid);
                     }}
                     className="bg-red-700 p-2 rounded-lg text-white">
                     Delete

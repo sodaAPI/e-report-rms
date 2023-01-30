@@ -1,4 +1,5 @@
 import { Login, logOut, Me } from "../controllers/Auth.js";
+import { verifyUser } from "../middleware/AuthUser.js";
 import express from "express";
 import rateLimit from "express-rate-limit";
 
@@ -7,11 +8,11 @@ const router = express.Router();
 const loginLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minutes
   max: 5, // limit each IP to 5 login attempts per windowMs
-  msg: "Too many login attempts, please try again later"
+  msg: "Too many login attempts, please try again later",
 });
 
 router.get("/me", Me);
 router.post("/login", loginLimiter, Login);
-router.delete("/logout", logOut);
+router.delete("/logout", verifyUser, logOut);
 
 export default router;

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const EditMeeting = () => {
   const [Id, setId] = useState("");
-  const [uuid, setUUID] = useState("");
+  const [UUID, setUUID] = useState("");
   const [meeting_name, setMeetingName] = useState("");
   const [meeting_desc, setMeetingDesc] = useState("");
   const [online_meeting_link, setOnlineMeetingLink] = useState("");
@@ -14,15 +14,15 @@ const EditMeeting = () => {
   const [editedBy, setEditedBy] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
-  const [meetings, setMeetings] = useState([]);
+  const [user, setUser] = useState([]);
   const history = useNavigate();
-  const { id } = useParams();
+  const { uuid } = useParams();
   const navigate = useNavigate();
 
   const updateMeeting = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/meeting/${id}`, {
-      uuid: uuid,
+    await axios.patch(`http://localhost:5000/meeting/${uuid}`, {
+      uuid: UUID,
       id: Id,
       meeting_name: meeting_name,
       meeting_desc: meeting_desc,
@@ -38,18 +38,12 @@ const EditMeeting = () => {
     history.push("/meeting");
   };
 
-  const getMeetings = async () => {
-    const response = await axios.get("http://localhost:5000/meeting");
-    setMeetings(response.data);
-  };
-
   useEffect(() => {
     getMeetingById();
-    getMeetings();
   }, []);
 
   const getMeetingById = async () => {
-    const response = await axios.get(`http://localhost:5000/meeting/${id}`);
+    const response = await axios.get(`http://localhost:5000/meeting/${uuid}`);
     setId(response.data.id);
     setUUID(response.data.uuid);
     setMeetingName(response.data.meeting_name);
@@ -59,6 +53,7 @@ const EditMeeting = () => {
     setEditedBy(response.data.editedBy);
     setCreatedAt(response.data.createdAt);
     setUpdatedAt(response.data.updatedAt);
+    setUser(response.data.user.name);
   };
 
   return (
@@ -91,7 +86,7 @@ const EditMeeting = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Task UUID"
-                value={uuid}
+                value={UUID}
                 onChange={(e) => setUUID(e.target.value)}
                 disabled
               />
@@ -154,7 +149,8 @@ const EditMeeting = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Edited By"
-                value={meetings.user?.name}
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
                 disabled
               />
             </div>

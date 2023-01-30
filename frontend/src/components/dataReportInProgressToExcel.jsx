@@ -39,11 +39,11 @@ export default function DataToExcel() {
         report.sa,
         report.cmt,
         report.dependensi,
-        report.keterangan_project,
         report.status,
         report.nolap_promote,
         report.tanggal_promote,
         report.week_eksekusi,
+        report.week_request,
         report.risk_summary,
         report.user.name,
         report.createdAt,
@@ -70,11 +70,11 @@ export default function DataToExcel() {
       "SA",
       "CMT",
       "Dependensi",
-      "Keterangan Project",
       "Status",
       "No Lap Promote",
       "Tanggal Promote",
       "Week Eksekusi",
+      "Week Request",
       "Risk Summary",
       "By",
       "Created At",
@@ -108,8 +108,8 @@ export default function DataToExcel() {
       <button
         className="flex flex-row gap-2 bg-sky-700 hover:bg-sky-600 p-3 text-white rounded-xl"
         onClick={downloadExcel}>
-        <ArrowDownTrayIcon className="w-5 h-5" /> Download In Progress Promote Report
-        file
+        <ArrowDownTrayIcon className="w-5 h-5" /> Download In Progress Promote
+        Report file
       </button>
     </div>
   );

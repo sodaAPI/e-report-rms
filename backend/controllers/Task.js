@@ -59,7 +59,7 @@ export const getTaskById = async (req, res) => {
   try {
     const task = await Task.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!task) return res.status(404).json({ msg: "Data not Found" });
@@ -78,7 +78,7 @@ export const getTaskById = async (req, res) => {
           "updatedAt",
         ],
         where: {
-          id: task.id,
+          uuid: task.uuid,
         },
         include: [
           {
@@ -101,7 +101,7 @@ export const getTaskById = async (req, res) => {
           "updatedAt",
         ],
         where: {
-          [Op.and]: [{ id: task.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: task.uuid }, { userId: req.userId }],
         },
         include: [
           {
@@ -137,7 +137,7 @@ export const updateTask = async (req, res) => {
   try {
     const task = await Task.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!task) return res.status(404).json({ msg: "Data Not Found" });
@@ -147,7 +147,7 @@ export const updateTask = async (req, res) => {
         { name, status, description, deadline },
         {
           where: {
-            id: task.id,
+            uuid: task.uuid,
           },
         }
       );
@@ -158,7 +158,7 @@ export const updateTask = async (req, res) => {
         { name, status, description, deadline },
         {
           where: {
-            [Op.and]: [{ id: task.id }, { userId: req.userId }],
+            [Op.and]: [{ uuid: task.uuid }, { userId: req.userId }],
           },
         }
       );
@@ -173,14 +173,14 @@ export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!task) return res.status(404).json({ msg: "Data not found" });
     if (req.roles === "admin") {
       await Task.destroy({
         where: {
-          id: task.id,
+          uuid: task.uuid,
         },
       });
     } else {
@@ -188,7 +188,7 @@ export const deleteTask = async (req, res) => {
         return res.status(403).json({ msg: "Unauthorized Access" });
       await Task.destroy({
         where: {
-          [Op.and]: [{ id: task.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: task.uuid }, { userId: req.userId }],
         },
       });
     }

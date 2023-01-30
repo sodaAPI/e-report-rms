@@ -10,9 +10,9 @@ import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get("/", verifyUser, getAllTasks);
-router.get("/:id", verifyUser, getTaskById);
+router.get("/:uuid", verifyUser, getTaskById);
 router.post("/", verifyUser, createTask);
-router.patch("/:id", verifyUser, updateTask);
-router.delete("/:id", verifyUser, deleteTask);
+router.patch("/:uuid", verifyUser, updateTask);
+router.delete("/:uuid", verifyUser, deleteTask);
 
 export default router;

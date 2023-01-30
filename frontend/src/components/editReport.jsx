@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
 
 const statusList = ["In Progress", "Complete"];
 const promoteType = [
@@ -19,7 +18,7 @@ const riskSummaryList = ["Low", "Medium", "High"];
 const EditReport = () => {
   const [setReport] = useState([]);
   const [Id, setId] = useState("");
-  const [uuid, setUUID] = useState("");
+  const [UUID, setUUID] = useState("");
   const [project_code, setProjectCode] = useState("");
   const [new_existing, setNewExisting] = useState(newOrExisting[0]);
   const [ip, setIp] = useState("");
@@ -36,11 +35,11 @@ const EditReport = () => {
   const [sa, setSA] = useState("");
   const [cmt, setCMT] = useState("");
   const [dependensi, setDependensi] = useState("");
-  const [keterangan_project, setKeteranganProject] = useState("");
   const [status, setStatus] = useState(statusList[0]);
   const [nolap_promote, setNoLapPromote] = useState("");
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
+  const [week_request, setWeekRequest] = useState("");
   const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
   const [source_file, setSourceFile] = useState("");
   const [report_type, setReportType] = useState(promoteType[0]);
@@ -48,7 +47,7 @@ const EditReport = () => {
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();
-  const { id } = useParams();
+  const { uuid } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,9 +61,9 @@ const EditReport = () => {
 
   const updateReport = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/report/${id}`, {
-      id: id,
-      uuid: uuid,
+    await axios.patch(`http://localhost:5000/report/${uuid}`, {
+      id: uuid,
+      uuid: UUID,
       project_code: project_code,
       new_existing: new_existing,
       ip: ip,
@@ -81,11 +80,11 @@ const EditReport = () => {
       sa: sa,
       cmt: cmt,
       dependensi: dependensi,
-      keterangan_project: keterangan_project,
       status: status,
       nolap_promote: nolap_promote,
       tanggal_promote: tanggal_promote,
       week_eksekusi: week_eksekusi,
+      week_request: week_request,
       risk_summary: risk_summary,
       source_file: source_file,
       report_type: report_type,
@@ -105,7 +104,7 @@ const EditReport = () => {
   }, []);
 
   const getReportById = async () => {
-    const response = await axios.get(`http://localhost:5000/report/${id}`);
+    const response = await axios.get(`http://localhost:5000/report/${uuid}`);
     setId(response.data.id);
     setUUID(response.data.uuid);
     setProjectCode(response.data.project_code);
@@ -124,11 +123,11 @@ const EditReport = () => {
     setSA(response.data.sa);
     setCMT(response.data.cmt);
     setDependensi(response.data.dependensi);
-    setKeteranganProject(response.data.keterangan_project);
     setStatus(response.data.status);
     setNoLapPromote(response.data.nolap_promote);
     setTanggalPromote(response.data.tanggal_promote);
     setWeekEksekusi(response.data.week_eksekusi);
+    setWeekRequest(response.data.week_request);
     setRiskSummary(response.data.risk_summary);
     setSourceFile(response.data.source_file);
     setUserId(response.data.user.name);
@@ -185,7 +184,7 @@ const EditReport = () => {
                 className="input input-bordered w-full "
                 type="text"
                 placeholder="Project UUID ..."
-                value={uuid}
+                value={UUID}
                 onChange={(e) => setUUID(e.target.value)}
                 disabled
               />
@@ -443,8 +442,8 @@ const EditReport = () => {
 
             <div>
               <label className="label text-white">Detail Deploy</label>
-              <textarea
-                className="input input-bordered h-36 w-full"
+              <input
+                className="input input-bordered w-full"
                 type="text"
                 placeholder="Detail Deploy ..."
                 value={detail_deploy}
@@ -556,6 +555,20 @@ const EditReport = () => {
                 onChange={(e) => setDependensi(e.target.value)}
               />
             </div>
+
+            {/*Created At */}
+
+            <div>
+              <label className="label text-white">Created At</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Created At"
+                value={createdAt}
+                onChange={(e) => setCreatedAt(e.target.value)}
+                disabled
+              />
+            </div>
           </section>
 
           <section className="sm:w-full w-2/5">
@@ -653,7 +666,7 @@ const EditReport = () => {
             {/* Tanggal Promote */}
 
             <div>
-              <label className="label">Tanggal Promote</label>
+              <label className="label text-white">Tanggal Promote</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -666,13 +679,26 @@ const EditReport = () => {
             {/*Week Eksekusi */}
 
             <div>
-              <label className="label">Week Eksekusi</label>
+              <label className="label text-white">Week Eksekusi</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Week Eksekusi"
                 value={week_eksekusi}
                 onChange={(e) => setWeekEksekusi(e.target.value)}
+              />
+            </div>
+
+            {/*Week Request */}
+
+            <div>
+              <label className="label text-white">Week Request</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Week Request"
+                value={week_request}
+                onChange={(e) => setWeekRequest(e.target.value)}
               />
             </div>
 
@@ -769,7 +795,7 @@ const EditReport = () => {
             {/* By */}
 
             <div>
-              <label className="label">Edited By</label>
+              <label className="label text-white">Edited By</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -778,24 +804,10 @@ const EditReport = () => {
               />
             </div>
 
-            {/*Created At */}
-
-            <div>
-              <label className="label">Created At</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Created At"
-                value={createdAt}
-                onChange={(e) => setCreatedAt(e.target.value)}
-                disabled
-              />
-            </div>
-
             {/*Updated At */}
 
             <div>
-              <label className="label">Updated At</label>
+              <label className="label text-white">Updated At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -822,22 +834,9 @@ const EditReport = () => {
           />
         </div>
 
-        {/* Keterangan Project */}
-
-        <div>
-          <label className="label text-white">Keterangan Project</label>
-          <textarea
-            className="input input-bordered h-40 w-full py-2 px-4"
-            type="text"
-            placeholder="Keterangan Project"
-            value={keterangan_project}
-            onChange={(e) => setKeteranganProject(e.target.value)}
-          />
-        </div>
-
         <div className="pt-5">
           <button className="w-full bg-sky-500 p-3 rounded-lg text-white">
-            Add Report
+            Update Report
           </button>
         </div>
       </form>

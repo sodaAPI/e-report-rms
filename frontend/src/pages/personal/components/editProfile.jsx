@@ -24,7 +24,7 @@ export default function EditProfiles() {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const history = useNavigate();
-  const { id } = useParams();
+  const { uuid } = useParams();
   const navigate = useNavigate();
 
   const goBack = async () => {
@@ -34,7 +34,7 @@ export default function EditProfiles() {
 
   const saveUser = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/user/${id}`, {
+    await axios.patch(`http://localhost:5000/user/${uuid}`, {
       name: name,
       username: username,
       email: email,
@@ -56,7 +56,7 @@ export default function EditProfiles() {
   }, []);
 
   const getProductById = async () => {
-    const response = await axios.get(`http://localhost:5000/user/${id}`);
+    const response = await axios.get(`http://localhost:5000/user/${uuid}`);
     setName(response.data.name);
     setUsername(response.data.username);
     setEmail(response.data.email);

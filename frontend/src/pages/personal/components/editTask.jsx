@@ -8,7 +8,7 @@ const statusList = ["Uncompleted", "Completed"];
 
 const EditTask = () => {
   const [Id, setId] = useState("");
-  const [uuid, setUUID] = useState("");
+  const [UUID, setUUID] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const [name, setName] = useState("");
@@ -17,13 +17,13 @@ const EditTask = () => {
   const [deadline, setDeadline] = useState("");
   const [user, setUser] = useState("");
   const history = useNavigate();
-  const { id } = useParams();
+  const { uuid } = useParams();
   const navigate = useNavigate();
 
   const updateTask = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/task/${id}`, {
-      uuid: uuid,
+    await axios.patch(`http://localhost:5000/task/${uuid}`, {
+      uuid: UUID,
       id: Id,
       name: name,
       status: status,
@@ -44,7 +44,7 @@ const EditTask = () => {
   }, []);
 
   const getTaskById = async () => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     setId(response.data.id);
     setUUID(response.data.uuid);
     setCreatedAt(response.data.createdAt);
@@ -86,7 +86,7 @@ const EditTask = () => {
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Task UUID"
-                value={uuid}
+                value={UUID}
                 onChange={(e) => setUUID(e.target.value)}
                 disabled
               />

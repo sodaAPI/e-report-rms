@@ -35,8 +35,8 @@ const ReportList = () => {
     setReport(response.data);
   };
 
-  const deleteReport = async (id) => {
-    await axios.delete(`http://localhost:5000/report/${id}`);
+  const deleteReport = async (uuid) => {
+    await axios.delete(`http://localhost:5000/report/${uuid}`);
     getReports();
   };
 
@@ -48,10 +48,10 @@ const ReportList = () => {
     }
   };
 
-  const updateStatus = async (id) => {
-    const response = await axios.get(`http://localhost:5000/report/${id}`);
+  const updateStatus = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/report/${uuid}`);
     const status = checkStatus(response.data.status);
-    await axios.patch(`http://localhost:5000/report/${id}`, { status });
+    await axios.patch(`http://localhost:5000/report/${uuid}`, { status });
     window.alert("Report Updated Successfully");
     getReports();
   };
@@ -129,11 +129,11 @@ const ReportList = () => {
               <th>SA</th>
               <th>CMT</th>
               <th>Dependensi</th>
-              <th>Keterangan Project</th>
               <th>Status</th>
               <th>No Lap Promote</th>
               <th>Tanggal Promote</th>
               <th>Week Eksekusi</th>
+              <th>Week Request</th>
               <th>Risk Summary</th>
               <th>By</th>
               <th>Created At</th>
@@ -149,8 +149,8 @@ const ReportList = () => {
                 (report) =>
                   state.startDate == null ||
                   state.endDate == null ||
-                  (new Date(report.tanggal_promote) >= state.startDate &&
-                    new Date(report.tanggal_promote) <= state.endDate)
+                  (new Date(report.updatedAt) >= state.startDate &&
+                    new Date(report.updatedAt) <= state.endDate)
               )
               .filter(
                 (report) =>
@@ -171,11 +171,11 @@ const ReportList = () => {
                   new RegExp(searchTerm, "i").test(report.sa) ||
                   new RegExp(searchTerm, "i").test(report.cmt) ||
                   new RegExp(searchTerm, "i").test(report.dependensi) ||
-                  new RegExp(searchTerm, "i").test(report.keterangan_project) ||
                   new RegExp(searchTerm, "i").test(report.status) ||
                   new RegExp(searchTerm, "i").test(report.nolap_promote) ||
                   new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
                   new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
+                  new RegExp(searchTerm, "i").test(report.week_request) ||
                   new RegExp(searchTerm, "i").test(report.risk_summary) ||
                   new RegExp(searchTerm, "i").test(report.user?.name) ||
                   new RegExp(searchTerm, "i").test(report.createdAt) ||
@@ -205,11 +205,11 @@ const ReportList = () => {
                   <td>{report.sa}</td>
                   <td>{report.cmt}</td>
                   <td>{report.dependensi}</td>
-                  <td>{report.keterangan_project}</td>
                   <td>{report.status}</td>
                   <td>{report.nolap_promote}</td>
                   <td>{report.tanggal_promote}</td>
                   <td>{report.week_eksekusi}</td>
+                  <td>{report.week_request}</td>
                   <td>{report.risk_summary}</td>
                   <td>{report.user?.name}</td>
                   <td>{report.createdAt}</td>
@@ -222,7 +222,7 @@ const ReportList = () => {
                             "Are you sure you wish to update this report?"
                           )
                         )
-                          updateStatus(report.id);
+                          updateStatus(report.uuid);
                       }}
                       className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                       <ArrowsRightLeftIcon className="w-4 h-4" /> Status
@@ -230,7 +230,7 @@ const ReportList = () => {
                   </td>
                   <td>
                     <Link
-                      to={`/dashboard/report/edit/${report.id}`}
+                      to={`/dashboard/report/edit/${report.uuid}`}
                       className="bg-green-500 p-2 rounded-lg text-white">
                       Edit
                     </Link>
@@ -243,7 +243,7 @@ const ReportList = () => {
                             "Are you sure you wish to delete this item?"
                           )
                         )
-                          deleteReport(report.id);
+                          deleteReport(report.uuid);
                       }}
                       className="bg-red-700 p-2 rounded-lg text-white">
                       Delete

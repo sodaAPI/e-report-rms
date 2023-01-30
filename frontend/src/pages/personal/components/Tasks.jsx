@@ -18,7 +18,7 @@ const statusList = ["Uncompleted", "Completed"];
 export default function Tasks() {
   const [tasks, setTask] = useState([]);
   const [setStatus] = useState(statusList[0]);
-  const { id } = useParams();
+  const { uuid } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [setNotification] = useState([]);
@@ -37,8 +37,8 @@ export default function Tasks() {
     setTask(response.data);
   };
 
-  const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:5000/task/${id}`);
+  const deleteTask = async (uuid) => {
+    await axios.delete(`http://localhost:5000/task/${uuid}`);
     getTasks();
   };
 
@@ -50,16 +50,16 @@ export default function Tasks() {
     }
   };
 
-  const updateStatus = async (id) => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+  const updateStatus = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     const status = checkStatus(response.data.status);
-    await axios.patch(`http://localhost:5000/task/${id}`, { status });
+    await axios.patch(`http://localhost:5000/task/${uuid}`, { status });
     window.alert("Task Updated Successfully");
     getTasks();
   };
 
   const getTaskById = async () => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     setStatus(response.data.status);
   };
 
@@ -68,8 +68,8 @@ export default function Tasks() {
     setNotification(response.data);
   };
 
-  const addNotification = async (id) => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+  const addNotification = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     const taskId = response.data.id;
     await axios.post(`http://localhost:5000/notification/addbyid`, {
       taskId: taskId,
@@ -217,7 +217,7 @@ export default function Tasks() {
                               "Are you sure you wish to add notification from this item?"
                             )
                           )
-                            addNotification(task.id);
+                            addNotification(task.uuid);
                         }}
                         className="flex flex-row bg-purple-700 p-2 rounded-lg text-white">
                         <BellAlertIcon className="w-5 h-5" />
@@ -231,7 +231,7 @@ export default function Tasks() {
                               "Are you sure you wish to update status of this item?"
                             )
                           )
-                            updateStatus(task.id);
+                            updateStatus(task.uuid);
                         }}
                         className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                         <ArrowsRightLeftIcon className="w-4 h-4" /> Status
@@ -239,7 +239,7 @@ export default function Tasks() {
                     </td>
                     <td>
                       <Link
-                        to={`/dashboard/task/edit/${task.id}`}
+                        to={`/dashboard/task/edit/${task.uuid}`}
                         className="bg-green-500 p-2 rounded-lg text-white">
                         Edit
                       </Link>
@@ -252,7 +252,7 @@ export default function Tasks() {
                               "Are you sure you wish to delete this item?"
                             )
                           )
-                            deleteTask(task.id);
+                            deleteTask(task.uuid);
                         }}
                         className="bg-red-700 p-2 rounded-lg text-white">
                         Delete

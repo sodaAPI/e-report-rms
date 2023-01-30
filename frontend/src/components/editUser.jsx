@@ -18,12 +18,12 @@ const EditUser = () => {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const history = useNavigate();
-  const { id } = useParams();
+  const { uuid } = useParams();
   const navigate = useNavigate();
 
   const updateUser = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/user/${id}`, {
+    await axios.patch(`http://localhost:5000/user/${uuid}`, {
       name: name,
       username: username,
       email: email,
@@ -45,7 +45,7 @@ const EditUser = () => {
   }, []);
 
   const getUserById = async () => {
-    const response = await axios.get(`http://localhost:5000/user/${id}`);
+    const response = await axios.get(`http://localhost:5000/user/${uuid}`);
     setName(response.data.name);
     setUsername(response.data.username);
     setEmail(response.data.email);

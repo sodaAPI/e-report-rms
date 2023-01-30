@@ -23,7 +23,7 @@ export default function EditTasks() {
                 <BriefcaseIcon className="w-5 h-5" /> Task
               </span>
             </Link>
-            <Link to="/dashboard/task/edit/:id">
+            <Link to="/dashboard/task/edit/:uuid">
               <span className="hover:text-white">
                 / <b>Edit</b>
               </span>

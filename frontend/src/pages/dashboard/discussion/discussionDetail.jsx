@@ -88,9 +88,9 @@ export default function Discussions() {
     history.push("/message");
   };
 
-  const deleteMessage = async (id) => {
+  const deleteMessage = async (uuid) => {
     try {
-      await axios.delete(`http://localhost:5000/message/delete/${id}`);
+      await axios.delete(`http://localhost:5000/message/delete/${uuid}`);
       getMessage();
     } catch (error) {
       window.alert(`An error occurred: ${error}`);
@@ -340,7 +340,7 @@ export default function Discussions() {
                                     <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
                                       <DropdownButton
                                         onClick={() => {
-                                          deleteMessage(val.id);
+                                          deleteMessage(val.uuid);
                                         }}
                                         className="flex flex-row">
                                         <TrashIcon className="w-5 h-5 text-red-900" />
@@ -382,7 +382,7 @@ export default function Discussions() {
                                     <Menu.Item className="flex flex-row py-2 text-sm gap-2 text-gray-700">
                                       <DropdownButton
                                         onClick={() => {
-                                          deleteMessage(val.id);
+                                          deleteMessage(val.uuid);
                                         }}
                                         className="flex flex-row">
                                         <TrashIcon className="w-5 h-5 text-red-900" />

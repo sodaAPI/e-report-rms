@@ -66,13 +66,13 @@ function App() {
 
           {/* Dashboard Edit */}
 
-          <Route path="/dashboard/user/edit/:id" element={<EditUsers />} />
-          <Route path="/dashboard/report/edit/:id" element={<EditReports />} />
+          <Route path="/dashboard/user/edit/:uuid" element={<EditUsers />} />
+          <Route path="/dashboard/report/edit/:uuid" element={<EditReports />} />
           <Route
-            path="/dashboard/meeting/edit/:id"
+            path="/dashboard/meeting/edit/:uuid"
             element={<EditMeetings />}
           />
-          <Route path="/dashboard/task/edit/:id" element={<EditTasks />} />
+          <Route path="/dashboard/task/edit/:uuid" element={<EditTasks />} />
 
           {/* Dashboard Add */}
 
@@ -88,7 +88,7 @@ function App() {
 
           <Route path="/dashboard/profile" element={<Profile />} />
           <Route
-            path="/dashboard/profile/edit/:id"
+            path="/dashboard/profile/edit/:uuid"
             element={<EditProfiles />}
           />
           <Route path="/dashboard/task" element={<Task />} />

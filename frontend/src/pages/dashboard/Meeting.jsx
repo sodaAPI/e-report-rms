@@ -18,7 +18,7 @@ export default function Meeting() {
               <span className="mx-1"> Dashboard </span>
             </Link>
             /
-            <Link to="/dashboard/user" className="hover:text-white font-bold">
+            <Link to="/dashboard/meeting" className="hover:text-white font-bold">
               <span className="flex flex-row mx-1 gap-1 items-center">
                 <UserGroupIcon className="w-5 h-5" /> Meeting
               </span>

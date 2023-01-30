@@ -10,7 +10,7 @@ const statusList = ["Uncompleted", "Completed"];
 
 export default function TaskUncompletedList() {
   const [tasks, setTask] = useState([]);
-  const { id } = useParams();
+  const { uuid } = useParams();
 
   useEffect(() => {
     getTasks();
@@ -22,8 +22,8 @@ export default function TaskUncompletedList() {
     setTask(response.data);
   };
 
-  const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:5000/task/${id}`);
+  const deleteTask = async (uuid) => {
+    await axios.delete(`http://localhost:5000/task/${uuid}`);
     getTasks();
   };
 
@@ -35,16 +35,16 @@ export default function TaskUncompletedList() {
     }
   };
 
-  const updateStatus = async (id) => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+  const updateStatus = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     const status = checkStatus(response.data.status);
-    await axios.patch(`http://localhost:5000/task/${id}`, { status });
+    await axios.patch(`http://localhost:5000/task/${uuid}`, { status });
     window.alert("Task Updated Successfully");
     getTasks();
   };
 
   const getTaskById = async () => {
-    const response = await axios.get(`http://localhost:5000/task/${id}`);
+    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
     setStats(response.data.status);
   };
 
@@ -176,7 +176,7 @@ export default function TaskUncompletedList() {
                               "Are you sure you wish to update this task?"
                             )
                           )
-                            updateStatus(task.id);
+                            updateStatus(task.uuid);
                         }}
                         className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                         <ArrowsRightLeftIcon className="w-4 h-4" /> Status
@@ -184,7 +184,7 @@ export default function TaskUncompletedList() {
                     </td>
                     <td>
                       <Link
-                        to={`/dashboard/task/edit/${task.id}`}
+                        to={`/dashboard/task/edit/${task.uuid}`}
                         className="bg-green-500 p-2 rounded-lg text-white">
                         Edit
                       </Link>
@@ -197,7 +197,7 @@ export default function TaskUncompletedList() {
                               "Are you sure you wish to delete this item?"
                             )
                           )
-                            deleteTask(task.id);
+                            deleteTask(task.uuid);
                         }}
                         className="bg-red-700 p-2 rounded-lg text-white">
                         Delete

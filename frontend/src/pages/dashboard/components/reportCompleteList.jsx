@@ -129,11 +129,11 @@ const ReportCompleteList = () => {
               <th>SA</th>
               <th>CMT</th>
               <th>Dependensi</th>
-              <th>Keterangan Project</th>
               <th>Status</th>
               <th>No Lap Promote</th>
               <th>Tanggal Promote</th>
               <th>Week Eksekusi</th>
+              <th>Week Request</th>
               <th>Risk Summary</th>
               <th>By</th>
               <th>Created At</th>
@@ -172,13 +172,11 @@ const ReportCompleteList = () => {
                     new RegExp(searchTerm, "i").test(report.sa) ||
                     new RegExp(searchTerm, "i").test(report.cmt) ||
                     new RegExp(searchTerm, "i").test(report.dependensi) ||
-                    new RegExp(searchTerm, "i").test(
-                      report.keterangan_project
-                    ) ||
                     new RegExp(searchTerm, "i").test(report.status) ||
                     new RegExp(searchTerm, "i").test(report.nolap_promote) ||
                     new RegExp(searchTerm, "i").test(report.tanggal_promote) ||
                     new RegExp(searchTerm, "i").test(report.week_eksekusi) ||
+                    new RegExp(searchTerm, "i").test(report.week_request) ||
                     new RegExp(searchTerm, "i").test(report.risk_summary) ||
                     new RegExp(searchTerm, "i").test(report.user?.name) ||
                     new RegExp(searchTerm, "i").test(report.createdAt) ||
@@ -213,6 +211,7 @@ const ReportCompleteList = () => {
                   <td>{report.nolap_promote}</td>
                   <td>{report.tanggal_promote}</td>
                   <td>{report.week_eksekusi}</td>
+                  <td>{report.week_request}</td>
                   <td>{report.risk_summary}</td>
                   <td>{report.user?.name}</td>
                   <td>{report.createdAt}</td>

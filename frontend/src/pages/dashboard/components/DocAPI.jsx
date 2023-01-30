@@ -35,7 +35,7 @@ export default function DocAPI() {
               <span className="mx-1"> Dashboard </span>
             </Link>
             /
-            <Link to="/dashboard/doc" className="hover:text-white">
+            <Link to="/dashboard/doc/api/add" className="hover:text-white">
               <span className="flex flex-row mx-1 gap-1 items-center">
                 <DocumentTextIcon className="w-5 h-5" /> Document API
               </span>

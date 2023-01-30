@@ -16,7 +16,7 @@ export const getUserById = async (req, res) => {
   try {
     const user = await User.findAll({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     res.json(user[0]);
@@ -139,7 +139,7 @@ export const resetPassword = async (req, res) => {
       },
       {
         where: {
-          id: user.id,
+          uuid: user.uuid,
         },
       }
     );
@@ -152,7 +152,7 @@ export const resetPassword = async (req, res) => {
 export const updateUser = async (req, res) => {
   const user = await User.findOne({
     where: {
-      id: req.params.id,
+      uuid: req.params.uuid,
     },
   });
   if (!user) return res.status(404).json({ msg: "User not found" });
@@ -194,7 +194,7 @@ export const updateUser = async (req, res) => {
         },
         {
           where: {
-            id: user.id,
+            uuid: user.uuid,
           },
         }
       );
@@ -211,7 +211,7 @@ export const updateUser = async (req, res) => {
         },
         {
           where: {
-            id: user.id,
+            uuid: user.uuid,
           },
         }
       );
@@ -225,14 +225,14 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const user = await User.findOne({
     where: {
-      uuid: req.params.id,
+      uuid: req.params.uuid,
     },
   });
   if (!user) return res.status(404).json({ msg: "User not found" });
   try {
     await User.destroy({
       where: {
-        id: user.id,
+        uuid: user.uuid,
       },
     });
     res.status(200).json({ msg: "User Deleted Successfully" });

@@ -11,9 +11,9 @@ import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get("/", verifyUser, getAllReports);
-router.get("/:id", verifyUser, getReportById);
+router.get("/:uuid", verifyUser, getReportById);
 router.post("/", verifyUser, createReport);
-router.patch("/:id", verifyUser, updateReport);
-router.delete("/:id", verifyUser, deleteReport);
+router.patch("/:uuid", verifyUser, updateReport);
+router.delete("/:uuid", verifyUser, deleteReport);
 
 export default router;

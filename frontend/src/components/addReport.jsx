@@ -17,30 +17,29 @@ const riskSummaryList = ["Low", "Medium", "High"];
 const AddReport = () => {
   const [project_code, setProjectCode] = useState("");
   const [new_existing, setNewExisting] = useState(newOrExisting[0]);
-  const [ip, setIp] = useState("");
-  const [nopcr_ir, setNoPCRIR] = useState("");
+  const [ip, setIp] = useState();
+  const [nopcr_ir, setNoPCRIR] = useState();
   const [nama, setNama] = useState("");
   const [user_division, setUserDivision] = useState("");
   const [core_noncore, setCoreNonCore] = useState(coreOrNonCore[0]);
-  const [detail_deploy, setDetailDeploy] = useState("");
-  const [changes, setChanges] = useState("");
-  const [programmer, setProgrammer] = useState("");
-  const [bp, setBP] = useState("");
-  const [pm, setPM] = useState("");
-  const [qa, setQA] = useState("");
-  const [sa, setSA] = useState("");
+  const [detail_deploy, setDetailDeploy] = useState();
+  const [changes, setChanges] = useState();
+  const [programmer, setProgrammer] = useState();
+  const [bp, setBP] = useState();
+  const [pm, setPM] = useState();
+  const [qa, setQA] = useState();
+  const [sa, setSA] = useState();
   const [cmt, setCMT] = useState("");
-  const [dependensi, setDependensi] = useState("");
-  const [keterangan_project, setKeteranganProject] = useState("");
+  const [dependensi, setDependensi] = useState();
   const [status, setStatus] = useState(statusList[0]);
-  const [nolap_promote, setNoLapPromote] = useState("");
+  const [nolap_promote, setNoLapPromote] = useState();
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [week_eksekusi, setWeekEksekusi] = useState("");
+  const [week_request, setWeekRequest] = useState("");
   const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
   const [report_type] = useState(promoteType[0]);
   const [userId] = useState("");
   const [createdAt, setCreatedAt] = useState("");
-  const [updatedAt, setUpdatedAt] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
 
@@ -63,16 +62,15 @@ const AddReport = () => {
       sa: sa,
       cmt: cmt,
       dependensi: dependensi,
-      keterangan_project: keterangan_project,
       status: status,
       nolap_promote: nolap_promote,
       tanggal_promote: tanggal_promote,
       week_eksekusi: week_eksekusi,
+      week_request: week_request,
       risk_summary: risk_summary,
       report_type: report_type,
       userId: userId,
       createdAt: createdAt,
-      updatedAt: updatedAt,
     });
     let path = "/dashboard/report";
     navigate(path);
@@ -569,7 +567,7 @@ const AddReport = () => {
             {/* Tanggal Promote */}
 
             <div>
-              <label className="label">Tanggal Promote</label>
+              <label className="label text-white">Tanggal Promote</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -582,13 +580,26 @@ const AddReport = () => {
             {/*Week Eksekusi */}
 
             <div>
-              <label className="label">Week Eksekusi</label>
+              <label className="label text-white">Week Eksekusi</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Week Eksekusi"
                 value={week_eksekusi}
                 onChange={(e) => setWeekEksekusi(e.target.value)}
+              />
+            </div>
+
+            {/*Week Request */}
+
+            <div>
+              <label className="label text-white">Week Request</label>
+              <input
+                className="input input-bordered w-full"
+                type="text"
+                placeholder="Week Request"
+                value={week_request}
+                onChange={(e) => setWeekRequest(e.target.value)}
               />
             </div>
 
@@ -685,27 +696,13 @@ const AddReport = () => {
             {/*Created At */}
 
             <div>
-              <label className="label">Created At</label>
+              <label className="label text-white">Created At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
                 placeholder="Created At"
                 value={createdAt}
                 onChange={(e) => setCreatedAt(e.target.value)}
-                disabled
-              />
-            </div>
-
-            {/*Updated At */}
-
-            <div>
-              <label className="label">Updated At</label>
-              <input
-                className="input input-bordered w-full"
-                type="text"
-                placeholder="Updated At"
-                value={updatedAt}
-                onChange={(e) => setUpdatedAt(e.target.value)}
                 disabled
               />
             </div>
@@ -725,20 +722,6 @@ const AddReport = () => {
             onInput={handleInput}
           />
         </div>
-
-        {/* Keterangan Project */}
-
-        <div>
-          <label className="label text-white">Keterangan Project</label>
-          <textarea
-            className="input input-bordered h-40 w-full py-2 px-4"
-            type="text"
-            placeholder="Keterangan Project"
-            value={keterangan_project}
-            onChange={(e) => setKeteranganProject(e.target.value)}
-          />
-        </div>
-
         <div className="pt-5">
           <button className="w-full bg-sky-500 p-3 rounded-lg text-white">
             Add Report

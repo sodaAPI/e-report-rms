@@ -59,7 +59,7 @@ export const getMeetingById = async (req, res) => {
   try {
     const meeting = await Meetings.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!meeting) return res.status(404).json({ msg: "Data not Found" });
@@ -78,7 +78,7 @@ export const getMeetingById = async (req, res) => {
           "updatedAt",
         ],
         where: {
-          id: meeting.id,
+          uuid: meeting.uuid,
         },
         include: [
           {
@@ -101,7 +101,7 @@ export const getMeetingById = async (req, res) => {
           "updatedAt",
         ],
         where: {
-          [Op.and]: [{ id: meeting.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: meeting.uuid }, { userId: req.userId }],
         },
         include: [
           {
@@ -138,7 +138,7 @@ export const updateMeeting = async (req, res) => {
   try {
     const meeting = await Meetings.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!meeting) return res.status(404).json({ msg: "Data Not Found" });
@@ -155,7 +155,7 @@ export const updateMeeting = async (req, res) => {
         },
         {
           where: {
-            id: meeting.id,
+            uuid: meeting.uuid,
           },
         }
       );
@@ -172,7 +172,7 @@ export const updateMeeting = async (req, res) => {
         },
         {
           where: {
-            [Op.and]: [{ id: meeting.id }, { userId: req.userId }],
+            [Op.and]: [{ uuid: meeting.uuid }, { userId: req.userId }],
           },
         }
       );
@@ -187,14 +187,14 @@ export const deleteMeeting = async (req, res) => {
   try {
     const meeting = await Meetings.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.uuid,
       },
     });
     if (!meeting) return res.status(404).json({ msg: "Data not found" });
     if (req.roles === "admin" || "user") {
       await Meetings.destroy({
         where: {
-          id: meeting.id,
+          uuid: meeting.uuid,
         },
       });
     } else {
@@ -202,7 +202,7 @@ export const deleteMeeting = async (req, res) => {
         return res.status(403).json({ msg: "Unauthorized Access" });
       await Meetings.destroy({
         where: {
-          [Op.and]: [{ id: meeting.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: meeting.uuid }, { userId: req.userId }],
         },
       });
     }
