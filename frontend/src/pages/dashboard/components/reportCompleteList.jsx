@@ -35,8 +35,8 @@ const ReportCompleteList = () => {
     setReport(response.data);
   };
 
-  const deleteReport = async (id) => {
-    await axios.delete(`http://localhost:5000/report/${id}`);
+  const deleteReport = async (uuid) => {
+    await axios.delete(`http://localhost:5000/report/${uuid}`);
     getReports();
   };
 
@@ -48,10 +48,10 @@ const ReportCompleteList = () => {
     }
   };
 
-  const updateStatus = async (id) => {
-    const response = await axios.get(`http://localhost:5000/report/${id}`);
+  const updateStatus = async (uuid) => {
+    const response = await axios.get(`http://localhost:5000/report/${uuid}`);
     const status = checkStatus(response.data.status);
-    await axios.patch(`http://localhost:5000/report/${id}`, { status });
+    await axios.patch(`http://localhost:5000/report/${uuid}`, { status });
     window.alert("Report Updated Successfully");
     getReports();
   };
@@ -224,7 +224,7 @@ const ReportCompleteList = () => {
                             "Are you sure you wish to update this report?"
                           )
                         )
-                          updateStatus(report.id);
+                          updateStatus(report.uuid);
                       }}
                       className="flex flex-row items-center gap-2 outline outline-2 outline-slate-400 hover:bg-slate-600 hover:outline-none p-2 rounded-lg text-white">
                       <ArrowsRightLeftIcon className="w-4 h-4" /> Status
@@ -232,7 +232,7 @@ const ReportCompleteList = () => {
                   </td>
                   <td>
                     <Link
-                      to={`/dashboard/report/edit/${report.id}`}
+                      to={`/dashboard/report/edit/${report.uuid}`}
                       className="bg-green-500 p-2 rounded-lg text-white">
                       Edit
                     </Link>
@@ -245,7 +245,7 @@ const ReportCompleteList = () => {
                             "Are you sure you wish to delete this item?"
                           )
                         )
-                          deleteReport(report.id);
+                          deleteReport(report.uuid);
                       }}
                       className="bg-red-700 p-2 rounded-lg text-white">
                       Delete
