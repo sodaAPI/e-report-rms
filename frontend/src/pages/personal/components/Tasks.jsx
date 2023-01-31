@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ArrowsRightLeftIcon,
   DocumentIcon,
@@ -17,8 +17,6 @@ const statusList = ["Uncompleted", "Completed"];
 
 export default function Tasks() {
   const [tasks, setTask] = useState([]);
-  const [setStatus] = useState(statusList[0]);
-  const { uuid } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [setNotification] = useState([]);
