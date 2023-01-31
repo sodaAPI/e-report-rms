@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const EditMeeting = () => {
   const [Id, setId] = useState("");
@@ -68,7 +67,7 @@ const EditMeeting = () => {
             {/* ID */}
 
             <div>
-              <label className="label">Meeting ID</label>
+              <label className="label text-white">Meeting ID</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -81,7 +80,7 @@ const EditMeeting = () => {
             {/* UUID */}
 
             <div>
-              <label className="label">Meeting UUID</label>
+              <label className="label text-white">Meeting UUID</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -94,7 +93,7 @@ const EditMeeting = () => {
             {/* Meeting Name */}
 
             <div>
-              <label className="label">Meeting Name</label>
+              <label className="label text-white">Meeting Name</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -113,7 +112,7 @@ const EditMeeting = () => {
                   navigator.clipboard.writeText(online_meeting_link);
                   window.alert("Link Copied");
                 }}>
-                <label className="label">
+                <label className="label text-white">
                   Online Meeting Link (Https://) - Click to copy
                 </label>
               </a>
@@ -131,7 +130,7 @@ const EditMeeting = () => {
             {/*Meeting Date */}
 
             <div>
-              <label className="label">Meeting Date</label>
+              <label className="label text-white">Meeting Date</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -144,7 +143,7 @@ const EditMeeting = () => {
             {/*Edited By*/}
 
             <div>
-              <label className="label">Edited By</label>
+              <label className="label text-white">Edited By</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -157,7 +156,7 @@ const EditMeeting = () => {
             {/* Created At */}
 
             <div>
-              <label className="label">Created At</label>
+              <label className="label text-white">Created At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -171,7 +170,7 @@ const EditMeeting = () => {
             {/* Updated At */}
 
             <div>
-              <label className="label">Updated At</label>
+              <label className="label text-white">Updated At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -187,7 +186,7 @@ const EditMeeting = () => {
           {/* Meeting Desc */}
 
           <div>
-            <label className="label">Meeting Desc</label>
+            <label className="label text-white">Meeting Desc</label>
             <textarea
               className="input input-bordered h-40 w-full"
               type="text"

@@ -76,7 +76,7 @@ export default function EditProfiles() {
     <div className="w-full">
       <div className="flex flex-col items-center">
         <div className="flex flex-row justify-center items-center">
-            <UserCircleIcon className="text-slate-300 w-36 h-36 mt-5" />
+          <UserCircleIcon className="text-slate-300 w-36 h-36 mt-5" />
         </div>
         {user?.name}
       </div>
@@ -90,7 +90,7 @@ export default function EditProfiles() {
               {/* Name */}
 
               <div>
-                <label className="label">Name</label>
+                <label className="label text-white">Name</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="name"
@@ -104,7 +104,7 @@ export default function EditProfiles() {
               {/* Email */}
 
               <div>
-                <label className="label">Email</label>
+                <label className="label text-white">Email</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="email"
@@ -118,7 +118,7 @@ export default function EditProfiles() {
               {/* Username */}
 
               <div>
-                <label className="label">Username</label>
+                <label className="label text-white">Username</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="text"
@@ -132,7 +132,7 @@ export default function EditProfiles() {
               {/* Phone */}
 
               <div>
-                <label className="label">Phone</label>
+                <label className="label text-white">Phone</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="tel"
@@ -155,7 +155,7 @@ export default function EditProfiles() {
                   onChange={setDivision}>
                   {({ open }) => (
                     <>
-                      <Listbox.Label className="block py-1">
+                      <Listbox.Label className="block py-1 text-white">
                         Division
                       </Listbox.Label>
                       <div className="relative">
@@ -244,7 +244,7 @@ export default function EditProfiles() {
               {/* Birth */}
 
               <div>
-                <label className="label">Birth date</label>
+                <label className="label text-white">Birth date</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
@@ -257,7 +257,7 @@ export default function EditProfiles() {
               {/* Password*/}
 
               <div>
-                <label className="label">Password</label>
+                <label className="label text-white">Password</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type={passwordVisible ? "text" : "password"}
@@ -270,7 +270,7 @@ export default function EditProfiles() {
               {/* Confirm Password*/}
 
               <div>
-                <label className="label">Confirm Password</label>
+                <label className="label text-white">Confirm Password</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type={passwordVisible ? "text" : "password"}

@@ -68,7 +68,7 @@ const EditTask = () => {
             {/* ID */}
 
             <div>
-              <label className="label">Task ID</label>
+              <label className="label text-white">Task ID</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -81,7 +81,7 @@ const EditTask = () => {
             {/* UUID */}
 
             <div>
-              <label className="label">Task UUID</label>
+              <label className="label text-white">Task UUID</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -94,7 +94,7 @@ const EditTask = () => {
             {/* Name */}
 
             <div>
-              <label className="label">Task Name</label>
+              <label className="label text-white">Task Name</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -115,7 +115,7 @@ const EditTask = () => {
                 onChange={setStatus}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block py-1">
+                    <Listbox.Label className="block py-1 text-white">
                       Promote Status
                     </Listbox.Label>
                     <div className="relative">
@@ -200,7 +200,7 @@ const EditTask = () => {
 
           <section className="sm:w-full w-2/5">
             <div>
-              <label className="label">Deadline</label>
+              <label className="label text-white">Deadline</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -214,7 +214,7 @@ const EditTask = () => {
             {/* By User */}
 
             <div>
-              <label className="label">By User</label>
+              <label className="label text-white">By User</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -227,7 +227,7 @@ const EditTask = () => {
             {/* Created At */}
 
             <div>
-              <label className="label">Created At</label>
+              <label className="label text-white">Created At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -241,7 +241,7 @@ const EditTask = () => {
             {/* Updated At */}
 
             <div>
-              <label className="label">Updated At</label>
+              <label className="label text-white">Updated At</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -258,7 +258,7 @@ const EditTask = () => {
           {/* Description */}
 
           <div>
-            <label className="label">Description</label>
+            <label className="label text-white">Description</label>
             <textarea
               className="input input-bordered h-40 w-full"
               type="text"

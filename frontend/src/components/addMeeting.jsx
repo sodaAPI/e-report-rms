@@ -39,7 +39,7 @@ const AddMeeting = () => {
             {/* Meeting Name */}
 
             <div>
-              <label className="label">Meeting Name</label>
+              <label className="label text-white">Meeting Name</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -53,7 +53,7 @@ const AddMeeting = () => {
             {/* Online Meeting Link */}
 
             <div>
-              <label className="label">Online Meeting Link (Https)</label>
+              <label className="label text-white">Online Meeting Link (Https)</label>
               <input
                 className="input input-bordered w-full"
                 type="url"
@@ -68,7 +68,7 @@ const AddMeeting = () => {
             {/*Meeting Date */}
 
             <div>
-              <label className="label">Meeting Date</label>
+              <label className="label text-white">Meeting Date</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -81,7 +81,7 @@ const AddMeeting = () => {
             {/*Edited By*/}
 
             <div>
-              <label className="label">Edited By</label>
+              <label className="label text-white">Edited By</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -96,7 +96,7 @@ const AddMeeting = () => {
           {/* Meeting Desc */}
 
           <div>
-            <label className="label">Meeting Desc</label>
+            <label className="label text-white">Meeting Desc</label>
             <textarea
               className="input input-bordered h-40 w-full"
               type="text"

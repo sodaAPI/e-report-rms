@@ -6,7 +6,6 @@ import {
   SubMenu,
   useProSidebar,
   menuClasses,
-  MenuItemStyles,
 } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import {
@@ -172,7 +171,7 @@ export default function Sidebars() {
             icon={<PresentationChartLineIcon className="w-6" />}>
             {menu.map((val, index) => {
               return (
-                <MenuItem key={index} component={<Link to={val.href} />}>
+                <MenuItem key={val.name} component={<Link to={val.href} />}>
                   <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
@@ -200,7 +199,7 @@ export default function Sidebars() {
             icon={<UserCircleIcon className="w-6" />}>
             {personal.map((val, index) => {
               return (
-                <MenuItem key={index} component={<Link to={val.href} />}>
+                <MenuItem key={val.name} component={<Link to={val.href} />}>
                   <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>
@@ -218,7 +217,7 @@ export default function Sidebars() {
             icon={<InformationCircleIcon className="w-6" />}>
             {settings.map((val, index) => {
               return (
-                <MenuItem key={index} component={<Link to={val.href} />}>
+                <MenuItem key={val.name} component={<Link to={val.href} />}>
                   <div className="flex flex-row items-center gap-3">
                     <div className="w-5">{val.icon}</div>
                     <div>{val.name}</div>

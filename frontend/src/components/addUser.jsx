@@ -51,7 +51,7 @@ const AddUser = () => {
             {/* Name */}
 
             <div>
-              <label className="label">Name</label>
+              <label className="label text-white">Name</label>
               <input
                 className="input input-bordered w-full"
                 type="name"
@@ -65,7 +65,7 @@ const AddUser = () => {
             {/* Email */}
 
             <div>
-              <label className="label">Email</label>
+              <label className="label text-white">Email</label>
               <input
                 className="input input-bordered w-full"
                 type="email"
@@ -79,7 +79,7 @@ const AddUser = () => {
             {/* Username */}
 
             <div>
-              <label className="label">Username</label>
+              <label className="label text-white">Username</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -93,7 +93,7 @@ const AddUser = () => {
             {/* Phone */}
 
             <div>
-              <label className="label">Phone</label>
+              <label className="label text-white">Phone</label>
               <input
                 className="input input-bordered w-full"
                 type="tel"
@@ -114,7 +114,7 @@ const AddUser = () => {
                 onChange={setRoles}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block my-2 pl-1">
+                    <Listbox.Label className="block my-2 pl-1 text-white">
                       Roles
                     </Listbox.Label>
                     <div className="relative">
@@ -208,7 +208,7 @@ const AddUser = () => {
                 onChange={setDivision}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block my-2 pl-1">
+                    <Listbox.Label className="block my-2 pl-1 text-white">
                       Division
                     </Listbox.Label>
                     <div className="relative">
@@ -293,7 +293,7 @@ const AddUser = () => {
             {/* Birth */}
 
             <div>
-              <label className="label">Birth date</label>
+              <label className="label text-white">Birth date</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -307,7 +307,7 @@ const AddUser = () => {
             {/* Password*/}
 
             <div>
-              <label className="label">Password</label>
+              <label className="label text-white">Password</label>
               <input
                 className="input input-bordered w-full"
                 type={passwordVisible ? "text" : "password"}
@@ -321,7 +321,7 @@ const AddUser = () => {
             {/* Confirm Password*/}
 
             <div>
-              <label className="label">Confirm Password</label>
+              <label className="label text-white">Confirm Password</label>
               <input
                 className="input input-bordered w-full"
                 type={passwordVisible ? "text" : "password"}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 
 const statusList = ["In Progress", "Complete"];

@@ -61,7 +61,7 @@ const EditUser = () => {
   return (
     <div className="w-full p-10">
       <div className="py-5">
-        <span className="text-xl font-bold">Add new User</span>
+        <span className="text-xl font-bold">Edit User</span>
       </div>
       <form onSubmit={updateUser}>
         <div className="flex flex-row gap-20">
@@ -69,7 +69,7 @@ const EditUser = () => {
             {/* Name */}
 
             <div>
-              <label className="label">Name</label>
+              <label className="label text-white">Name</label>
               <input
                 className="input input-bordered w-full"
                 type="name"
@@ -83,7 +83,7 @@ const EditUser = () => {
             {/* Email */}
 
             <div>
-              <label className="label">Email</label>
+              <label className="label text-white">Email</label>
               <input
                 className="input input-bordered w-full"
                 type="email"
@@ -97,7 +97,7 @@ const EditUser = () => {
             {/* Username */}
 
             <div>
-              <label className="label">Username</label>
+              <label className="label text-white">Username</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -111,7 +111,7 @@ const EditUser = () => {
             {/* Phone */}
 
             <div>
-              <label className="label">Phone</label>
+              <label className="label text-white">Phone</label>
               <input
                 className="input input-bordered w-full"
                 type="tel"
@@ -132,7 +132,7 @@ const EditUser = () => {
                 onChange={setRoles}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block my-2 pl-1">
+                    <Listbox.Label className="block my-2 pl-1 text-white">
                       Roles
                     </Listbox.Label>
                     <div className="relative">
@@ -224,7 +224,7 @@ const EditUser = () => {
                 onChange={setDivision}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block py-1">
+                    <Listbox.Label className="block py-1 text-white">
                       Division
                     </Listbox.Label>
                     <div className="relative">
@@ -309,7 +309,7 @@ const EditUser = () => {
             {/* Birth */}
 
             <div>
-              <label className="label">Birth date</label>
+              <label className="label text-white">Birth date</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -323,7 +323,7 @@ const EditUser = () => {
             {/* Password*/}
 
             <div>
-              <label className="label">Password</label>
+              <label className="label text-white">Password</label>
               <input
                 className="input input-bordered w-full"
                 type={passwordVisible ? "text" : "password"}
@@ -337,7 +337,7 @@ const EditUser = () => {
             {/* Confirm Password*/}
 
             <div>
-              <label className="label">Confirm Password</label>
+              <label className="label text-white">Confirm Password</label>
               <input
                 className="input input-bordered w-full"
                 type={passwordVisible ? "text" : "password"}

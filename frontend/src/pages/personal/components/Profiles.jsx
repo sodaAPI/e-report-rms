@@ -91,7 +91,7 @@ export default function Profiles() {
               {/* Name */}
 
               <div>
-                <label className="label">Name</label>
+                <label className="label text-white">Name</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="name"
@@ -104,7 +104,7 @@ export default function Profiles() {
               {/* Email */}
 
               <div>
-                <label className="label">Email</label>
+                <label className="label text-white">Email</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="email"
@@ -117,7 +117,7 @@ export default function Profiles() {
               {/* Username */}
 
               <div>
-                <label className="label">Username</label>
+                <label className="label text-white">Username</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="text"
@@ -130,7 +130,7 @@ export default function Profiles() {
               {/* Phone */}
 
               <div>
-                <label className="label">Phone</label>
+                <label className="label text-white">Phone</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="tel"
@@ -209,7 +209,7 @@ export default function Profiles() {
               {/* Birth */}
 
               <div>
-                <label className="label">Birth date</label>
+                <label className="label text-white">Birth date</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
@@ -221,7 +221,7 @@ export default function Profiles() {
               {/* Created At*/}
 
               <div>
-                <label className="label">Created At</label>
+                <label className="label text-white">Created At</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="date"
@@ -234,7 +234,7 @@ export default function Profiles() {
               {/* Password*/}
 
               <div>
-                <label className="label">Password</label>
+                <label className="label text-white">Password</label>
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="password"

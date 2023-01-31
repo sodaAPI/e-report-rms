@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useNavigate,} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
@@ -45,7 +45,7 @@ const AddTask = () => {
             {/* Name */}
 
             <div>
-              <label className="label">Task Name</label>
+              <label className="label text-white">Task Name</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -66,7 +66,7 @@ const AddTask = () => {
                 onChange={setStatus}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block py-1">
+                    <Listbox.Label className="block  text-white py-1">
                       Promote Status
                     </Listbox.Label>
                     <div className="relative">
@@ -151,7 +151,7 @@ const AddTask = () => {
 
           <section className="sm:w-full w-2/5">
             <div>
-              <label className="label">Deadline</label>
+              <label className="label  text-white">Deadline</label>
               <input
                 className="input input-bordered w-full"
                 type="date"
@@ -165,7 +165,7 @@ const AddTask = () => {
             {/* By User */}
 
             <div>
-              <label className="label">By User</label>
+              <label className="label  text-white">By User</label>
               <input
                 className="input input-bordered w-full"
                 type="text"
@@ -182,7 +182,7 @@ const AddTask = () => {
           {/* Description */}
 
           <div>
-            <label className="label">Description</label>
+            <label className="label text-white">Description</label>
             <textarea
               className="input input-bordered h-40 w-full"
               type="text"
