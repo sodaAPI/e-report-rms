@@ -62,7 +62,7 @@ const EditReport = () => {
   const updateReport = async (e) => {
     e.preventDefault();
     await axios.patch(`http://localhost:5000/report/${uuid}`, {
-      id: uuid,
+      id: Id,
       uuid: UUID,
       project_code: project_code,
       new_existing: new_existing,

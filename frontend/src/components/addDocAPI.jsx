@@ -65,7 +65,7 @@ const AddDocAPI = () => {
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
       <div className="w-full flex flex-col items-center justify-center py-5">
-        <img className=" w-2/5 rounded-lg" src={ImagePreview} />
+        <img className=" w-2/5 rounded-lg" alt="image_template" src={ImagePreview} />
         <p>Template Preview</p>
       </div>
       <form onSubmit={generateDoc}>

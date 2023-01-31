@@ -135,8 +135,8 @@ const MeetingList = () => {
               (meeting) =>
                 state.startDate == null ||
                 state.endDate == null ||
-                (new Date(meeting.meeting_date) >= state.startDate &&
-                  new Date(meeting.meeting_date) <= state.endDate)
+                (new Date(meeting.updatedAt) >= state.startDate &&
+                  new Date(meeting.updatedAt) <= state.endDate)
             )
             .filter(
               (meeting) =>

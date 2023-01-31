@@ -94,7 +94,7 @@ const ReportList = () => {
             tabIndex={0}
             className="flex flex-row gap-1 items-center justify-center btn normal-case m-1">
             <FunnelIcon className="w-5 h-5" />
-            Promote by Date
+            <span className="md:block hidden">Promote by Date</span>
           </label>
           <ul
             tabIndex={0}

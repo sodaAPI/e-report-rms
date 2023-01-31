@@ -392,7 +392,7 @@ export const deleteReport = async (req, res) => {
         return res.status(403).json({ msg: "Unauthorized Access" });
       await Report.destroy({
         where: {
-          [Op.and]: [{ id: report.id }, { userId: req.userId }],
+          [Op.and]: [{ uuid: report.uuid }, { userId: req.userId }],
         },
       });
     }

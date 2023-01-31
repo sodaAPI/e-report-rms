@@ -61,7 +61,7 @@ export default function Header() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-row md:gap-40 gap-60 text-slate-300">
+      <div className="flex flex-row md:gap-60 gap-36 text-slate-300">
         {/* Menu */}
         <div className="md:w-1/2">
           <button
@@ -73,7 +73,8 @@ export default function Header() {
             </div>
           </button>
         </div>
-        <div className="flex flex-row items-center md:gap-10 gap-3">
+        <div className="flex flex-row items-center md:gap-5 gap-3">
+
           {/* Notification */}
 
           <Menu as="div" className="relative ml-3">
@@ -184,53 +185,47 @@ export default function Header() {
                   {/* Profile */}
 
                   <Menu.Item>
-                    
-                      <Link
-                        to="/dashboard/profile"
-                        className={classNames(
-                          "block py-2 text-sm text-gray-700"
-                        )}>
-                        <DropdownButton className="flex flex-row gap-2">
-                          <UserIcon className="w-5 h-5" />
-                          Profile
-                        </DropdownButton>
-                      </Link>
-                
+                    <Link
+                      to="/dashboard/profile"
+                      className={classNames(
+                        "block py-2 text-sm text-gray-700"
+                      )}>
+                      <DropdownButton className="flex flex-row gap-2">
+                        <UserIcon className="w-5 h-5" />
+                        Profile
+                      </DropdownButton>
+                    </Link>
                   </Menu.Item>
 
                   {/* Preferences */}
 
                   <Menu.Item>
-                  
-                      <Link
-                        to="/dashboard/task"
-                        className={classNames(
-                          "block py-2 text-sm text-gray-700"
-                        )}>
-                        <DropdownButton className="flex flex-row gap-2">
-                          <DocumentCheckIcon className="w-5 h-5" />
-                          My Task
-                        </DropdownButton>
-                      </Link>
-                
+                    <Link
+                      to="/dashboard/task"
+                      className={classNames(
+                        "block py-2 text-sm text-gray-700"
+                      )}>
+                      <DropdownButton className="flex flex-row gap-2">
+                        <DocumentCheckIcon className="w-5 h-5" />
+                        My Task
+                      </DropdownButton>
+                    </Link>
                   </Menu.Item>
 
                   {/* Admin - Users */}
 
                   {user && user.roles === "admin" && (
                     <Menu.Item>
-                     
-                        <Link
-                          to="/dashboard/user"
-                          className={classNames(
-                            "block py-2 text-sm text-gray-700"
-                          )}>
-                          <DropdownButton className="flex flex-row gap-2">
-                            <UsersIcon className="w-5 h-5" />
-                            Users
-                          </DropdownButton>
-                        </Link>
-               
+                      <Link
+                        to="/dashboard/user"
+                        className={classNames(
+                          "block py-2 text-sm text-gray-700"
+                        )}>
+                        <DropdownButton className="flex flex-row gap-2">
+                          <UsersIcon className="w-5 h-5" />
+                          Users
+                        </DropdownButton>
+                      </Link>
                     </Menu.Item>
                   )}
                 </>

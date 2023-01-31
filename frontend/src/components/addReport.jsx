@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
 const statusList = ["In Progress", "Complete"];
 const promoteType = [
@@ -19,8 +20,8 @@ const AddReport = () => {
   const [new_existing, setNewExisting] = useState(newOrExisting[0]);
   const [ip, setIp] = useState();
   const [nopcr_ir, setNoPCRIR] = useState();
-  const [nama, setNama] = useState("");
-  const [user_division, setUserDivision] = useState("");
+  const [nama, setNama] = useState();
+  const [user_division, setUserDivision] = useState();
   const [core_noncore, setCoreNonCore] = useState(coreOrNonCore[0]);
   const [detail_deploy, setDetailDeploy] = useState();
   const [changes, setChanges] = useState();
@@ -29,19 +30,20 @@ const AddReport = () => {
   const [pm, setPM] = useState();
   const [qa, setQA] = useState();
   const [sa, setSA] = useState();
-  const [cmt, setCMT] = useState("");
+  const [cmt, setCMT] = useState();
   const [dependensi, setDependensi] = useState();
   const [status, setStatus] = useState(statusList[0]);
   const [nolap_promote, setNoLapPromote] = useState();
   const [tanggal_promote, setTanggalPromote] = useState("");
-  const [week_eksekusi, setWeekEksekusi] = useState("");
-  const [week_request, setWeekRequest] = useState("");
+  const [week_eksekusi, setWeekEksekusi] = useState();
+  const [week_request, setWeekRequest] = useState();
   const [risk_summary, setRiskSummary] = useState(riskSummaryList[0]);
   const [report_type] = useState(promoteType[0]);
-  const [userId] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const history = useNavigate();
   const navigate = useNavigate();
+  //User
+  const { user } = useSelector((state) => state.auth);
 
   const saveReport = async (e) => {
     e.preventDefault();
@@ -69,7 +71,7 @@ const AddReport = () => {
       week_request: week_request,
       risk_summary: risk_summary,
       report_type: report_type,
-      userId: userId,
+      userId: user.id,
       createdAt: createdAt,
     });
     let path = "/dashboard/report";

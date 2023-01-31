@@ -4,7 +4,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        darken: {
           primary: "#6419E6",
           secondary: "#D926A9",
           accent: "#1FB2A6",
@@ -14,13 +14,10 @@ module.exports = {
           success: "#36D399",
           warning: "#FBBD23",
           error: "#F87272",
-          text: "#F2F2"
+          text: "#F2F2",
         },
       },
     ],
-  },
-  theme: {
-    extend: {},
   },
   plugins: [require("daisyui")],
 };

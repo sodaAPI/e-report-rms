@@ -168,3 +168,4 @@ frontend/src/logo.svg
 frontend/src/components/Footer.jsx
 frontend/src/logo.svg
 frontend/src/components/Footer.jsx
+backend/config/ereport_db.sql

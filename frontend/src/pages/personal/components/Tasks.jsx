@@ -28,7 +28,6 @@ export default function Tasks() {
 
   useEffect(() => {
     getTasks();
-    getTaskById();
     getNotification();
   }, []);
 
@@ -56,11 +55,6 @@ export default function Tasks() {
     await axios.patch(`http://localhost:5000/task/${uuid}`, { status });
     window.alert("Task Updated Successfully");
     getTasks();
-  };
-
-  const getTaskById = async () => {
-    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
-    setStatus(response.data.status);
   };
 
   const getNotification = async () => {
