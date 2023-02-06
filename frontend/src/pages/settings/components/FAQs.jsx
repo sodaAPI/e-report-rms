@@ -4,9 +4,7 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import {
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 function Icon({ id, open }) {
   return (
@@ -81,9 +79,10 @@ export default function FAQs() {
       </div>
       <div className="flex flex-col gap-2">
         <Fragment>
-          {faqList.map((val, index) => {
+          {faqList.map((val) => {
             return (
               <Accordion
+                key={val.id}
                 className="py-1 px-2 bg-slate-800 rounded-2xl"
                 open={open === val.id}
                 icon={<Icon id={val.id} open={open} />}>

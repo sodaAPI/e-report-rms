@@ -226,8 +226,8 @@ export default function Dashboards() {
                   (currentPage - 1) * itemsPerPage,
                   currentPage * itemsPerPage
                 )
-                .map((report, index) => (
-                  <tr key={index}>
+                .map((report) => (
+                  <tr key={report.id}>
                     <td>{report.id}</td>
                     <td>{report.nama}</td>
                     <td>{report.cmt}</td>

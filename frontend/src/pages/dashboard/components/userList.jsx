@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   MagnifyingGlassIcon,
   PlusCircleIcon,
-  ArrowsRightLeftIcon,
 } from "@heroicons/react/24/outline";
 import Pagination from "../../../components/Pagination";
 
@@ -79,7 +78,7 @@ const UserList = () => {
         </thead>
         <tbody className="text-center">
           {users
-          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .filter(
               (user) =>
                 new RegExp(searchTerm, "i").test(user.id) ||

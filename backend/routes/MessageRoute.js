@@ -4,7 +4,7 @@ import {
   getMessages,
   deleteMessage,
 } from "../controllers/Message.js";
-import { verifyUser } from "../middleware/AuthUser.js";
+import { verifyUser, unauthorizedGuest } from "../middleware/AuthUser.js";
 
 import rateLimit from "express-rate-limit";
 

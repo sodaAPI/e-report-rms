@@ -3,21 +3,29 @@ import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
 import ReportList from "./components/reportList";
 import { Link } from "react-router-dom";
-import { ChartBarIcon, CheckCircleIcon, XCircleIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
+import {
+  ChartBarIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  DocumentTextIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Reports() {
   const status = [
     {
+      id: 1,
       name: "All",
       icon: <DocumentTextIcon />,
       path: "/dashboard/report/#",
     },
     {
+      id: 2,
       name: "Completed",
       icon: <CheckCircleIcon />,
       path: "/dashboard/report/completed",
     },
     {
+      id: 3,
       name: "In Progress",
       icon: <XCircleIcon />,
       path: "/dashboard/report/in_progress",
@@ -44,10 +52,10 @@ export default function Reports() {
         </div>
         <div className="pt-5 text-white font-bold">Report Category</div>
         <div className="flex mt-5 p-2 bg-slate-800 rounded-xl sm:flex-row flex-col gap-5 sm:w-full w-48 sm:justify-start justify-center">
-          {status.map((val, index) => {
+          {status.map((val) => {
             return (
               <Link
-                key={index}
+                key={val.id}
                 className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
                 Link
                 to={val.path}>

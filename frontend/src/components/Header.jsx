@@ -74,7 +74,6 @@ export default function Header() {
           </button>
         </div>
         <div className="flex flex-row items-center md:gap-5 gap-3">
-
           {/* Notification */}
 
           <Menu as="div" className="relative ml-3">
@@ -138,6 +137,7 @@ export default function Header() {
                         );
                         return (
                           <Menu.Item
+                            key={val.id}
                             data-tip={val.notifmsg}
                             className="tooltip tooltip-right flex flex-row py-2 text-sm gap-2 text-gray-700">
                             <DropdownButton className=" flex flex-row">

@@ -8,16 +8,19 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline";
 export default function DocAPI() {
   const documentType = [
     {
+      id: 1,
       name: "Middleware",
       icon: <DocumentTextIcon />,
       path: "/dashboard/doc/mid/add",
     },
     {
+      id: 2,
       name: "API Jenkins",
       icon: <DocumentTextIcon />,
       path: "/dashboard/doc/api/add",
     },
     {
+      id: 3,
       name: "Iloan Consumer",
       icon: <DocumentTextIcon />,
       path: "/dashboard/doc/iloan/add",
@@ -49,10 +52,10 @@ export default function DocAPI() {
         </div>
         <div className="pt-5 text-white font-bold">Document Type</div>
         <div className="flex mt-5 p-2 bg-slate-800 rounded-xl sm:flex-row flex-col gap-5 sm:w-full w-48 sm:justify-start justify-center">
-          {documentType.map((val, index) => {
+          {documentType.map((val) => {
             return (
               <Link
-                key={index}
+                key={val.id}
                 className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
                 Link
                 to={val.path}>

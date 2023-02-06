@@ -73,8 +73,8 @@ export default function Homepage() {
   };
 
   const navigation = [
-    { name: "Home", ref: mainRef, to: "/home/#home", current: false },
-    { name: "About", ref: aboutRef, to: "/home/#about", current: false },
+    { id: 1, name: "Home", ref: mainRef, to: "/home/#home", current: false },
+    { id: 2, name: "About", ref: aboutRef, to: "/home/#about", current: false },
   ];
 
   useEffect(() => {
@@ -130,12 +130,12 @@ export default function Homepage() {
                       <div className="flex space-x-4">
                         {navigation.map((item) => (
                           <Link
+                            key={item.id}
                             to={item.to}
                             onClick={() => {
                               handleScroll(item.ref.current);
                             }}>
                             <a
-                              key={item.name}
                               className={classNames(
                                 item.current
                                   ? "bg-gray-900 text-white"

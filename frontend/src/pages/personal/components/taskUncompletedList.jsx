@@ -50,16 +50,19 @@ export default function TaskUncompletedList() {
 
   const category = [
     {
+      id: 1,
       name: "All",
       icon: <DocumentIcon />,
       path: "/dashboard/task",
     },
     {
+      id: 2,
       name: "Completed",
       icon: <DocumentIcon />,
       path: "/task/completed",
     },
     {
+      id: 3,
       name: "Uncompleted",
       icon: <DocumentIcon />,
       path: "/task/uncompleted",
@@ -103,10 +106,10 @@ export default function TaskUncompletedList() {
             </div>
           </div>
           <div className="flex mt-5 p-2 bg-slate-800 rounded-xl sm:flex-row flex-col gap-5 sm:w-full w-48 sm:justify-start justify-center">
-            {category.map((val, index) => {
+            {category.map((val) => {
               return (
                 <Link
-                  key={index}
+                  key={val.id}
                   className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
                   Link
                   to={val.path}>
@@ -160,8 +163,8 @@ export default function TaskUncompletedList() {
                       new RegExp(searchTerm, "i").test(task.deadline))
                 )
                 .sort((a, b) => (a.deadline < b.deadline ? 1 : -1))
-                .map((task, index) => (
-                  <tr key={index}>
+                .map((task) => (
+                  <tr key={task.id}>
                     <td>{task.id}</td>
                     <td>{task.name}</td>
                     <td>{task.status}</td>

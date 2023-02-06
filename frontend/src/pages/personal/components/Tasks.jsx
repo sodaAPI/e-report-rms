@@ -193,8 +193,8 @@ export default function Tasks() {
                   (currentPage - 1) * itemsPerPage,
                   currentPage * itemsPerPage
                 )
-                .map((task, index) => (
-                  <tr key={index}>
+                .map((task) => (
+                  <tr key={task.id}>
                     <td>{task.id}</td>
                     <td>{task.name}</td>
                     <td>{task.status}</td>
