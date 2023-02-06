@@ -67,7 +67,7 @@ const AddTask = () => {
                 {({ open }) => (
                   <>
                     <Listbox.Label className="block  text-white py-1">
-                      Promote Status
+                      Status
                     </Listbox.Label>
                     <div className="relative">
                       <span className="inline-block w-full rounded-md shadow-sm">

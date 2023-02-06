@@ -11,7 +11,7 @@ import {
   EllipsisHorizontalIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
-import CompleteReportChart from "./completeReportChart";
+import CompleteReportChart from "./reportChart";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
 import Pagination from "../../components/Pagination";
@@ -19,6 +19,8 @@ import DateNow from "../../components/dateNow";
 
 import { Calendar } from "react-date-range";
 import * as locales from "react-date-range/dist/locale";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 export default function Dashboards() {
   const [reports, setReport] = useState([]);
@@ -73,8 +75,8 @@ export default function Dashboards() {
     setTask(response.data);
   };
 
-  const updateStatus = async (id) => {
-    await axios.patch(`http://localhost:5000/task/${id}`, {
+  const updateStatus = async (uuid) => {
+    await axios.patch(`http://localhost:5000/task/${uuid}`, {
       status: "Completed",
     });
     window.alert("Task Updated Successfully");
@@ -329,7 +331,7 @@ export default function Dashboards() {
                               "Are you sure you wish to update this task?"
                             )
                           )
-                            updateStatus(singletask.id);
+                            updateStatus(singletask.uuid);
                         }}
                         className="flex flex-row gap-2 bg-green-600 hover:bg-green-500 p-2 rounded-lg text-white">
                         <CheckCircleIcon className="w-5 h-5" />

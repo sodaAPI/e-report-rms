@@ -6,9 +6,9 @@ import rateLimit from "express-rate-limit";
 const router = express.Router();
 
 const loginLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minutes
-  max: 5, // limit each IP to 5 login attempts per windowMs
-  msg: "Too many login attempts, please try again later",
+  windowMs: 1 * 60 * 1000,
+  max: 5,
+  msg: "Too many login attempts, please try again later after 1 minutes",
 });
 
 router.get("/me", Me);

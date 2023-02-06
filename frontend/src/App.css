@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .sub-menu-content{
     background-color: #181f3f;
 }
@@ -16,4 +17,26 @@
 
 .h-chat{
     height: 450px;
+}
+
+.rdrCalendarWarpper {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .rdrDays {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    justify-items: center !important;
+  }
+  .rdrWeekDays {
+    display: flex !important;
+  }
+  .rdrWeekDay {
+    flex: 1;
+  }
+  .rdrMonth {
+    width: 100% !important; 
+}
+  .rdrCalendarWrapper.rounded-xl {
+    width: 100%;
 }

@@ -29,3 +29,16 @@ export const adminOnly = async (req, res, next) => {
     return res.status(403).json({ msg: "Unauthorized Access" });
   next();
 };
+
+export const unauthorizedGuest = async (req, res, next) => {
+  const user = await User.findOne({
+    where: {
+      id: req.session.userId,
+    },
+  });
+  if (!user)
+    return res.status(404).json({ msg: "User not found, Please try again" });
+  if (user.division === "Guest")
+    return res.status(403).json({ msg: "Unauthorized Access" });
+  next();
+};

@@ -8,9 +8,9 @@ import rateLimit from "express-rate-limit";
 const router = express.Router();
 
 const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minutes
-  max: 60, // limit each IP to 5 attempts per windowMs
-  message: "Too many attempts, please try again later",
+  windowMs: 1 * 60 * 1000,
+  max: 60,
+  message: "Too many attempts, please try again later after 1 minutes",
 });
 
 router.post("/mid", DocMiddleware, limiter, verifyUser);

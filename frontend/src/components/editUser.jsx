@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 
-const divisionList = ["CMT", "DBA", "AS"];
+const divisionList = ["Guest", "CMT", "DBA", "AS"];
 const rolesList = ["user", "admin"];
 
 const EditUser = () => {

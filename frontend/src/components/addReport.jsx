@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Listbox, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
-const statusList = ["In Progress", "Complete"];
+const statusList = [
+  "Sedang UAT",
+  "Sedang SIT",
+  "Dokumen Sedang Dilengkapi",
+  "Akan SIT & UAT",
+  "Complete",
+];
 const promoteType = [
   "POK Promote",
   "Hasil Promote",
@@ -12,7 +18,7 @@ const promoteType = [
   "Other",
 ];
 const newOrExisting = ["New", "Existing"];
-const coreOrNonCore = ["Core", "Non Core"];
+const coreOrNonCore = ["Core", "Core Syariah", "Non Core"];
 const riskSummaryList = ["Low", "Medium", "High"];
 
 const AddReport = () => {
@@ -97,6 +103,16 @@ const AddReport = () => {
 
     previousLength = newLength;
   };
+  const [toggle, setToggle] = useState(false);
+  const ToggleReschedule = () => {
+    if (toggle === true) {
+      setToggle(false);
+      return true;
+    } else {
+      setToggle(true);
+      return false;
+    }
+  };
 
   return (
     <div className=" w-full p-10">
@@ -113,7 +129,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full "
                 type="text"
-                placeholder="Project Code ..."
+                placeholder="Project Code"
                 value={project_code}
                 onChange={(e) => setProjectCode(e.target.value)}
               />
@@ -218,7 +234,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="IP Address ..."
+                placeholder="IP Address"
                 value={ip}
                 onChange={(e) => setIp(e.target.value)}
               />
@@ -231,7 +247,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="No PCR/IR ..."
+                placeholder="No PCR/IR"
                 value={nopcr_ir}
                 onChange={(e) => setNoPCRIR(e.target.value)}
               />
@@ -244,7 +260,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Nama PCR/Project ..."
+                placeholder="Nama PCR/Project"
                 value={nama}
                 onChange={(e) => setNama(e.target.value)}
               />
@@ -257,7 +273,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="User Division ..."
+                placeholder="User Division"
                 value={user_division}
                 onChange={(e) => setUserDivision(e.target.value)}
               />
@@ -362,7 +378,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Detail Deploy ..."
+                placeholder="Detail Deploy"
                 value={detail_deploy}
                 onChange={(e) => setDetailDeploy(e.target.value)}
               />
@@ -467,7 +483,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Dependensi ..."
+                placeholder="Dependensi"
                 value={dependensi}
                 onChange={(e) => setDependensi(e.target.value)}
               />
@@ -480,7 +496,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="No Lap Promote ..."
+                placeholder="No Lap Promote"
                 value={nolap_promote}
                 onChange={(e) => setNoLapPromote(e.target.value)}
               />
@@ -495,7 +511,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="Programmer ..."
+                placeholder="PIC Programmer"
                 value={programmer}
                 onChange={(e) => setProgrammer(e.target.value)}
               />
@@ -508,7 +524,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="BP ..."
+                placeholder="PIC BP"
                 value={bp}
                 onChange={(e) => setBP(e.target.value)}
               />
@@ -521,7 +537,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="PM ..."
+                placeholder="PIC PM"
                 value={pm}
                 onChange={(e) => setPM(e.target.value)}
               />
@@ -534,7 +550,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="QA ..."
+                placeholder="PIC QA"
                 value={qa}
                 onChange={(e) => setQA(e.target.value)}
               />
@@ -547,7 +563,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="SA ..."
+                placeholder="PIC SA"
                 value={sa}
                 onChange={(e) => setSA(e.target.value)}
               />
@@ -560,7 +576,7 @@ const AddReport = () => {
               <input
                 className="input input-bordered w-full"
                 type="text"
-                placeholder="CMT ..."
+                placeholder="PIC CMT"
                 value={cmt}
                 onChange={(e) => setCMT(e.target.value)}
               />
@@ -570,13 +586,35 @@ const AddReport = () => {
 
             <div>
               <label className="label text-white">Tanggal Promote</label>
-              <input
-                className="input input-bordered w-full"
-                type="date"
-                placeholder="Tanggal Promote"
-                value={tanggal_promote}
-                onChange={(e) => setTanggalPromote(e.target.value)}
-              />
+
+              <div className="flex flex-row items-center gap-10">
+                <input
+                  className="input input-bordered w-full"
+                  type="date"
+                  placeholder="Tanggal Promote"
+                  value={tanggal_promote}
+                  onChange={(e) => setTanggalPromote(e.target.value)}
+                  hidden={toggle}
+                />
+                <input
+                  className="input input-bordered w-full"
+                  type="text"
+                  placeholder="Week Reschedule"
+                  value={tanggal_promote}
+                  onChange={(e) => setTanggalPromote(e.target.value)}
+                  hidden={!toggle}
+                />
+
+                <div className="flex flex-row items-start gap-2">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    onChange={ToggleReschedule}
+                    value={""}
+                  />
+                  <label className="text-white">Reschedule</label>
+                </div>
+              </div>
             </div>
 
             {/*Week Eksekusi */}

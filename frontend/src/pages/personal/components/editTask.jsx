@@ -116,7 +116,7 @@ const EditTask = () => {
                 {({ open }) => (
                   <>
                     <Listbox.Label className="block py-1 text-white">
-                      Promote Status
+                      Status
                     </Listbox.Label>
                     <div className="relative">
                       <span className="inline-block w-full rounded-md shadow-sm">

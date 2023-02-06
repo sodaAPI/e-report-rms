@@ -20,9 +20,8 @@ export default function DataToExcel() {
     /* convert the data to an array of arrays */
     const dataAsArray = data
       .filter((report) => report.status === "Complete")
-      .map((report) => [
-        report.id,
-        report.uuid,
+      .map((report, index) => [
+        index,
         report.project_code,
         report.new_existing,
         report.ip,
@@ -52,8 +51,7 @@ export default function DataToExcel() {
 
     /* add the header row */
     dataAsArray.unshift([
-      "ID",
-      "UUID",
+      "No",
       "Project Code",
       "New / Existing",
       "IP",

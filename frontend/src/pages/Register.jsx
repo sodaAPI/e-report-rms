@@ -6,7 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-const divisionList = ["CMT", "DBA", "AS"];
+const divisionList = ["Guest","CMT", "DBA", "AS"];
 
 const Register = () => {
   const [name, setName] = useState("");

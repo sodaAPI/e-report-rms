@@ -10,7 +10,7 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 
-const divisionList = ["CMT", "DBA", "AS"];
+const divisionList = ["Guest", "CMT", "DBA", "AS"];
 const rolesList = ["user", "admin"];
 
 export default function EditProfiles() {
@@ -56,7 +56,7 @@ export default function EditProfiles() {
   }, []);
 
   const getProductById = async () => {
-    const response = await axios.get(`http://localhost:5000/user/${uuid}`);
+    const response = await axios.get(`http://localhost:5000/me`);
     setName(response.data.name);
     setUsername(response.data.username);
     setEmail(response.data.email);
