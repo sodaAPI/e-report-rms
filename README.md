@@ -1,4 +1,11 @@
 <a name="readme-top"></a>
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=bugs)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
 
   <h3 align="center">E-Report Management System (RMS)</h3>
 
