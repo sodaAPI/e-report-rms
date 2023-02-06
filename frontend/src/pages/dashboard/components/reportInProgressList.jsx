@@ -154,7 +154,7 @@ const ReportInProgressList = () => {
               )
               .filter(
                 (report) =>
-                  report.status === "In Progress" &&
+                  report.status !== "Complete" &&
                   (new RegExp(searchTerm, "i").test(report.id) ||
                     new RegExp(searchTerm, "i").test(report.project_code) ||
                     new RegExp(searchTerm, "i").test(report.new_existing) ||

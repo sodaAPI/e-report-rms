@@ -76,16 +76,19 @@ export default function Tasks() {
 
   const category = [
     {
+      id: 1,
       name: "All",
       icon: <DocumentIcon />,
       path: "/dashboard/task",
     },
     {
+      id: 2,
       name: "Completed",
       icon: <DocumentIcon />,
       path: "/task/completed",
     },
     {
+      id: 3,
       name: "Uncompleted",
       icon: <DocumentIcon />,
       path: "/task/uncompleted",
@@ -127,10 +130,10 @@ export default function Tasks() {
             </div>
           </div>
           <div className="flex mt-5 p-2 bg-slate-800 rounded-xl sm:flex-row flex-col gap-5 sm:w-full w-48 sm:justify-start justify-center">
-            {category.map((val, index) => {
+            {category.map((val) => {
               return (
                 <Link
-                  key={index}
+                  key={val.id}
                   className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
                   Link
                   to={val.path}>

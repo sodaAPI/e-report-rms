@@ -6,7 +6,7 @@ import {
   deleteTask,
   getAllTasks,
 } from "../controllers/Task.js";
-import { verifyUser, unauthorizedGuest } from "../middleware/AuthUser.js";
+import { verifyUser } from "../middleware/AuthUser.js";
 import rateLimit from "express-rate-limit";
 
 const router = express.Router();

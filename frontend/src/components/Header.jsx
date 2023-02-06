@@ -62,7 +62,9 @@ export default function Header() {
   return (
     <section className="w-full">
       <div className="flex flex-row md:gap-60 gap-36 text-slate-300">
+
         {/* Menu */}
+        
         <div className="md:w-1/2">
           <button
             onClick={() => collapseSidebar()}
@@ -74,6 +76,7 @@ export default function Header() {
           </button>
         </div>
         <div className="flex flex-row items-center md:gap-5 gap-3">
+
           {/* Notification */}
 
           <Menu as="div" className="relative ml-3">

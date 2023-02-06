@@ -206,7 +206,6 @@ const ReportCompleteList = () => {
                   <td>{report.sa}</td>
                   <td>{report.cmt}</td>
                   <td>{report.dependensi}</td>
-                  <td>{report.keterangan_project}</td>
                   <td>{report.status}</td>
                   <td>{report.nolap_promote}</td>
                   <td>{report.tanggal_promote}</td>

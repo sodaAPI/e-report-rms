@@ -101,12 +101,19 @@ const CompleteReportChart = () => {
     fetchData();
   }, []);
 
-  
-  const filteredData = data.map((entry) => {
-    if (entry.status === "Complete" || entry.status === "In Progress") {
-      return entry;
-    }
-  });
+      const filteredData = data.filter(
+      (entry) =>
+        entry.status === "Sedang UAT" ||
+        entry.status === "Sedang SIT" ||
+        entry.status === "Dokumen Sedang Dilengkapi" ||
+        entry.status === "Akan UAT & SIT" ||
+        entry.status === "Complete"
+    );
+  // const filteredData = data.map((entry) => {
+  //   if (entry.status === "Complete" || entry.status === "In Progress") {
+  //     return entry;
+  //   }
+  // });
 
   const getLength = (entry) => {
 
