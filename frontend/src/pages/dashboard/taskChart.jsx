@@ -30,8 +30,8 @@ const TaskChart = () => {
   });
 
   const finalData = [
-    { name: "Completed", value: completed },
-    { name: "Uncompleted", value: uncompleted },
+    { name: "Completed", value: completed, fill: "#ffe28a" },
+    { name: "Uncompleted", value: uncompleted, fill: "#B3CFF9" },
   ];
 
   return (
@@ -41,7 +41,7 @@ const TaskChart = () => {
         formatter={(value) =>
           value === "Completed" ? "Completed" : "Uncompleted"
         }
-      />
+      /> 
 
       <Pie
         data={finalData}

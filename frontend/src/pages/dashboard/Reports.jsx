@@ -59,7 +59,7 @@ export default function Reports() {
                 className="flex flex-row outline outline-1 outline-slate-700 hover:bg-slate-700 rounded-lg py-1 text-white"
                 Link
                 to={val.path}>
-                <div className="flex flex-row gap-2 px-5  items-center">
+                <div className="flex flex-row gap-2 px-5 items-center">
                   <div className="w-5">{val.icon}</div>
                   <div>{val.name}</div>
                 </div>

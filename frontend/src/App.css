@@ -23,20 +23,15 @@
     width: 100% !important;
     padding: 0 !important;
   }
-  .rdrDays {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    justify-items: center !important;
-  }
-  .rdrWeekDays {
-    display: flex !important;
-  }
-  .rdrWeekDay {
-    flex: 1;
-  }
   .rdrMonth {
     width: 100% !important; 
 }
   .rdrCalendarWrapper.rounded-xl {
     width: 100%;
+}
+.css-d749sv {
+  border-color: #192333 !important;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }

@@ -8,7 +8,7 @@ const statusList = [
   "Sedang UAT",
   "Sedang SIT",
   "Dokumen Sedang Dilengkapi",
-  "Akan SIT & UAT",
+  "Akan SIT dan UAT",
   "Complete",
 ];
 const promoteType = [
