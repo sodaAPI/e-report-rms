@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { fi } from "date-fns/locale";
 
 const CompleteReportChart = () => {
   const [data, setData] = useState([]);
