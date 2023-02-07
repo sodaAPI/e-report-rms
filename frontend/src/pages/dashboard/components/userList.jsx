@@ -94,8 +94,8 @@ const UserList = () => {
                 new RegExp(searchTerm, "i").test(user.createdAt) ||
                 new RegExp(searchTerm, "i").test(user.updatedAt)
             )
-            .map((user, index) => (
-              <tr key={index}>
+            .map((user) => (
+              <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.uuid}</td>
                 <td>{user.name}</td>
