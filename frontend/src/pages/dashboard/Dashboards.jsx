@@ -194,7 +194,7 @@ export default function Dashboards() {
           </div>
 
           {/* Reports Table */}
-          <label className="flex flex-row gap-3 items-center pt-5 text-white text-xl font-bold">
+          <label className="flex flex-row gap-3 items-center mt-5 text-white text-xl font-bold">
             Latest Promote
             <button
               onClick={gotoReport}

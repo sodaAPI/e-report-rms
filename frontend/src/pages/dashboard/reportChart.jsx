@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { fi } from "date-fns/locale";
 
 const CompleteReportChart = () => {
   const [data, setData] = useState([]);
@@ -68,19 +69,21 @@ const CompleteReportChart = () => {
       width={300}
       height={250}
       data={finalData}
+      nameKey="name"
+        name="status"
       margin={{
         top: 0,
         right: 0,
         left: 0,
         bottom: 0,
       }}>
-      <Legend />
+      <Legend formatter={finalData.forEach((report) => report.name)} />
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
 
-      <Bar dataKey="value" name="Report" fill="#82ca9d" />
+      <Bar label  dataKey="value" name="Report" fill="#ffbdbd" />
     </BarChart>
   );
 };
