@@ -22,8 +22,8 @@ const ReportChartMonth = () => {
     fetchData();
   }, []);
 
-  var date = new Date();
-  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  let date = new Date();
+  let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
   function formatDate(date) {
     let d = new Date(date),
