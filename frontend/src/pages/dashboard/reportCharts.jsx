@@ -10,7 +10,7 @@ import {
   Legend,
 } from "recharts";
 
-const CompleteReportChart = () => {
+const ReportChartAll = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -21,6 +21,21 @@ const CompleteReportChart = () => {
 
     fetchData();
   }, []);
+
+  var date = new Date();
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  function formatDate(date) {
+    let d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
 
   const filteredData = data.filter(
     (entry) =>
@@ -65,26 +80,30 @@ const CompleteReportChart = () => {
 
   return (
     <BarChart
-      width={300}
+      barCategoryGap={0}
+      width={970}
       height={250}
       data={finalData}
-      nameKey="name"
-        name="status"
       margin={{
         top: 0,
         right: 0,
         left: 0,
         bottom: 0,
       }}>
-      <Legend formatter={finalData.forEach((report) => report.name)} />
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis fontSize="14" tick={{ fill: "white" }} dataKey="name" />
       <YAxis />
       <Tooltip />
-
-      <Bar label  dataKey="value" name="Report" fill="#ffbdbd" />
+      <Bar
+        barCategoryGap={0}
+        barSize={75}
+        label
+        dataKey="value"
+        name="Report"
+        fill="#ffe28a"
+      />
     </BarChart>
   );
 };
 
-export default CompleteReportChart;
+export default ReportChartAll;

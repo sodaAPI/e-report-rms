@@ -11,7 +11,8 @@ import {
   EllipsisHorizontalIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
-import CompleteReportChart from "./reportChart";
+import ReportChartMonth from "./reportChartMonth";
+import ReportChartAll from "./reportCharts";
 import TaskChart from "./taskChart";
 import { useSelector } from "react-redux";
 import Pagination from "../../components/Pagination";
@@ -109,6 +110,23 @@ export default function Dashboards() {
   const [locale] = React.useState("id");
   const [date, setDate] = useState(null);
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const d = new Date();
+
   return (
     <section>
       <div className="flex md:flex-row flex-col gap-5 py-8">
@@ -166,8 +184,21 @@ export default function Dashboards() {
               )}
             </div>
           </div>
+          <div className="flex flex-col items-center w-full mt-10 bg-sky-900 bg-opacity-20 p-5 rounded-xl">
+            <button
+              data-tip="Report Page"
+              className=" tooltip flex self-end hover:text-white"
+              onClick={gotoReport}>
+              <EllipsisVerticalIcon className="w-6 h-6" />
+            </button>
+            <span className="pb-5 text-white font-bold text-lg">
+              All Reports
+            </span>
+            <div className="sm:mr-10 mr-0">
+              <ReportChartAll />
+            </div>
+          </div>
           <div className="flex gap-5 md:flex-row flex-col justify-center items-center pt-10">
-            {/* Right Side */}
             <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
               <button
                 data-tip="Report Page"
@@ -175,12 +206,14 @@ export default function Dashboards() {
                 onClick={gotoReport}>
                 <EllipsisVerticalIcon className="w-6 h-6" />
               </button>
-              <span className="py-5 text-white font-bold text-lg">Reports</span>
+              <span className="pb-5 text-white font-bold text-lg">
+                Reports {monthNames[d.getMonth()]}
+              </span>
               <div className="sm:mr-14 mr-0">
-                <CompleteReportChart />
+                <ReportChartMonth />
               </div>
             </div>
-            {/* Left Side */}
+
             <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
               <button
                 data-tip="Task Page"
@@ -188,22 +221,24 @@ export default function Dashboards() {
                 onClick={gotoTask}>
                 <EllipsisVerticalIcon className="w-6 h-6" />
               </button>
-              <span className="py-5 text-white font-bold text-lg">Tasks</span>
+              <span className="pb-5 text-white font-bold text-lg">Tasks</span>
               <TaskChart />
             </div>
           </div>
 
           {/* Reports Table */}
-          <label className="flex flex-row gap-3 items-center mt-5 text-white text-xl font-bold">
-            Latest Promote
+          <div className="flex flex-row gap-3 items-center mt-5">
+            <label className="text-white text-xl font-bold">
+              Latest Promote
+            </label>
             <button
               onClick={gotoReport}
               data-tip="See more"
               className=" tooltip tooltip-right font-bold hover:bg-slate-700 hover:rounded-md">
               <EllipsisVerticalIcon className="w-5 h-5" />
             </button>
-          </label>
-          <table className="table-compact w-full bg-slate-800 rounded-2xl text-white mt-7">
+          </div>
+          <table className="table-compact table-zebra w-full bg-slate-800 rounded-2xl text-white mt-7">
             <thead>
               <tr>
                 <th>ID</th>
