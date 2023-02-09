@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 const ReportChartAll = () => {
   const [data, setData] = useState([]);
+  const [width, setWidth] = useState(400);
+  const [showXAxis, setShowXAxis] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,10 +57,44 @@ const ReportChartAll = () => {
     },
   ];
 
+  useEffect(() => {
+    const updateWidth = () => {
+      if (window.innerWidth >= 768) {
+        setWidth(970);
+      } else {
+        setWidth(400);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateShowXAxis = () => {
+      if (window.innerWidth >= 768) {
+        setShowXAxis(false);
+      } else {
+        setShowXAxis(true);
+      }
+    };
+
+    updateShowXAxis();
+    window.addEventListener("resize", updateShowXAxis);
+
+    return () => {
+      window.removeEventListener("resize", updateShowXAxis);
+    };
+  }, []);
+
   return (
     <BarChart
-      barCategoryGap={0}
-      width={970}
+      className="bar-chart"
+      width={width}
       height={250}
       data={finalData}
       margin={{
@@ -75,17 +104,16 @@ const ReportChartAll = () => {
         bottom: 0,
       }}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis fontSize="14" tick={{ fill: "white" }} dataKey="name" />
+      <XAxis
+        hide={showXAxis}
+        fontSize="14"
+        tick={{ fill: "white" }}
+        dataKey="name"
+      />
+
       <YAxis />
       <Tooltip />
-      <Bar
-        barCategoryGap={0}
-        barSize={75}
-        label
-        dataKey="value"
-        name="Report"
-        fill="#ffe28a"
-      />
+      <Bar barSize={75} label dataKey="value" name="Report" fill="#ffe28a" />
     </BarChart>
   );
 };

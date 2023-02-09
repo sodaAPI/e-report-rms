@@ -153,7 +153,7 @@ export default function Sidebars() {
           color: themes[theme].sidebar.color,
         }}>
         <Menu menuItemStyles={menuItemStyles}>
-          <div className="flex md:pl-0 pl-5 md:items-center md:justify-center">
+          <div className="flex pl-0  items-center justify-center">
             <Link to="/dashboard">
               {!collapsed ? (
                 <img className="w-40 h-20 py-5" alt="logo" src={Logo} />
