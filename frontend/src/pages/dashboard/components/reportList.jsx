@@ -112,7 +112,6 @@ const ReportList = () => {
         <table className="table-compact table-zebra bg-slate-800 rounded-2xl text-white mt-7">
           <thead>
             <tr>
-              <th>No</th>
               <th>ID</th>
               <th>Project Code</th>
               <th>New/Existing</th>
@@ -189,7 +188,6 @@ const ReportList = () => {
               )
               .map((report, index) => (
                 <tr key={report.id}>
-                  <td>{index++}</td>
                   <td>{report.id}</td>
                   <td>{report.project_code}</td>
                   <td>{report.new_existing}</td>

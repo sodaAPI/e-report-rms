@@ -235,7 +235,7 @@ export default function Dashboards() {
               onClick={gotoReport}
               data-tip="See more"
               className=" tooltip tooltip-right font-bold hover:bg-slate-700 hover:rounded-md">
-              <EllipsisVerticalIcon className="w-5 h-5" />
+              <EllipsisVerticalIcon className="w-6 h-6" />
             </button>
           </div>
           <table className="table-compact table-zebra w-full bg-slate-800 rounded-2xl text-white mt-7">
