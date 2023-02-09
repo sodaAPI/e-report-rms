@@ -1,4 +1,5 @@
 <a name="readme-top"></a>
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sodaAPI_e-report-rms&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=sodaAPI_e-report-rms)
