@@ -27,18 +27,10 @@ precacheAndRoute(self.__WB_MANIFEST);
 const fileExtensionRegexp = /\/[^\/?][^\/]+\.(html|css|js|json)$/;
 
 registerRoute(
-  ({ request, url }) => {
-    if (request.mode !== "navigate") {
-      return false;
-    }
-    if (url.pathname.startsWith("/_")) {
-      return true;
-    }
-    if (url.pathname.match(fileExtensionRegexp)) {
-      return false;
-    }
-    return true;
-  },
+  ({ request, url }) =>
+    request.mode === "navigate" &&
+    !url.pathname.startsWith("/_") &&
+    !url.pathname.match(fileExtensionRegexp),
   createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
 );
 
