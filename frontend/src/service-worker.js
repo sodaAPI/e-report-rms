@@ -32,7 +32,7 @@ registerRoute(
       return false;
     }
     if (url.pathname.startsWith("/_")) {
-      return false;
+      return true;
     }
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;

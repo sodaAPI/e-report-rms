@@ -24,7 +24,7 @@ root.render(
 
 if (navigator.serviceWorker) {
   navigator.serviceWorker
-    .register("/sw.js")
+    .register("/service-worker.js")
     .then(function (registration) {
       console.log(
         "ServiceWorker registration successful with scope:",
