@@ -27,12 +27,13 @@ export const getNotifications = async (req, res) => {
         },
         {
           model: Task,
-          attributes: ["name", "status", "deadline", "userId"],
+          attributes: ["name", "description", "status", "deadline", "userId"],
         },
         {
           model: Meeting,
           attributes: [
             "meeting_name",
+            "meeting_desc",
             "online_meeting_link",
             "meeting_date",
             "userId",
@@ -70,12 +71,13 @@ export const getNotificationsByUserId = async (req, res) => {
         },
         {
           model: Task,
-          attributes: ["name", "status", "deadline", "userId"],
+          attributes: ["name", "description", "status", "deadline", "userId"],
         },
         {
           model: Meeting,
           attributes: [
             "meeting_name",
+            "meeting_desc",
             "online_meeting_link",
             "meeting_date",
             "userId",
@@ -167,12 +169,13 @@ export const pushNotification = async (req, res) => {
       },
       {
         model: Task,
-        attributes: ["name", "status", "deadline", "userId"],
+        attributes: ["name", "description", "status", "deadline", "userId"],
       },
       {
         model: Meeting,
         attributes: [
           "meeting_name",
+          "meeting_desc",
           "online_meeting_link",
           "meeting_date",
           "userId",
@@ -215,12 +218,14 @@ export const pushNotification = async (req, res) => {
         <h2 style="font-weight:400"><b>You have a Uncomplete Meeting / Task</b>: ${notification.notifmsg}</h2>
           <tr><td><h3>Task Detail: </h3></td></tr>
           <tr><td><b>Task Name</b>: ${notification.task?.name}</td></tr>
+          <tr><td><b>Task Description</b>: ${notification.task?.description}</td></tr>
           <tr><td><b>Task Status</b>: ${notification.task?.status}</td></tr>
           <tr><td><b>Task Deadline</b>: ${notification.task?.deadline}</td></tr>
         </div>
         <div>
         <tr><td><h3>Meeting Detail: </h3><td></tr>
           <tr><td><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</td></tr>
+          <tr><td><b>Meeting Description</b>: ${notification.meeting?.meeting_desc}</td></tr>
           <tr><td><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</td></tr>
           <tr<td><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</td></tr>
         </div>`;
@@ -231,6 +236,7 @@ export const pushNotification = async (req, res) => {
         <h2 style="font-weight:400"><b>You have a Uncomplete Task</b>: ${notification.notifmsg}</h2>
         <tr><td><h3>Task Detail: </h3></td></tr>
         <tr><td><b>Task Name</b>: ${notification.task?.name}</td></tr>
+        <tr><td><b>Task Description</b>: ${notification.task?.description}</td></tr>
         <tr><td><b>Task Status</b>: ${notification.task?.status}</td></tr>
         <tr><td><b>Task Deadline</b>: ${notification.task?.deadline}</td></tr>
         </div>`;
@@ -241,6 +247,7 @@ export const pushNotification = async (req, res) => {
         <h2 style="font-weight:400"><b>You have a Upcoming Meeting</b>: ${notification.notifmsg}</h2>
         <tr><td><h3>Meeting Detail: </h3><td></tr>
           <tr><td><b>Meeting Name</b>: ${notification.meeting?.meeting_name}</td></tr>
+          <tr><td><b>Meeting Description</b>: ${notification.meeting?.meeting_desc}</td></tr>
           <tr><td><b>Meeting Link</b>: ${notification.meeting?.online_meeting_link}</td></tr>
           <tr><td><b>Meeting Date</b>: ${notification.meeting?.meeting_date}</td></tr>
         </div>`;
@@ -253,7 +260,7 @@ export const pushNotification = async (req, res) => {
         formatDate(Date.now()) < notification.task?.deadline
       ) {
         const job = cron.schedule(
-          " * * * * Sunday ", // Every day of week
+          "0 * * * sun", // Every day of week
           () => {
             job.stop();
             transporter
@@ -268,10 +275,20 @@ export const pushNotification = async (req, res) => {
             job.start();
           },
           {
-            scheduled: false,
+            scheduled: true,
             timezone: "Asia/Jakarta",
           }
         );
+
+        // transporter
+        //   .sendMail({
+        //     from: `${process.env.EMAIL_API}`,
+        //     to: `${notification.user?.email}`,
+        //     subject: "BTN E-Report Management System - New Notification",
+        //     html: message,
+        //   })
+        //   .then(console.info)
+        //   .catch(console.error);
       } else {
         console.log(
           `Sorry, Notification (${notification.notifmsg}) is not up to date`
