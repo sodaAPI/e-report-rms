@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, Fragment, useState } from "react";
 import {
   ChatBubbleLeftRightIcon,
-  MagnifyingGlassIcon,
+  // MagnifyingGlassIcon,
   EllipsisVerticalIcon,
   CheckIcon,
-  FunnelIcon,
+  // FunnelIcon,
   PaperAirplaneIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
@@ -44,7 +44,7 @@ export default function Discussions() {
 
   // const messages = document.getElementById('messages');
   // const form = document.getElementById('form');
-  // const input = document.getElementById('input');
+  // const input = document.getElementById("input");
 
   // form.addEventListener("submit", function (e) {
   //   e.preventDefault();
@@ -79,10 +79,12 @@ export default function Discussions() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:5000/message/add`, {
-      text: text,
-    });
-    getMessage();
+    if (text !== "") {
+      await axios.post(`http://localhost:5000/message/add`, {
+        text: text,
+      });
+      getMessage();
+    }
     setText("");
     history.push("/message");
   };
@@ -120,9 +122,9 @@ export default function Discussions() {
         <ChatBubbleLeftRightIcon className="w-7 h-7" />
         Chat Dicussion
       </span>
-      <section className="flex flex-row gap-5 justify-center py-5 w-full">
+      <section className="flex lg:flex-row flex-col gap-5 justify-center py-5 w-full">
         {/* Channel Layout */}
-        <div className="flex flex-col h-1/2 bg-sky-800 bg-opacity-20 w-1/3 p-5 rounded-lg">
+        <div className="flex flex-col h-1/2 bg-sky-800 bg-opacity-20 lg:w-1/3 w-full p-5 rounded-lg">
           {/* Profile */}
           <div className="flex flex-row xl:gap-40 md:gap-5 gap-0 items-center text-white">
             <section className="flex flex-row gap-2 items-center text-white">
@@ -154,7 +156,7 @@ export default function Discussions() {
             {showMessages
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
               .slice(0, 1)
-              .map((val, index) => {
+              .map((val) => {
                 const date = new Date(val.createdAt);
                 const options = {
                   year: "numeric",
@@ -192,7 +194,7 @@ export default function Discussions() {
           <div className="divider my-3 px-20" />
         </div>
         {/* Chat Layout */}
-        <div className="flex flex-col w-4/5">
+        <div className="flex flex-col w-full">
           {/* Header */}
           <div className="flex flex-row items-center place-content-between bg-sky-800 bg-opacity-20 rounded-t-lg lg:p-0 p-5">
             <span className="flex flex-row items-center text-lg font-bold text-white">
@@ -217,20 +219,20 @@ export default function Discussions() {
                   {showMessages
                     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
                     .slice(0, 1)
-                    .map((val, index) => {
-                      const date = new Date(val.createdAt);
-                      const options = {
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                        timeZone: "Asia/Bangkok",
-                      };
-                      const formattedDate = date.toLocaleString(
-                        "en-US",
-                        options
-                      );
+                    .map((val) => {
+                      // const date = new Date(val.createdAt);
+                      // const options = {
+                      //   year: "numeric",
+                      //   month: "numeric",
+                      //   day: "numeric",
+                      //   hour: "numeric",
+                      //   minute: "numeric",
+                      //   timeZone: "Asia/Bangkok",
+                      // };
+                      // const formattedDate = date.toLocaleString(
+                      //   "en-US",
+                      //   options
+                      // );
                       return (
                         <p className="flex flex-col gap-2 pt-5 text-white py-4">
                           <a>
@@ -240,7 +242,7 @@ export default function Discussions() {
                             <b>Channel Created At :</b> 2023-01-02
                           </a>
                           <a>
-                            <b>Channel Member List :</b> All User
+                            <b>Channel Member List :</b> All Users
                           </a>
                         </p>
                       );
@@ -423,7 +425,8 @@ export default function Discussions() {
               />
               <button
                 className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
-                type="submit">
+                type="submit"
+                disabled={!text.trim()}>
                 <PaperAirplaneIcon className="text-white w-7 h-7" />
               </button>
             </form>
