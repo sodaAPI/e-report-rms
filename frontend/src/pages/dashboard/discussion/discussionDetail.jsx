@@ -20,46 +20,31 @@ import { useNavigate } from "react-router-dom";
 import { DropdownButton } from "../../../components/dropdownLink";
 import { Menu, Transition } from "@headlessui/react";
 import axios from "axios";
-// import { Socket, io } from "socket.io-client";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 //TODO: Add Socket.io
-// const filterSearch = ["Latest", "Oldest"];
 
 export default function Discussions() {
-  // const [filtersSearch, setFiltersSearch] = useState("No Filter");
-  // const [searchTerm, setSearchTerm] = useState("");
   const [showMessages, setShowMessage] = useState([]);
   const [text, setText] = useState("");
   const navigate = useNavigate();
   const history = useNavigate();
+  const [showEmoji, setShowEmoji] = useState();
+  const [selectEmoji, setSelectEmoji] = useState();
 
-  //Socket
-  // const socket = io();
-  // socket.on("connect", () => {
-  //   console.log("connected");
-  // });
-  // socket.on("disconnect", (reason) => {
-  //   console.log(`disconnected due to ${reason}`);
-  // });
+  function addEmoji(emoji) {
+    setSelectEmoji(emoji.native);
+    setText(text +selectEmoji);
+  }
 
-  // const messages = document.getElementById('messages');
-  // const form = document.getElementById('form');
-  // const input = document.getElementById("input");
-
-  // form.addEventListener("submit", function (e) {
-  //   e.preventDefault();
-  //   if (input.value) {
-  //     socket.emit("chat message", input.value);
-  //     input.value = "";
-  //   }
-  // });
-
-  // socket.on("chat message", function (msg) {
-  //   var item = document.createElement("li");
-  //   item.textContent = msg;
-  //   messages.appendChild(item);
-  //   window.scrollTo(0, document.body.scrollHeight);
-  // });
+  const showEmojiPicker = async () => {
+    if (showEmoji === false) {
+      setShowEmoji(true);
+    } else {
+      setShowEmoji(false);
+    }
+  };
 
   //Go To
   const gotoProfile = async () => {
@@ -151,7 +136,7 @@ export default function Discussions() {
           </span>
           <button
             data-tip="Sent"
-            className="tooltip tooltip-right lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
+            className="tooltip lg:tooltip-right tooltip-bottom lg:p-2 p-5 flex flex-row w-full hover:bg-opacity-40 hover:focus:ring my-3 items-center bg-slate-800 bg-opacity-70 rounded-lg">
             <UsersIcon className="lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6" />
             {showMessages
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
@@ -220,19 +205,6 @@ export default function Discussions() {
                     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
                     .slice(0, 1)
                     .map((val) => {
-                      // const date = new Date(val.createdAt);
-                      // const options = {
-                      //   year: "numeric",
-                      //   month: "numeric",
-                      //   day: "numeric",
-                      //   hour: "numeric",
-                      //   minute: "numeric",
-                      //   timeZone: "Asia/Bangkok",
-                      // };
-                      // const formattedDate = date.toLocaleString(
-                      //   "en-US",
-                      //   options
-                      // );
                       return (
                         <p className="flex flex-col gap-2 pt-5 text-white py-4">
                           <a>
@@ -405,11 +377,27 @@ export default function Discussions() {
           </div>
           {/* Send Message Navigation Bar */}
           <div className="flex flex-row items-center w-full rounded-b-lg bg-sky-800 bg-opacity-20 px-5 py-3 ">
-            <button
-              data-tip="Emoticon"
-              className="tooltip tooltip-left hover:text-white text-slate-300">
-              <FaceSmileIcon className="w-14 h-14 pr-5" />
-            </button>
+            {!showEmoji ? (
+              <button
+                onClick={showEmojiPicker}
+                data-tip="Emoticon"
+                className="tooltip lg:tooltip-left tooltip-top hover:text-white text-slate-300">
+                <FaceSmileIcon className="w-14 h-14 pr-5" />
+              </button>
+            ) : (
+              <>
+                <div className="fixed top-80 -bottom-10">
+                  <Picker data={data} onEmojiSelect={addEmoji} />
+                </div>
+                <button
+                  onClick={showEmojiPicker}
+                  data-tip="Emoticon"
+                  className="tooltip lg:tooltip-left tooltip-top hover:text-white text-slate-300">
+                  <FaceSmileIcon className="w-14 h-14 pr-5" />
+                </button>
+              </>
+            )}
+
             <form
               id="form"
               className="flex flex-row items-center w-full"
