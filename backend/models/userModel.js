@@ -18,6 +18,7 @@ const User = db.define(
     },
     division: {
       type: DataTypes.STRING,
+      defaultValue: "Guest",
     },
     status: {
       type: DataTypes.STRING,
