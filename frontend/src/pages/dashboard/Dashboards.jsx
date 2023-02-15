@@ -129,10 +129,10 @@ export default function Dashboards() {
 
   return (
     <section>
-      <div className="flex md:flex-row flex-col gap-5 py-8">
+      <div className="flex lg:flex-row flex-col gap-5 py-8">
         <div className="flex flex-col w-full">
-          <div className="flex md:flex-row flex-col bg-sky-900 p-4 bg-opacity-10 rounded-lg">
-            <div className="flex md:flex-col flex-col items-center justify-center w-full px-5 font-bold text-3xl text-white">
+          <div className="flex lg:flex-row flex-col bg-sky-900 p-4 bg-opacity-10 rounded-lg">
+            <div className="flex lg:flex-col flex-col items-center justify-center w-full px-5 font-bold text-3xl text-white">
               Welcome Back,{" "}
               <span className=" text-sky-300 font-normal text-2xl">
                 {" "}
@@ -143,7 +143,7 @@ export default function Dashboards() {
                 {user && user.division} - {user && user.roles}
               </span>
             </div>
-            <div className="w-full flex md:flex-row gap-5">
+            <div className="w-full flex lg:flex-row gap-5">
               <button
                 onClick={gotoReport}
                 className="flex flex-col gap-2 px-5 w-1/3 mt-5 py-2 text-start bg-sky-600 hover:bg-sky-500 rounded-lg text-white font-bold">
@@ -198,7 +198,7 @@ export default function Dashboards() {
               <ReportChartAll />
             </div>
           </div>
-          <div className="flex gap-5 md:flex-row flex-col justify-center items-center pt-10">
+          <div className="flex gap-5 lg:flex-row flex-col justify-center items-center pt-10">
             <div className="flex flex-col items-center w-full bg-sky-900 bg-opacity-20 p-5 rounded-xl">
               <button
                 data-tip="Report Page"
@@ -246,7 +246,7 @@ export default function Dashboards() {
                 <th>PIC CMT</th>
                 <th>Changes</th>
                 <th>Promote Date</th>
-                <th className="md:block hidden">Report Type</th>
+                <th className="lg:block hidden">Report Type</th>
               </tr>
             </thead>
             <tbody>
@@ -268,7 +268,7 @@ export default function Dashboards() {
                     <td>{report.cmt}</td>
                     <td>{report.changes}</td>
                     <td>{report.tanggal_promote}</td>
-                    <td className="md:block hidden">{report.risk_summary}</td>
+                    <td className="lg:block hidden">{report.risk_summary}</td>
                   </tr>
                 ))}
             </tbody>
@@ -282,7 +282,7 @@ export default function Dashboards() {
         </div>
 
         {/* Calendar & Clock */}
-        <div className="flex flex-col items-center h-fit px-5 md:w-1/4 w-full bg-slate-800 rounded-xl py-2">
+        <div className="flex flex-col items-center h-fit px-5 lg:w-1/4 w-full bg-slate-800 rounded-xl py-2">
           <span className="flex flex-row mt-3 gap-1">
             Date & Time : <DateNow />
           </span>

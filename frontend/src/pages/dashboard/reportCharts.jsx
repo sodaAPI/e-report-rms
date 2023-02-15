@@ -59,7 +59,7 @@ const ReportChartAll = () => {
 
   useEffect(() => {
     const updateWidth = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setWidth(970);
       } else {
         setWidth(400);

@@ -61,22 +61,20 @@ export default function Header() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-row md:gap-60 gap-36 text-slate-300">
-
+      <div className="flex flex-row text-slate-300">
         {/* Menu */}
-        
-        <div className="md:w-1/2">
+
+        <div className="w-1/2">
           <button
             onClick={() => collapseSidebar()}
             className="px-3 py-2 rounded-lg bg-sky-900 text-white">
             <div className="flex flex-row gap-2 hover:text-white">
               <Bars3Icon className="h-6 w-6 " />
-              <p className="md:block hidden">Menu</p>
+              <p className="lg:block hidden">Menu</p>
             </div>
           </button>
         </div>
-        <div className="flex flex-row items-center md:gap-5 gap-3">
-
+        <div className="flex flex-row items-center lg:gap-5 gap-3">
           {/* Notification */}
 
           <Menu as="div" className="relative ml-3">
@@ -98,7 +96,7 @@ export default function Header() {
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
-              <Menu.Items className="absolute flex flex-col -right-0 md:w-96 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
+              <Menu.Items className="absolute flex flex-col -right-0 lg:w-96 w-auto text-start items-start origin-top-right rounded-md bg-slate-50 py-2 gap-2 px-5">
                 <>
                   {/* Notification */}
                   {notification ? (
@@ -114,7 +112,7 @@ export default function Header() {
                       })
                       .reverse()
                       .slice(0, 3)
-                      .map((val, index) => {
+                      .map((val) => {
                         let date;
                         let options;
                         if (val.taskId !== null) {
@@ -169,7 +167,7 @@ export default function Header() {
               <Menu.Button className=" p-1 items-center gap-2 flex rounded-2xl focus:outline-none">
                 <span className="sr-only">Open user menu</span>
                 <UserCircleIcon className="w-6 h-6" />
-                <div className="md:block hidden ">
+                <div className="lg:block hidden ">
                   {user && user.name} / {user && user.username}
                 </div>
               </Menu.Button>
@@ -238,7 +236,7 @@ export default function Header() {
 
           {/* Logout */}
 
-          <button onClick={logout} className="md:px-7 px-4">
+          <button onClick={logout} className="lg:px-7 px-4">
             <div className="flex flex-row gap-1 items-center hover:text-white">
               <ArrowLeftOnRectangleIcon className="h-6 w-6" /> Logout
             </div>
