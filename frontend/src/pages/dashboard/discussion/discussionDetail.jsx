@@ -31,11 +31,9 @@ export default function Discussions() {
   const navigate = useNavigate();
   const history = useNavigate();
   const [showEmoji, setShowEmoji] = useState();
-  const [selectEmoji, setSelectEmoji] = useState();
 
   function addEmoji(emoji) {
-    setSelectEmoji(emoji.native);
-    setText(text +selectEmoji);
+    setText(text + emoji.native);
   }
 
   const showEmojiPicker = async () => {
@@ -206,7 +204,7 @@ export default function Discussions() {
                     .slice(0, 1)
                     .map((val) => {
                       return (
-                        <p className="flex flex-col gap-2 pt-5 text-white py-4">
+                        <p key={val.id} className="flex flex-col gap-2 pt-5 text-white py-4">
                           <a>
                             <b>Channel Name :</b> {val.room}
                           </a>
@@ -244,7 +242,7 @@ export default function Discussions() {
                   isOwnMessage ? "blue-500" : "green-500"
                 } lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6`;
                 const nameClasses = `text-${
-                  isOwnMessage ? "purple-100" : "red-500"
+                  isOwnMessage ? "white" : "red-500"
                 } `;
                 const senderClasses = `flex flex-row gap-5 ${
                   isOwnMessage ? "place-self-end" : "place-self-start"
@@ -261,6 +259,7 @@ export default function Discussions() {
                 const formattedDate = date.toLocaleString("en-US", options);
                 return (
                   <div
+                  key={val.id}
                     className={`flex flex-row py-3 ${
                       isOwnMessage ? "place-self-end" : ""
                     }`}>
@@ -272,11 +271,15 @@ export default function Discussions() {
                         {isOwnMessage ? (
                           <>
                             <span> {formattedDate}</span>
-                            <span className={nameClasses}>{val.user.name}</span>
+                            <span className={nameClasses}>
+                              <b>{val.user.name}</b>
+                            </span>
                           </>
                         ) : (
                           <>
-                            <span className={nameClasses}>{val.user.name}</span>
+                            <span className={nameClasses}>
+                              <b>{val.user.name}</b>
+                            </span>
                             <span> {formattedDate}</span>
                           </>
                         )}
