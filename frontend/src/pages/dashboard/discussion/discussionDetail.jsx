@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, Fragment, useState } from "react";
 import {
   ChatBubbleLeftRightIcon,
-  // MagnifyingGlassIcon,
   EllipsisVerticalIcon,
   CheckIcon,
-  // FunnelIcon,
   PaperAirplaneIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
-// import { Listbox } from "@headlessui/react";
 import {
   UserCircleIcon,
   UsersIcon,
