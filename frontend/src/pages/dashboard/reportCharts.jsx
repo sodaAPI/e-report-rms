@@ -76,7 +76,7 @@ const ReportChartAll = () => {
 
   useEffect(() => {
     const updateShowXAxis = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setShowXAxis(false);
       } else {
         setShowXAxis(true);

@@ -19,18 +19,24 @@ import { Menu, Transition } from "@headlessui/react";
 import axios from "axios";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+// import { io } from "socket.io-client";
 
 //TODO: Add Socket.io
 
 export default function Discussions() {
   const [showMessages, setShowMessage] = useState([]);
-  const [text, setText] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const history = useNavigate();
   const [showEmoji, setShowEmoji] = useState();
 
+  // const socket = io("http://localhost:5000");
+  // socket.on("message", () => {
+  //   console.log(message);
+  // });
+
   function addEmoji(emoji) {
-    setText(text + emoji.native);
+    setMessage(message + emoji.native);
   }
 
   const showEmojiPicker = async () => {
@@ -59,13 +65,13 @@ export default function Discussions() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (text !== "") {
+    if (message !== "") {
       await axios.post(`http://localhost:5000/message/add`, {
-        text: text,
+        text: message,
       });
       getMessage();
     }
-    setText("");
+    setMessage("");
     history.push("/message");
   };
 
@@ -201,7 +207,9 @@ export default function Discussions() {
                     .slice(0, 1)
                     .map((val) => {
                       return (
-                        <p key={val.id} className="flex flex-col gap-2 pt-5 text-white py-4">
+                        <p
+                          key={val.id}
+                          className="flex flex-col gap-2 pt-5 text-white py-4">
                           <a>
                             <b>Channel Name :</b> {val.room}
                           </a>
@@ -226,18 +234,15 @@ export default function Discussions() {
               .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
               .map((val) => {
                 const isOwnMessage = val.userId === user.id;
-                const messageClasses = `flex bg-${
-                  isOwnMessage ? "blue-600" : "sky-800"
+                //TODO: FIX TEXT GAP
+                const messageClasses = `flex bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl $text-justify text-slate-300 break-normal break-all ${
+                  isOwnMessage ? "chat chat-end" : "chat chat-start"
                 } ${
                   isOwnMessage ? "place-content-end" : "place-content-start"
-                } bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl ${
-                  isOwnMessage ? "rounded-tr-none" : "rounded-tl-none"
-                } text-justify ${
-                  isOwnMessage ? "text-end" : "text-start"
-                } text-slate-300 break-normal break-all `;
+                } `;
                 const iconClasses = `text-${
                   isOwnMessage ? "blue-500" : "green-500"
-                } lg:h-16 lg:w-16 md:h-10 md:w-10 sm:w-5 sm:h-5 lg:block hidden object-cover rounded-full m-6`;
+                } h-12 w-12 lg:block hidden object-cover rounded-full m-6`;
                 const nameClasses = `text-${
                   isOwnMessage ? "white" : "red-500"
                 } `;
@@ -256,7 +261,7 @@ export default function Discussions() {
                 const formattedDate = date.toLocaleString("en-US", options);
                 return (
                   <div
-                  key={val.id}
+                    key={val.id}
                     className={`flex flex-row py-3 ${
                       isOwnMessage ? "place-self-end" : ""
                     }`}>
@@ -282,7 +287,7 @@ export default function Discussions() {
                         )}
                       </div>
                       <div
-                        className={`flex flex-row gap-2 ${
+                        className={`flex flex-row ${
                           isOwnMessage ? "place-content-end" : ""
                         }`}>
                         {isOwnMessage ? (
@@ -324,12 +329,16 @@ export default function Discussions() {
                                 </Menu.Items>
                               </Transition>
                             </Menu>
-                            <span className={messageClasses}>{val.text}</span>
+                            <div className={messageClasses}>
+                              <div className="chat chat-bubble">{val.text}</div>
+                            </div>
                           </>
                         ) : (
                           // Users Message
                           <>
-                            <span className={messageClasses}>{val.text}</span>
+                            <div className={messageClasses}>
+                              <div className="chat chat-bubble">{val.text}</div>
+                            </div>
                             <Menu as="div" className="relative ml-3">
                               <div className="p-1 my-auto font-bold hover:bg-slate-700 hover:rounded-md">
                                 <Menu.Button
@@ -407,14 +416,14 @@ export default function Discussions() {
                 className="px-5 py-3 rounded-l-2xl w-full text-white bg-slate-800"
                 type="text"
                 placeholder="Message ..."
-                value={text}
-                onChange={(event) => setText(event.target.value)}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
                 autoFocus
               />
               <button
                 className="flex flex-row px-5 py-2.5 bg-sky-800 rounded-r-2xl items-center"
                 type="submit"
-                disabled={!text.trim()}>
+                disabled={!message.trim()}>
                 <PaperAirplaneIcon className="text-white w-7 h-7" />
               </button>
             </form>

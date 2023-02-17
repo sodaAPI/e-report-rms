@@ -25,6 +25,12 @@ export default function DocAPI() {
       icon: <DocumentTextIcon />,
       path: "/dashboard/doc/iloan/add",
     },
+    {
+      id: 4,
+      name: "API Service",
+      icon: <DocumentTextIcon />,
+      path: "/dashboard/doc/apiservice/add",
+    },
   ];
   return (
     <div className="flex flex-row">

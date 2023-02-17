@@ -89,6 +89,9 @@ io.on("connection", (socket) => {
   });
 });
 
+// const data = { message: "Hello, world!" };
+// io.emit("data", data);
+
 // Sync Database
 // (async () => {
 //   await db.sync();

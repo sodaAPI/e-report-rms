@@ -1,11 +1,11 @@
 import React from "react";
 import Sidebar from "../../../components/Sidebar";
-import AddDocMid from "../../../components/addDocMid";
+import AddDocAPIService from "../../../components/addDocAPIService";
 import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 
-export default function DocMids() {
+export default function DocAPIService() {
   const documentType = [
     {
       id: 1,
@@ -44,12 +44,12 @@ export default function DocMids() {
               <span className="mx-1"> Dashboard </span>
             </Link>
             /
-            <Link to="/dashboard/doc/mid/add" className="hover:text-white">
+            <Link to="/dashboard/doc/api/add" className="hover:text-white">
               <span className="flex flex-row mx-1 gap-1 items-center">
-                <DocumentTextIcon className="w-5 h-5" /> Document Middleware
+                <DocumentTextIcon className="w-5 h-5" /> Document API Service
               </span>
             </Link>
-            <Link to="/dashboard/doc/mid/add">
+            <Link to="/dashboard/doc/api/add">
               <span className="hover:text-white">
                 / <b>Generate</b>
               </span>
@@ -75,7 +75,7 @@ export default function DocMids() {
           })}
         </div>
         <div className="divider sm:px-20 px-32 py-0" />
-        <AddDocMid />
+        <AddDocAPIService />
       </div>
     </div>
   );
