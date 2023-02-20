@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import ImagePreview from "../image/doc_api_preview.png";
 import {
   InformationCircleIcon,
   ArrowUpTrayIcon,
 } from "@heroicons/react/20/solid";
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const AddDocAPI = () => {
   const [nama_project, setNamaProject] = useState("");
@@ -24,7 +24,6 @@ const AddDocAPI = () => {
   const [durasi_build_1, setDurasiBuild1] = useState("");
   const [durasi_build_2, setDurasiBuild2] = useState("");
   const [durasi_login, setDurasiLogin] = useState("");
-  const history = useNavigate();
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -47,7 +46,6 @@ const AddDocAPI = () => {
       durasi_build_2: durasi_build_2,
     });
     window.alert("Document has been generated and sent to you email");
-    history.push("/doc");
   };
 
   const date = new Date(tanggal_promote);
@@ -65,7 +63,22 @@ const AddDocAPI = () => {
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
       <div className="w-full flex flex-col items-center justify-center py-5">
-        <img className=" w-2/5 rounded-lg" alt="image_template" src={ImagePreview} />
+        <Gallery>
+          <Item
+            original={ImagePreview}
+            thumbnail={ImagePreview}
+            width="902"
+            height="691">
+            {({ ref, open }) => (
+              <img
+                className=" w-2/5 rounded-lg"
+                ref={ref}
+                onClick={open}
+                src={ImagePreview}
+              />
+            )}
+          </Item>
+        </Gallery>
         <p>Template Preview</p>
       </div>
       <form onSubmit={generateDoc}>

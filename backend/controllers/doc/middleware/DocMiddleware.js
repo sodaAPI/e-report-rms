@@ -76,7 +76,7 @@ export const DocMiddleware = async (req, res) => {
 
   const user = await User.findOne({
     where: {
-      uuid: req.session.userId,
+      id: req.session.userId,
     },
   });
   try {

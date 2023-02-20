@@ -67,6 +67,7 @@ export const forgotPassword = async (req, res) => {
       email: req.body.email,
     },
   });
+  console.log(user.name);
   if (!user)
     return res
       .status(404)

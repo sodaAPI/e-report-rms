@@ -5,12 +5,12 @@ import path from "path";
 import nodemailer from "nodemailer";
 import User from "../../../models/UserModel.js";
 
-export const DocIloanConsumer = async (req, res) => {
+export const DocAPIService = async (req, res) => {
   // Load the docx file as binary content
   const content = fs.readFileSync(
     path.resolve(
-      "./controllers/doc/iloanconsumer",
-      "template_checklist_iloan_consumer.docx"
+      "./controllers/doc/apiservice",
+      "template_checklist_promote_api_service.docx"
     ),
     "binary"
   );
@@ -30,19 +30,9 @@ export const DocIloanConsumer = async (req, res) => {
     unit_pengguna: req.body.unit_pengguna,
     week_request: req.body.week_request,
     week_eksekusi: req.body.week_eksekusi,
-    path_server_backup: req.body.path_server_backup,
-    path_iloan_backup: req.body.path_iloan_backup,
-    path_copy_promote: req.body.path_copy_promote,
-    path_server_promote: req.body.path_server_promote,
-    path_copy_tujuan: req.body.path_copy_tujuan,
-    path_tujuan: req.body.path_tujuan,
-    ip_db: req.body.ip_db,
-    path_db_sql: req.body.path_db_sql,
-    durasi_akses_server: req.body.durasi_akses_server,
-    durasi_backup: req.body.durasi_backup,
-    durasi_copy_server_promote: req.body.durasi_copy_server_promote,
-    durasi_copy_tujuan: req.body.durasi_copy_tujuan,
-    durasi_query: req.body.durasi_query,
+    isian_credential: req.body.isian_credential,
+    durasi_isi_credential: req.body.durasi_isi_credential,
+    durasi_restart_gate: req.body.durasi_restart_gate,
   });
   const buf = doc.getZip().generate({
     type: "nodebuffer",
@@ -55,7 +45,7 @@ export const DocIloanConsumer = async (req, res) => {
   // file or res.send it with express for example.
   fs.writeFileSync(
     path.resolve(
-      "./controllers/doc/iloanconsumer",
+      "./controllers/doc/apiservice",
       `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`
     ),
     buf
@@ -72,7 +62,7 @@ export const DocIloanConsumer = async (req, res) => {
 
   // Send the file content in the response
   const filepath = path.resolve(
-    `./controllers/doc/iloanconsumer`,
+    `./controllers/doc/apiservice`,
     `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`
   );
 
@@ -102,12 +92,12 @@ export const DocIloanConsumer = async (req, res) => {
         from: `${process.env.EMAIL_API}`,
         to: `${user.email}`,
         subject:
-          "Generated Iloan Consumer Checklist Promote - BTN E-Report Management System",
+          "Generated Middleware Checklist Promote - BTN E-Report Management System",
         html: message,
         attachments: [
           {
             filename: `Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
-            path: `./controllers/doc/iloanconsumer/Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
+            path: `./controllers/doc/apiservice/Checklist Promote ${req.body.nama_project} Sisi ${req.body.sisi_project}.docx`,
           },
         ],
       })

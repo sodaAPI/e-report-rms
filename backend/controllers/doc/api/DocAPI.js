@@ -74,7 +74,7 @@ export const DocAPI = async (req, res) => {
 
   const user = await User.findOne({
     where: {
-      uuid: req.session.userId,
+      uuid: req.session.userUUID,
     },
   });
   try {
@@ -95,7 +95,8 @@ export const DocAPI = async (req, res) => {
       .sendMail({
         from: `${process.env.EMAIL_API}`,
         to: `${user.email}`,
-        subject: "Generated API Checklist Promote - BTN E-Report Management System",
+        subject:
+          "Generated API Checklist Promote - BTN E-Report Management System",
         html: message,
         attachments: [
           {

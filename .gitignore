@@ -1,7 +1,7 @@
 backend/controllers/Notification.js
 backend/controllers/User.js
-backend/controllers/doc
 frontend/src/image
+*.docx
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/react,node

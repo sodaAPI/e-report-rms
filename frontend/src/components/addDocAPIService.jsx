@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import ImagePreview from "../image/doc_api_service_preview.png";
 
 import {
@@ -8,6 +7,7 @@ import {
   ArrowUpTrayIcon,
 } from "@heroicons/react/20/solid";
 import "photoswipe/dist/photoswipe.css";
+import { useSelector } from "react-redux";
 import { Gallery, Item } from "react-photoswipe-gallery";
 
 const AddDocAPIService = () => {
@@ -23,7 +23,8 @@ const AddDocAPIService = () => {
   const [isian_credential, setIsianCredential] = useState("");
   const [durasi_isi_credential, setDurasiIsiCredential] = useState("");
   const [durasi_restart_gate, setDurasiRestartGate] = useState("");
-  const history = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -41,18 +42,10 @@ const AddDocAPIService = () => {
       durasi_isi_credential: durasi_isi_credential,
       durasi_restart_gate: durasi_restart_gate,
     });
-    window.alert("Document has been generated and sent to you email");
-    history.push("/doc");
+    window.alert(
+      `Document has been generated and sent to you email ${user.email}`
+    );
   };
-
-  const date = new Date(tanggal_promote);
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    timeZone: "Asia/Bangkok",
-  };
-  const formattedDate = date.toLocaleString("en-US", options);
 
   return (
     <div className=" w-full px-10 pb-10">
@@ -60,11 +53,22 @@ const AddDocAPIService = () => {
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
       <div className="w-full flex flex-col items-center justify-center py-5">
-        <img
-          className=" w-2/5 rounded-lg"
-          alt="image_template"
-          src={ImagePreview}
-        />
+        <Gallery>
+          <Item
+            original={ImagePreview}
+            thumbnail={ImagePreview}
+            width="668"
+            height="796">
+            {({ ref, open }) => (
+              <img
+                className=" w-2/5 rounded-lg"
+                ref={ref}
+                onClick={open}
+                src={ImagePreview}
+              />
+            )}
+          </Item>
+        </Gallery>
         <p>Template Preview</p>
       </div>
       <form onSubmit={generateDoc}>
