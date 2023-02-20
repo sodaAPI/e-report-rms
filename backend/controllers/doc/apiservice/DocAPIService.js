@@ -75,14 +75,14 @@ export const DocAPIService = async (req, res) => {
   });
   try {
     const transporter = nodemailer.createTransport({
-      secure: false, // Sensitive
-      requireTLS: false, // Sensitive
+      secure: true, // Sensitive
+      requireTLS: true, // Sensitive
       host: "smtp.gmail.com",
       port: "587",
       auth: {
         user: `${process.env.EMAIL_API}`,
         pass: `${process.env.PASSWORD_API}`,
-      },
+      }, // Sensitive
     });
 
     let message = ` <tr><td><h1>Hello ${user.name}/${user.username},</h1></td></tr>
