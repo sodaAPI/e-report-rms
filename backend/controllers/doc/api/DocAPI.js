@@ -79,6 +79,8 @@ export const DocAPI = async (req, res) => {
   });
   try {
     const transporter = nodemailer.createTransport({
+      secure: true, // Sensitive
+      requireTLS: true, // Sensitive
       host: "smtp.gmail.com",
       port: "587",
       auth: {

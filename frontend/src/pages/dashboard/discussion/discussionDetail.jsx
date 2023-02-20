@@ -30,11 +30,6 @@ export default function Discussions() {
   const history = useNavigate();
   const [showEmoji, setShowEmoji] = useState();
 
-  // const socket = io("http://localhost:5000");
-  // socket.on("message", () => {
-  //   console.log(message);
-  // });
-
   function addEmoji(emoji) {
     setMessage(message + emoji.native);
   }
