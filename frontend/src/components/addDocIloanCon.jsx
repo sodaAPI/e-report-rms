@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const AddDocIloanCon = () => {
   const [nama_project, setNamaProject] = useState("");
-  const [sisi_project, setSisiProject] = useState("API");
+  const [sisi_project, setSisiProject] = useState("Iloan Consumer");
   const [project_code, setProjectCode] = useState("");
   const [tanggal_promote, setTanggalPromote] = useState("");
   const [new_existing, setNewExisting] = useState("");
@@ -36,7 +36,7 @@ const AddDocIloanCon = () => {
 
   const generateDoc = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/doc/api", {
+    await axios.post("http://localhost:5000/doc/iloancon", {
       nama_project: nama_project,
       sisi_project: sisi_project,
       project_code: project_code,

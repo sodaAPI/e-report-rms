@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import {
   UserCircleIcon,
   PencilSquareIcon,
-  BellAlertIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
@@ -61,6 +60,16 @@ export default function Profiles() {
         }, 2000);
         getNotification();
       }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const clearFiles = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/doc/clear`);
+      let path = "/dashboard";
+      navigate(path);
     } catch (err) {
       console.error(err);
     }
@@ -140,13 +149,20 @@ export default function Profiles() {
 
               <div className="flex flex-col sm:items-center sm:justify-center pb-20">
                 <>
-                  {/* Notification */}
+                  {/* Clear Document File */}
 
-                  <div className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-sky-700 p-3 rounded-lg text-white mt-9">
-                    <input type="checkbox" onChange={allowNotification}></input>
-                    Allow Email Notification{" "}
-                    <BellAlertIcon className="w-5 h-5" />
-                  </div>
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to clear document file from this local storage?"
+                        )
+                      )
+                        clearFiles();
+                    }}
+                    className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-red-500 hover:bg-red-400 p-3 rounded-lg text-white mt-9">
+                    Clear Document File
+                  </button>
 
                   {/* Delete Notification */}
 
@@ -154,7 +170,7 @@ export default function Profiles() {
                     onClick={() => {
                       if (
                         window.confirm(
-                          "Are you sure you wish to add notification from this item?"
+                          "Are you sure you wish to clear all notification from your account?"
                         )
                       )
                         deleteNotification();
