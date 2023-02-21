@@ -6,6 +6,7 @@ import {
   ArrowUpTrayIcon,
 } from "@heroicons/react/20/solid";
 import { Gallery, Item } from "react-photoswipe-gallery";
+import { useSelector } from "react-redux";
 
 const AddDocAPI = () => {
   const [nama_project, setNamaProject] = useState("");
@@ -24,6 +25,8 @@ const AddDocAPI = () => {
   const [durasi_build_1, setDurasiBuild1] = useState("");
   const [durasi_build_2, setDurasiBuild2] = useState("");
   const [durasi_login, setDurasiLogin] = useState("");
+
+  const { user } = useSelector((state) => state.auth);
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -45,7 +48,9 @@ const AddDocAPI = () => {
       durasi_build_1: durasi_build_1,
       durasi_build_2: durasi_build_2,
     });
-    window.alert("Document has been generated and sent to you email");
+    window.alert(
+      `Document has been generated and sent to you email ${user.email}`
+    );
   };
 
   const date = new Date(tanggal_promote);
@@ -62,10 +67,12 @@ const AddDocAPI = () => {
       <div className="py-5">
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
-      <div className="w-full flex flex-col items-center justify-center py-5">
+      <div className="w-full flex gap-2 flex-col items-center justify-center py-5"> 
         <Gallery>
           <Item
             original={ImagePreview}
+            data-tip="Zoom in"
+            className="tooltip tooltip-bottom"
             thumbnail={ImagePreview}
             width="902"
             height="691">

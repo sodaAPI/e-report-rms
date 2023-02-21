@@ -5,13 +5,13 @@ import {
   deleteNotification,
   pushNotification,
   getNotificationsByUserId,
-  addNotificationById
+  addNotificationById,
 } from "../controllers/Notification.js";
 import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.post("/add", verifyUser, addNotification);
-router.post("/addbyid", verifyUser, addNotificationById);
+router.post("/addbyid", verifyUser, addNotificationById, pushNotification);
 
 router.get("/get", verifyUser, getNotifications);
 router.get("/getuser", verifyUser, getNotificationsByUserId);

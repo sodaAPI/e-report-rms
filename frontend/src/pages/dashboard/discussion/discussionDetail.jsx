@@ -75,7 +75,9 @@ export default function Discussions() {
       await axios.delete(`http://localhost:5000/message/delete/${uuid}`);
       getMessage();
     } catch (error) {
-      window.alert(`An error occurred: ${error}`);
+      if (error.response) {
+        window.alert(`An error occurred: ${error.response.data.msg}`);
+      }
     }
   };
 

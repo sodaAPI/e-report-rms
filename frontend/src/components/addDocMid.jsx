@@ -6,6 +6,7 @@ import {
   ArrowUpTrayIcon,
 } from "@heroicons/react/20/solid";
 import { Gallery, Item } from "react-photoswipe-gallery";
+import { useSelector } from "react-redux";
 
 const AddDocMid = () => {
   const [nama_project, setNamaProject] = useState("");
@@ -26,6 +27,8 @@ const AddDocMid = () => {
   const [broker_2, setBroker2] = useState("");
   const [broker_3, setBroker3] = useState("");
   const [broker_4, setBroker4] = useState("");
+  
+  const { user } = useSelector((state) => state.auth);
 
   const generateDoc = async (e) => {
     e.preventDefault();
@@ -49,7 +52,9 @@ const AddDocMid = () => {
       broker_3: broker_3,
       broker_4: broker_4,
     });
-    window.alert("Document has been generated and sent to you email");
+    window.alert(
+      `Document has been generated and sent to you email ${user.email}`
+    );
   };
 
   const date = new Date(tanggal_promote);
@@ -66,7 +71,7 @@ const AddDocMid = () => {
       <div className="py-5">
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
-      <div className="w-full flex flex-col items-center justify-center py-5">
+      <div className="w-full flex gap-2 flex-col items-center justify-center py-5">
         <Gallery>
           <Item
             original={ImagePreview}

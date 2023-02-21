@@ -52,7 +52,7 @@ const AddDocAPIService = () => {
       <div className="py-5">
         <span className="text-xl text-white font-bold">Generate Document</span>
       </div>
-      <div className="w-full flex flex-col items-center justify-center py-5">
+      <div className="w-full flex gap-2 flex-col items-center justify-center py-5">
         <Gallery>
           <Item
             original={ImagePreview}

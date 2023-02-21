@@ -85,13 +85,15 @@ export const forgotPassword = async (req, res) => {
       }
     );
     const transporter = nodemailer.createTransport({
-      secure: true, // Sensitive
-      requireTLS: true, // Sensitive
-      host: "smtp.gmail.com",
-      port: "587",
+      secure: true,
+      host: `${process.env.EMAIL_HOST}`,
+      port: `${process.env.EMAIL_PORT}`,
       auth: {
         user: `${process.env.EMAIL_API}`,
         pass: `${process.env.PASSWORD_API}`,
+      },
+      tls: {
+        ciphers: "SSLv3",
       },
     });
 

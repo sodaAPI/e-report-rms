@@ -36,8 +36,14 @@ const ReportList = () => {
   };
 
   const deleteReport = async (uuid) => {
-    await axios.delete(`http://localhost:5000/report/${uuid}`);
-    getReports();
+    try {
+      await axios.delete(`http://localhost:5000/report/${uuid}`);
+      getReports();
+    } catch (error) {
+      if (error.response) {
+        window.alert(`An error occurred: ${error.response.data.msg}`);
+      }
+    }
   };
 
   const checkStatus = (status) => {

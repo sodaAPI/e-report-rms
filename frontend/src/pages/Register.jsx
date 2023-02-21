@@ -33,7 +33,7 @@ const Register = () => {
           division: division,
           birth: birth,
           password: password,
-          passwordConfirmation: passwordConfirmation,
+          confPassword: passwordConfirmation,
         });
         let path = "/";
         navigate(path);

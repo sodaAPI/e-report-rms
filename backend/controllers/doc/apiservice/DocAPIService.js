@@ -75,14 +75,16 @@ export const DocAPIService = async (req, res) => {
   });
   try {
     const transporter = nodemailer.createTransport({
-      secure: true, // Sensitive
-      requireTLS: true, // Sensitive
-      host: "smtp.gmail.com",
-      port: "587",
+      secure: true,
+      host: `${process.env.EMAIL_HOST}`,
+      port: `${process.env.EMAIL_PORT}`,
       auth: {
         user: `${process.env.EMAIL_API}`,
         pass: `${process.env.PASSWORD_API}`,
-      }, // Sensitive
+      },
+      tls: {
+        ciphers: "SSLv3",
+      },
     });
 
     let message = ` <tr><td><h1>Hello ${user.name}/${user.username},</h1></td></tr>
@@ -94,7 +96,7 @@ export const DocAPIService = async (req, res) => {
         from: `${process.env.EMAIL_API}`,
         to: `${user.email}`,
         subject:
-          "Generated Middleware Checklist Promote - BTN E-Report Management System",
+          "Generated API Service Checklist Promote - BTN E-Report Management System",
         html: message,
         attachments: [
           {
