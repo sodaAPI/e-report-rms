@@ -16,7 +16,6 @@ export default function Profiles() {
   const [notifmsg] = useState("");
   const [taskId] = useState("");
   const [meetingId] = useState("");
-  const history = useNavigate();
   const navigate = useNavigate("");
 
   //User
@@ -47,7 +46,6 @@ export default function Profiles() {
     window.alert(
       "Email Notification has been allowed successfully, you will be get notified every week"
     );
-    history.push("/notification");
   };
 
   const deleteNotification = async () => {
@@ -162,7 +160,7 @@ export default function Profiles() {
                         deleteNotification();
                     }}
                     className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-red-700 hover:bg-red-600 p-3 rounded-lg text-white mt-9">
-                    <TrashIcon className="w-5 h-5" /> Remove Notification
+                    <TrashIcon className="w-5 h-5" /> Clear Notification
                   </button>
                 </>
               </div>

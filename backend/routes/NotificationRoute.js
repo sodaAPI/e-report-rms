@@ -1,7 +1,6 @@
 import express from "express";
 import {
   getNotifications,
-  addNotification,
   deleteNotification,
   pushNotification,
   getNotificationsByUserId,
@@ -10,8 +9,7 @@ import {
 import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
-router.post("/add", verifyUser, addNotification);
-router.post("/addbyid", verifyUser, addNotificationById, pushNotification);
+router.post("/addbyid", verifyUser, addNotificationById);
 
 router.get("/get", verifyUser, getNotifications);
 router.get("/getuser", verifyUser, getNotificationsByUserId);

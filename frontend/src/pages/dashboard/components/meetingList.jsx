@@ -20,6 +20,8 @@ const MeetingList = () => {
   const [setNotification] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [notifmsg] = useState("");
+  const [meetingId] = useState("");
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -44,16 +46,30 @@ const MeetingList = () => {
     getMeetings();
   };
 
-  const addNotification = async (uuid) => {
-    const response = await axios.get(`http://localhost:5000/meeting/${uuid}`);
-    const meetingId = response.data.id;
-    await axios.post(`http://localhost:5000/notification/addbyid`, {
+  const allowNotification = async () => {
+    await axios.post(`http://localhost:5000/notification/push`, {
+      notifmsg: notifmsg,
       meetingId: meetingId,
     });
     window.alert(
-      "Meeting Notification has been added successfully, Allow Email Notification in Profile Page to get notified"
+      "Meeting Notification has been added successfully, you will be get notified every week"
     );
-    getNotification();
+  };
+
+  const addNotification = async (uuid) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/meeting/${uuid}`);
+      const meetingId = response.data.id;
+      await axios.post(`http://localhost:5000/notification/addbyid`, {
+        meetingId: meetingId,
+      });
+      allowNotification();
+      getNotification();
+    } catch (error) {
+      if (error.response) {
+        window.alert(`An error occurred: ${error.response.data.message}`);
+      }
+    }
   };
 
   const truncate = (input) =>

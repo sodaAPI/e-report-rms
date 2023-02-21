@@ -95,9 +95,11 @@ export const getNotificationsByUserId = async (req, res) => {
 export const addNotificationById = async (req, res) => {
   const { id, uuid, taskId, meetingId } = req.body;
   let notifmsg;
+  const taskIdOrNull = taskId === undefined ? null : taskId;
+  const meetingIdOrNull = meetingId === undefined ? null : meetingId;
   try {
-    const task = await Task.findByPk(taskId);
-    const meeting = await Meeting.findByPk(meetingId);
+    const task = await Task.findByPk(taskIdOrNull);
+    const meeting = await Meeting.findByPk(meetingIdOrNull);
     if (task && meeting) {
       notifmsg = `${task.name} & ${meeting.meeting_name}`;
     } else if (task) {
@@ -107,37 +109,29 @@ export const addNotificationById = async (req, res) => {
     } else {
       return res.status(404).json({ msg: "task or meeting not found" });
     }
-    await Notification.create({
-      id: id,
-      uuid: uuid,
-      notifmsg: notifmsg,
-      taskId: taskId,
-      meetingId: meetingId,
-      userId: req.userId,
+    const existingNotification = await Notification.findOne({
+      where: {
+        notifmsg: notifmsg,
+        taskId: taskIdOrNull,
+        meetingId: meetingIdOrNull,
+        userId: req.userId,
+      },
     });
-    res.status(201).json({ msg: "Notification Created Successfully" });
+    if (existingNotification) {
+      res.status(400).json({ message: "Duplicate notification" });
+    } else {
+      await Notification.create({
+        id: id,
+        uuid: uuid,
+        notifmsg: notifmsg,
+        taskId: taskIdOrNull,
+        meetingId: meetingIdOrNull,
+        userId: req.userId,
+      });
+      res.status(201).json({ msg: "Notification Created Successfully" });
+    }
   } catch (error) {
     res.status(500).json({ msg: error.message });
-  }
-};
-
-export const addNotification = async (req, res) => {
-  const { id, uuid, notifmsg, taskId, meetingId } = req.body;
-  try {
-    await Notification.create({
-      id: id,
-      uuid: uuid,
-      notifmsg: notifmsg,
-      taskId: taskId,
-      meetingId: meetingId,
-      userId: req.userId,
-    });
-    res.status(201).json({ message: "Notification created successfully" });
-    res.status(200).json(response);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error creating message", error: error.message });
   }
 };
 
@@ -186,11 +180,15 @@ export const pushNotification = async (req, res) => {
   res.status(200).json(notification);
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: "587",
+    secure: true,
+    host: `${process.env.EMAIL_HOST}`,
+    port: `${process.env.EMAIL_PORT}`,
     auth: {
       user: `${process.env.EMAIL_API}`,
       pass: `${process.env.PASSWORD_API}`,
+    },
+    tls: {
+      ciphers: "SSLv3",
     },
   });
 

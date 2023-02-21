@@ -231,7 +231,6 @@ export default function Discussions() {
               .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
               .map((val) => {
                 const isOwnMessage = val.userId === user.id;
-                //TODO: FIX TEXT GAP
                 const messageClasses = `flex bg-opacity-90 xl:w-10/12 w-3/4 px-5 py-3 rounded-2xl $text-justify text-slate-300 break-normal break-all ${
                   isOwnMessage ? "chat chat-end" : "chat chat-start"
                 } ${

@@ -20,6 +20,8 @@ export default function Tasks() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [setNotification] = useState([]);
+  const [taskId] = useState("");
+  const [notifmsg] = useState("");
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -60,16 +62,30 @@ export default function Tasks() {
     setNotification(response.data);
   };
 
-  const addNotification = async (uuid) => {
-    const response = await axios.get(`http://localhost:5000/task/${uuid}`);
-    const taskId = response.data.id;
-    await axios.post(`http://localhost:5000/notification/addbyid`, {
+  const allowNotification = async () => {
+    await axios.post(`http://localhost:5000/notification/push`, {
+      notifmsg: notifmsg,
       taskId: taskId,
     });
     window.alert(
-      "Task Notification has been added successfully, Allow Email Notification in Profile Page to get notified"
+      "Task Notification has been added successfully, you will be get notified every week"
     );
-    getNotification();
+  };
+
+  const addNotification = async (uuid) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/task/${uuid}`);
+      const taskId = response.data.id;
+      await axios.post(`http://localhost:5000/notification/addbyid`, {
+        taskId: taskId,
+      });
+      allowNotification();
+      getNotification();
+    } catch (error) {
+      if (error.response) {
+        window.alert(`An error occurred: ${error.response.data.message}`);
+      }
+    }
   };
 
   const [locale] = React.useState("id");
