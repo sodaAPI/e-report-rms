@@ -35,18 +35,6 @@ export default function Profiles() {
     setNotification(response.data);
   };
 
-  const allowNotification = async (e) => {
-    e.preventDefault();
-    await axios.post(`http://localhost:5000/notification/push`, {
-      notifmsg: notifmsg,
-      taskId: taskId,
-      meetingId: meetingId,
-    });
-    window.alert(
-      "Email Notification has been allowed successfully, you will be get notified every week"
-    );
-  };
-
   const deleteNotification = async () => {
     try {
       const res = await axios.delete(
