@@ -12,9 +12,6 @@ import {
 export default function Profiles() {
   const [users, setUsers] = useState([]);
   const [setNotification] = useState([]);
-  const [notifmsg] = useState("");
-  const [taskId] = useState("");
-  const [meetingId] = useState("");
   const navigate = useNavigate("");
 
   //User
