@@ -2,6 +2,10 @@ import User from "../models/userModel.js";
 import argon2 from "argon2";
 
 export const Login = async (req, res) => {
+  // Check if user is already logged in
+  if (req.session.userId) {
+    return res.status(400).json({ msg: "You are already logged in" });
+  }
   const user = await User.findOne({
     where: {
       username: req.body.username,
@@ -13,11 +17,7 @@ export const Login = async (req, res) => {
   if (!match)
     return res.status(400).json({ msg: "Wrong Password, Please try again" });
   req.session.userId = user.id;
-  const uuid = user.uuid;
-  const name = user.name;
-  const username = user.username;
-  const role = user.role;
-  res.status(200).json({ uuid, name, username, role });
+  res.status(200).json({ msg: "You've logged" });
 };
 
 export const Me = async (req, res) => {
@@ -31,6 +31,7 @@ export const Me = async (req, res) => {
   });
   if (!user)
     return res.status(404).json({ msg: "User not found, Please try again" });
+
   res.status(200).json(user);
 };
 
