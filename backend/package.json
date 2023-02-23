@@ -24,7 +24,7 @@
     "nodemailer": "^6.8.0",
     "pizzip": "^3.1.4",
     "rand-token": "^1.0.1",
-    "sequelize": "^6.25.3",
+    "sequelize": "^6.28.2",
     "socket.io": "^4.5.4"
   },
   "devDependencies": {
