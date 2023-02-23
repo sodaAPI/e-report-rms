@@ -32,6 +32,14 @@
   </ol>
 </details>
 
+<!-- DEMO -->
+## Demo (Frontend only)
+
+[![Demo][Demo]][Demo-url]
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- ABOUT THE PROJECT -->
 ## About
 
@@ -164,6 +172,7 @@ Distributed under the MIT License. See `License.txt` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [example-screenshot]: /frontend/public/Screenshot.png
+[Demo]: https://img.shields.io/badge/Demo-20232A?style=for-the-badge
 [React.js]: https://img.shields.io/badge/React_Js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [Node.js]: https://img.shields.io/badge/Node_Js-20232A?style=for-the-badge&logo=node.js&logoColor=339933
 [MySQL]: https://img.shields.io/badge/MySQL-20232A?style=for-the-badge&logo=mysql&logoColor=4479A1
@@ -174,3 +183,4 @@ Distributed under the MIT License. See `License.txt` for more information.
 [MySQL-url]: https://www.mysql.com/
 [Nodejs-url]: https://nodejs.org/en/
 [React-url]: https://reactjs.org/
+[Demo-url]: https://e-report.netlify.app/
