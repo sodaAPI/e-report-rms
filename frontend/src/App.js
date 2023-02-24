@@ -42,6 +42,7 @@ function App() {
           {/* Global */}
 
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/*" element={<PageNotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -52,7 +52,7 @@ export default function Header() {
 
   useEffect(() => {
     if (isError) {
-      navigate("/");
+      navigate("/login");
     }
   }, [isError, navigate]);
 
