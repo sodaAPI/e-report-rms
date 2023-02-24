@@ -11,11 +11,14 @@
   <h3 align="center">E-Report Management System (RMS)</h3>
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#demo">Demo</a>
+    </li>
+    <li>
+      <a href="#about">About</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -33,7 +36,7 @@
 </details>
 
 <!-- DEMO -->
-## Demo (Frontend only)
+## Demo
 
 [![Demo][Demo]][Demo-url]
 
@@ -46,8 +49,8 @@
 ![Project Screen Shot][example-screenshot]
 
 <div>
-<h3>E-Report Management System (RMS),</h3>
-<p align="justify">The E-Report Management System is a software application that allows users to create, read, update, and delete reports, as well as manage users, meetings, tasks, and notifications. The system includes authentication features to ensure secure access, and supports multiple user roles. The system also uses a MySQL database to store data and has a built-in chatting feature for messaging.</p>
+<h3>E-Report Management System (RMS)</h3>
+<p align="justify">The E-Report Management System is a website application that allows users to create, read, update, and delete reports, as well as manage users, meetings, tasks, and notifications. The system includes authentication features to ensure secure access, and supports multiple user roles. The system also uses a MySQL database to store data and has a built-in chatting feature for messaging.</p>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -137,6 +140,7 @@ Follow the steps below for installation of this project.
 - [x] Add Email Web Push Notification Schedule
 - [x] Add Document Template 
 - [ ] Add Auto Create Zoom Meeting Room
+- [ ] Add JsSpreadsheet
 - [ ] Add Realtime Chat
 - [ ] Add New Chat Channels
 - [ ] Add Chat Customization
