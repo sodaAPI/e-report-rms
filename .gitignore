@@ -178,3 +178,6 @@ backend/node_modules/glob/LICENSE
 backend/node_modules/glob/package.json
 backend/node_modules/glob/README.md
 backend/node_modules/glob/sync.js
+
+# Local Netlify folder
+.netlify
