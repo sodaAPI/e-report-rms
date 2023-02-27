@@ -39,8 +39,7 @@
     "workbox-precaching": "^6.5.4",
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz",
-    "xlsx-js-style": "^1.2.0"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -75,5 +74,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "options": {
+    "allowedHosts": [
+      "localhost",
+      ".localhost"
+    ],
+    "proxy": "http://localhost:5000/"
+  }
 }
