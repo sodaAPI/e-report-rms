@@ -19,9 +19,6 @@ import { Menu, Transition } from "@headlessui/react";
 import axios from "axios";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-// import { io } from "socket.io-client";
-
-//TODO: Add Socket.io
 
 export default function Discussions() {
   const [showMessages, setShowMessage] = useState([]);
