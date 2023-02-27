@@ -64,6 +64,7 @@ This Project is built with :
 * [![MySQL DB][MySQL]][MySQL-url]
 * [![Sequelize ORM][Sequelize]][Sequelize-url]
 * [![ExpressJs][Expressjs]][Express-url]
+* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -178,10 +179,12 @@ Distributed under the MIT License. See `License.txt` for more information.
 [example-screenshot]: /frontend/public/Screenshot.png
 [Demo]: https://img.shields.io/badge/Demo-20232A?style=for-the-badge
 [React.js]: https://img.shields.io/badge/React_Js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[TailwindCSS]: https://img.shields.io/badge/TailwindCSS-20232A?style=for-the-badge&logo=TailwindCSS&logoColor=06B6D4
 [Node.js]: https://img.shields.io/badge/Node_Js-20232A?style=for-the-badge&logo=node.js&logoColor=339933
 [MySQL]: https://img.shields.io/badge/MySQL-20232A?style=for-the-badge&logo=mysql&logoColor=4479A1
 [Sequelize]: https://img.shields.io/badge/Sequelize-20232A?style=for-the-badge&logo=sequelize&logoColor=52B0E7
 [Expressjs]: https://img.shields.io/badge/Express_Js-20232A?style=for-the-badge&logo=express&logoColor=000000
+[TailwindCSS-url]: https://tailwindcss.com/
 [Express-url]: https://expressjs.com/
 [Sequelize-url]: https://sequelize.org/
 [MySQL-url]: https://www.mysql.com/
