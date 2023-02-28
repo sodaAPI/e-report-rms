@@ -135,19 +135,20 @@ export default function Profiles() {
               <div className="flex flex-col sm:items-center sm:justify-center pb-20">
                 <>
                   {/* Clear Document File */}
-
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to clear document file from this local storage?"
+                  {user.roles === "admin" && (
+                    <button
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you wish to clear document file from this local storage?"
+                          )
                         )
-                      )
-                        clearFiles();
-                    }}
-                    className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-red-500 hover:bg-red-400 p-3 rounded-lg text-white mt-9">
-                    Clear Document File
-                  </button>
+                          clearFiles();
+                      }}
+                      className="flex flex-row text-sm gap-2 w-full text-center justify-center items-center bg-red-500 hover:bg-red-400 p-3 rounded-lg text-white mt-9">
+                      Clear Document File
+                    </button>
+                  )}
 
                   {/* Delete Notification */}
 
